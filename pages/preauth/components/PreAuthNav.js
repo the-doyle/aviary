@@ -7,8 +7,8 @@ import Link from 'next/link'
 
 const navigation = [
 	{ name: 'Features', href: '#' },
-	{ name: 'Pricing', href: '#' },
-	{ name: 'About', href: '#' },
+	{ name: 'Pricing', href: '/' },
+	{ name: 'About', href: '/preauth/pages/About' },
 ]
 
 export default function PreAuthNav() {
@@ -37,21 +37,23 @@ export default function PreAuthNav() {
                     </div>
                     <div className="hidden md:ml-20 md:block md:space-x-10 md:justify-center">
                         {navigation.map((item) => (
-                            <Link key={item.name} href={item.href} className="font-medium text-gray-500 hover:text-gray-900">
+                            <Link 
+                            key={item.name} 
+                            href={item.href} 
+                            className="font-medium text-gray-500 hover:text-gray-800"
+                            >
                                 {item.name}
                             </Link>
                         ))}
                     </div>
                 </div>
                 <div className="hidden text-right md:block">
-                    <span className="inline-flex rounded-md ring-1 ring-slate-400 ring-opacity-4">
-                        <Link
-                        href="#"
-                        className="inline-flex items-center rounded-md border border-transparent bg-white px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-50"
-                        >
-                            Sign in
-                        </Link>
-                    </span>
+                    <Link
+                    href="#"
+                    className="inline-flex items-center text-base font-medium text-stone-500 hover:text-stone-800"
+                    >
+                        Sign in
+                    </Link>
                 </div>
             </nav>
 

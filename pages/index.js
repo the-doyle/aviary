@@ -1,11 +1,11 @@
 import Image from 'next/image'
-import birdPic from '../public/bird.png'
 
 import { FaceSmileIcon, CalendarIcon, ChartBarIcon } from '@heroicons/react/24/outline'
 
 import PreAuthNav from './preauth/components/PreAuthNav'
 import PreAuthFooter from './preauth/components/PreAuthFooter'
 import LinkButton from './general/LinkButton'
+import BirdCard from './general/BirdCard'
 
 const navigation = [
 	{ name: 'Features', href: '#' },
@@ -77,10 +77,7 @@ export default function Index() {
 							
 						</div>
 						<div className="relative mt-12 sm:mx-auto sm:max-w-lg lg:col-span-6 lg:mx-0 lg:mt-0 lg:flex lg:max-w-none lg:items-center">
-							
-							<div className="relative mx-auto w-full rounded-lg lg:max-w-md">
-								<Image className='w-full' src={birdPic} />
-							</div>
+							<BirdCard rarity='Common' />
 						</div>
 					</div>
 				</main>

@@ -15,8 +15,8 @@ export default function BirdCard(props) {
             }>
                 <div className='bg-white px-3 py-2 rounded-lg'>
 
-                    <div class="grid grid-rows-4 grid-cols-1 gap-4">
-                        <div class="row-span-4">
+                    <div className="grid grid-rows-4 grid-cols-1 gap-4">
+                        <div className="row-span-4">
                             <h1 className='text-md leading-tight font-medium text-slate-800'>{props.name}</h1>
                         </div>
                     </div>
@@ -25,8 +25,8 @@ export default function BirdCard(props) {
                         <Image className='w-40' src={birdPic} />
                     </div>
 
-                    <div class="grid grid-rows-5 grid-cols-1 gap-4">
-                        <div class="row-span-5">
+                    <div className="grid grid-rows-5 grid-cols-1 gap-4">
+                        <div className="row-span-5">
                             <h1 className='text-slate-700 rounded-md text-xs italic ml-1'>{props.description}</h1>
                         </div>
                     </div>

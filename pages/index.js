@@ -46,18 +46,19 @@ export default function Index() {
 				<PreAuthNav /> 
 
 				<main className="mx-auto mt-10 max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-24 pb-16 sm:pb-24 lg:pb-32 min-h-screen">
-					<div className="lg:grid lg:grid-cols-12 lg:gap-8 min-h-screen">
+					<div className="lg:grid lg:grid-cols-12 lg:gap-8 ">
 						<div className="md:mx-auto md:max-w-2xl lg:col-span-6 lg:text-left">
 							<h1>
-								<span className="mt-1 block text-4xl font-medium tracking-tight sm:text-4xl xl:text-5xl">
+								<span className="mt-5 block text-4xl font-semibold tracking-tight sm:text-4xl xl:text-5xl">
 									<span className="block text-slate-800">The gamified framework for growing your net worth. </span>
 								</span>
 							</h1>
-							<p className="mt-3 text-base text-zinc-600 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl list-disc">
-								Aviary is a beautiful, minimalist, and enjoyable framework for achieving financial goals. 
+							<p className="my-5 text-base text-zinc-600 sm:mt-8 sm:text-xl lg:text-lg xl:text-xl list-disc">
+								Working toward financial goals should be hassle-free and enjoyable. 
+								Aviary gamifies simple steps to help you consistently track and grow your net worth.  
 							</p>
 
-							<div className='flex space-x-4 mt-5 md:mt-8'>
+							<div className='flex space-x-4 mt-10 border-none border-slate-500 lg:pt-5 lg:border-t lg:border-dashed border-slate-500'>
 
 								<LinkButton 
 									text='See features' 

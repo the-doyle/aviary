@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { FaceSmileIcon, CalendarIcon, ChartBarIcon } from '@heroicons/react/24/outline'
+import { FaceSmileIcon, CalendarIcon, ChartBarIcon, CheckBadgeIcon } from '@heroicons/react/24/outline'
 
 import PreAuthNav from './preauth/components/PreAuthNav'
 import PreAuthFooter from './preauth/components/PreAuthFooter'
@@ -11,6 +11,13 @@ const navigation = [
 	{ name: 'Features', href: '#' },
 	{ name: 'Pricing', href: '#' },
 	{ name: 'About', href: '#' },
+]
+
+const birds = [
+    {rarity: 'Common', name: 'House sparrow', date: 'Jan 2023', description: 'House sparrows have a wingbeat rate of roughly 15 times per second'}, 
+    {rarity: 'Rare', name: 'North American Blackbird', date: 'Dec 2022', description: 'These blackbirds always lay two eggs, nurturing both birds'}, 
+    {rarity: 'Exotic', name: 'Bald eagle', date: 'Aug 2022', description: 'Bald eagles wait around for the salmon run in Alaska before flying south'}, 
+    {rarity: 'Legendary', name: 'King penguin', date: 'Mar 2023', description: 'King penguins can reach a height of over 35 inches'},
 ]
 
 const basicFeatures = [
@@ -27,10 +34,16 @@ const basicFeatures = [
 		style: "ml-10 text-lg font-semibold leading-8 bg-gradient-to-r text-transparent bg-clip-text from-cyan-500 to-blue-500" 
 	},
 	{ 	
-		description: 'Collect beautiful birds', 
-		icon: FaceSmileIcon, 
+		description: 'Unlock achievements', 
+		icon: CheckBadgeIcon, 
 		iconStyle: 'absolute mt-1 h-6 w-6 text-blue-500',
 		style: "ml-10 text-lg font-semibold leading-8 bg-gradient-to-r text-transparent bg-clip-text from-blue-500 to-indigo-500" 
+	},
+	{ 	
+		description: 'Collect beautiful birds', 
+		icon: FaceSmileIcon, 
+		iconStyle: 'absolute mt-1 h-6 w-6 text-fuchsia-500',
+		style: "ml-10 text-lg font-semibold leading-8 bg-gradient-to-r text-transparent bg-clip-text from-fuchsia-500 to-red-500" 
 	}
 ]
 
@@ -77,7 +90,16 @@ export default function Index() {
 							
 						</div>
 						<div className="relative mt-12 sm:mx-auto sm:max-w-lg lg:col-span-6 lg:mx-0 lg:mt-0 lg:flex lg:max-w-none lg:items-center">
-							<BirdCard rarity='Common' />
+							
+						<div className='grid grid-cols-6 gap-0'>
+							{birds.map((bird) => (
+								<div className=''>
+									<BirdCard rarity={bird.rarity} name={bird.name} date={bird.date} description={bird.description} /> 
+								</div>
+							))}
+						</div>
+							
+
 						</div>
 					</div>
 				</main>

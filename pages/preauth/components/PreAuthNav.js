@@ -35,12 +35,12 @@ export default function PreAuthNav() {
                             </Popover.Button>
                         </div>
                     </div>
-                    <div className="hidden md:ml-20 md:block md:space-x-10 md:justify-center">
+                    <div className="hidden md:ml-10 md:block md:space-x-10 md:justify-center">
                         {navigation.map((item) => (
                             <Link 
                             key={item.name} 
                             href={item.href} 
-                            className="font-medium text-gray-500 hover:text-gray-800"
+                            className="font-medium text-slate-600 hover:text-slate-900"
                             >
                                 {item.name}
                             </Link>
@@ -50,7 +50,7 @@ export default function PreAuthNav() {
                 <div className="hidden text-right md:block">
                     <Link
                     href="#"
-                    className="inline-flex items-center text-base font-medium text-stone-500 hover:text-stone-800"
+                    className="inline-flex items-center rounded-md border border-gray-300 bg-slate-800 px-4 py-2 text-sm font-medium text-slate-200 shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                         Sign in
                     </Link>

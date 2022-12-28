@@ -7,8 +7,8 @@ import Link from 'next/link'
 
 const navigation = [
 	{ name: 'Features', href: '#' },
-	{ name: 'Pricing', href: '/' },
-	{ name: 'About', href: '/preauth/pages/About' },
+	{ name: 'Pricing', href: '#' },
+	{ name: 'About', href: '#' },
 ]
 
 export default function PreAuthNav() {

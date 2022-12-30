@@ -1,11 +1,11 @@
 import OverlappingBirdCards from './OverlappingBirdCards'
+import LinkButton from '../general/LinkButton'
 
 import {
     CakeIcon,
     CalendarDaysIcon,
     CheckBadgeIcon,
 } from '@heroicons/react/24/outline'
-import LinkButton from '../../general/LinkButton'
 
 const appFeatures = [
     {

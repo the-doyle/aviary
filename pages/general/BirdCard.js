@@ -18,6 +18,7 @@ export default function BirdCard(props) {
                     <div className="grid grid-rows-4 grid-cols-1 gap-4">
                         <div className="row-span-4">
                             <h1 className='text-md leading-tight font-medium text-slate-800'>{props.name}</h1>
+                            <h1 className='text-xs font-light leading-tight text-slate-400'>Found by 3% of users</h1>
                         </div>
                     </div>
                 

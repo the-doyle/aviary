@@ -2,13 +2,13 @@ import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
-import birdPic from '../../../public/bird.png'
+import birdPic from '../../public/bird.png'
 import Link from 'next/link'
 
 const navigation = [
 	{ name: 'Features', href: '#features' },
 	{ name: 'Pricing', href: '#pricing' },
-	{ name: 'About', href: '#' },
+	// { name: 'About', href: '#' },
 ]
 
 export default function PreAuthNav() {
@@ -22,8 +22,8 @@ export default function PreAuthNav() {
                     <div className="flex w-full items-center justify-between md:w-auto">
                         <Link href="/" className='flex items-center mr-5'>
                             <span className="sr-only">Aviary Finance</span>
-                            <Image src={birdPic} className="h-8 w-auto sm:h-10" /> 
-                            <h1 className='text-lg text-green-700 font-bold'>
+                            {/* <Image src={birdPic} className="h-8 w-auto sm:h-10" />  */}
+                            <h1 className='text-xl text-green-700 font-bold'>
                                 Aviary
                                 <span className='text-green-500 font-medium'>Finance</span>
                             </h1>

@@ -1,44 +1,9 @@
-import { FaceSmileIcon, CalendarIcon, ChartBarIcon, CheckBadgeIcon } from '@heroicons/react/24/outline'
-
-import PreAuthNav from './preauth/components/PreAuthNav'
-import PreAuthFooter from './preauth/components/PreAuthFooter'
+import PreAuthNav from './preauth/PreAuthNav'
+import PreAuthFooter from './preauth/PreAuthFooter'
 import LinkButton from './general/LinkButton'
 import LinkButtonDark from './general/LinkButtonDark'
-import Features from './preauth/components/Features'
-import Pricing from './preauth/components/Pricing'
-
-const navigation = [
-	{ name: 'Features', href: '#' },
-	{ name: 'Pricing', href: '#' },
-	{ name: 'About', href: '#' },
-]
-
-const basicFeatures = [
-	{ 	
-		description: 'Check in every month', 
-		icon: CalendarIcon, 
-		iconStyle: 'absolute mt-1 h-6 w-6 text-teal-500',
-		style: "ml-10 text-lg font-semibold leading-8 bg-gradient-to-r text-transparent bg-clip-text from-teal-500 to-green-500" 
-	},
-	{ 	
-		description: 'Visualize your progress', 
-		icon: ChartBarIcon, 
-		iconStyle: 'absolute mt-1 h-6 w-6 text-cyan-500',
-		style: "ml-10 text-lg font-semibold leading-8 bg-gradient-to-r text-transparent bg-clip-text from-cyan-500 to-blue-500" 
-	},
-	{ 	
-		description: 'Unlock achievements', 
-		icon: CheckBadgeIcon, 
-		iconStyle: 'absolute mt-1 h-6 w-6 text-blue-500',
-		style: "ml-10 text-lg font-semibold leading-8 bg-gradient-to-r text-transparent bg-clip-text from-blue-500 to-indigo-500" 
-	},
-	{ 	
-		description: 'Collect beautiful birds', 
-		icon: FaceSmileIcon, 
-		iconStyle: 'absolute mt-1 h-6 w-6 text-fuchsia-500',
-		style: "ml-10 text-lg font-semibold leading-8 bg-gradient-to-r text-transparent bg-clip-text from-fuchsia-500 to-red-500" 
-	}
-]
+import Features from './preauth/Features'
+import Pricing from './preauth/Pricing'
 
 export default function Index() {
 	return (

@@ -1,4 +1,4 @@
-import BirdCard from "../../general/BirdCard"
+import BirdCard from "../general/BirdCard"
 
 const birds = [
     {mt: 'mt-0', rarity: 'Common', name: 'House sparrow', date: 'Jan 2023', description: 'House sparrows have a wingbeat rate of roughly 15 times per second'}, 

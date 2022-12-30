@@ -86,7 +86,7 @@ export default function Features() {
                                     Aviary incentivizes long-term consistency. Come back monthly to track your progress (and tweak your goals). 
                                     As you do, you&apos;ll unlock new birds that celebrate your achievements. 
                                 </p>
-                                <LinkButton href='#' text='Get started' link />  
+                                <LinkButton href='/sign-up' text='Get started' link />  
                             </div>
 
                             <div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">

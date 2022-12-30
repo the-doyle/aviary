@@ -4,13 +4,24 @@ import LinkButton from './general/LinkButton'
 import LinkButtonDark from './general/LinkButtonDark'
 import Features from './preauth/Features'
 import Pricing from './preauth/Pricing'
+import Image from 'next/image'
+
+import bird from '../public/bird.png'
+import finch from '../public/finch.png'
+import woodpecker from '../public/woodpecker.png'
 
 export default function Index() {
 	return (
 		<div className=''>
-			<div className="relative overflow-hidden bg-white">
+
+			<div className="relative z-10 overflow-hidden bg-white">
 
 				<PreAuthNav /> 
+
+
+				<div className='opacity-20 mt-5 absolute z-0 grid grid-flow-row grid-rows-12 grid-cols-12'>
+					{Array.from({ length: 100 }, (_, i) => i % 5 == 0 ? <Image key={i} alt='bird' src={i % 15 == 0 ? finch : i % 10 == 0 ? woodpecker : bird} className="bg-transparent" /> : <p key={i}></p> )}
+				</div>
 
 				<main className="mx-auto mt-10 max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-24 pb-16 sm:pb-24 lg:pb-32 min-h-screen">
 					<div className="lg:grid lg:grid-cols-12 lg:gap-8 ">
@@ -20,7 +31,7 @@ export default function Index() {
 									<span className="block text-slate-800">The gamified framework for growing your net worth. </span>
 								</span>
 							</h1>
-							<p className="my-5 text-base text-zinc-600 sm:mt-8 sm:text-xl lg:text-lg xl:text-xl list-disc">
+							<p className="my-5 text-base text-black sm:mt-8 sm:text-xl lg:text-lg xl:text-xl list-disc">
 								Working toward financial goals should be hassle-free and enjoyable. 
 								Aviary gamifies simple steps to help you consistently track and grow your net worth.  
 							</p>
@@ -43,12 +54,12 @@ export default function Index() {
 
 						<div className="md:mx-auto md:max-w-2xl lg:col-span-6 mt-10 lg:mt-0">
 							
-							<img
+							{/* <img
 								className="relative mx-auto"
 								width={490}
 								src="https://tailwindui.com/img/features/feature-example-1.png"
 								alt=""
-							/>
+							/> */}
 
 						</div>
 

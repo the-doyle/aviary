@@ -5,10 +5,10 @@ import LinkButtonDark from '../general/LinkButtonDark'
 const features = [
     'Customizable goals',
     'Beautiful charts and graphs',
+    'Premium themes',
     'Email reminders',
     'Unlockable achievements',
     'Dozens of hand-drawn birds',
-    'Customer support (email)',
     'More features coming soon!',
 ]
 
@@ -71,7 +71,7 @@ export default function Pricing() {
 
                         <LinkButton 
                             text='Get started' 
-                            href='#'
+                            href='/sign-up'
                         />
 
                         <LinkButtonDark

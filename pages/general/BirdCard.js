@@ -6,12 +6,12 @@ export default function BirdCard(props) {
         <div className='m-10 font-serif'>
             <div className={
                 props.rarity == 'Common' 
-                ? 'border rounded-lg shadow-xl p-1.5 bg-gradient-to-r from-zinc-400 to-stone-400 w-40 w-48'
+                ? 'rounded-lg shadow-xl p-1.5 bg-gradient-to-r from-zinc-400 to-stone-400 w-40 w-48'
                 : props.rarity == 'Rare'
-                    ? 'border rounded-lg shadow-xl p-1.5 bg-gradient-to-r from-sky-400 to-blue-400 w-40 w-48'
+                    ? 'rounded-lg shadow-xl p-1.5 bg-gradient-to-r from-sky-400 to-blue-400 w-40 w-48'
                     : props.rarity == 'Exotic' 
-                        ? 'border rounded-lg shadow-xl p-1.5 bg-gradient-to-r from-lime-400 to-teal-400 w-40 w-48'
-                        : 'border rounded-lg shadow-xl p-1.5 bg-gradient-to-r from-slate-400 to-slate-900 w-40 w-48'
+                        ? 'rounded-lg shadow-xl p-1.5 bg-gradient-to-r from-lime-400 to-teal-400 w-40 w-48'
+                        : 'rounded-lg shadow-xl p-1.5 bg-gradient-to-r from-slate-400 to-slate-900 w-40 w-48'
             }>
                 <div className='bg-white px-3 py-2 rounded-lg'>
 

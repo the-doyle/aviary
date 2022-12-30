@@ -6,8 +6,8 @@ import birdPic from '../../../public/bird.png'
 import Link from 'next/link'
 
 const navigation = [
-	{ name: 'Features', href: '#' },
-	{ name: 'Pricing', href: '#' },
+	{ name: 'Features', href: '#features' },
+	{ name: 'Pricing', href: '#pricing' },
 	{ name: 'About', href: '#' },
 ]
 
@@ -23,9 +23,9 @@ export default function PreAuthNav() {
                         <Link href="/" className='flex items-center mr-5'>
                             <span className="sr-only">Aviary Finance</span>
                             <Image src={birdPic} className="h-8 w-auto sm:h-10" /> 
-                            <h1 className='text-lg text-stone-500 font-bold'>
+                            <h1 className='text-lg text-green-700 font-bold'>
                                 Aviary
-                                <span className='text-stone-400 font-medium'>Finance</span>
+                                <span className='text-green-500 font-medium'>Finance</span>
                             </h1>
                         </Link>
                         <div className="-mr-2 flex items-center md:hidden">
@@ -37,20 +37,20 @@ export default function PreAuthNav() {
                     </div>
                     <div className="hidden md:ml-10 md:block md:space-x-10 md:justify-center">
                         {navigation.map((item) => (
-                            <Link 
+                            <a 
                             key={item.name} 
                             href={item.href} 
                             className="font-medium text-slate-600 hover:text-slate-900"
                             >
                                 {item.name}
-                            </Link>
+                            </a>
                         ))}
                     </div>
                 </div>
                 <div className="hidden text-right md:block">
                     <Link
                     href="#"
-                    className="inline-flex items-center rounded-md border border-gray-300 bg-slate-800 px-4 py-2 text-sm font-medium text-slate-200 shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="inline-flex items-center rounded-md border border-green-400 bg-green-200 px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-green-300 hover:text-gray-800 focus:outline-none"
                     >
                         Sign in
                     </Link>

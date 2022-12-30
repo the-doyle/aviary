@@ -5,6 +5,7 @@ import {
     CalendarDaysIcon,
     CheckBadgeIcon,
 } from '@heroicons/react/24/outline'
+import LinkButton from '../../general/LinkButton'
 
 const appFeatures = [
     {
@@ -41,7 +42,7 @@ export default function Features() {
                             Financial goals are tough
                         </h2>
                         <p className="mx-auto mt-4 max-w-4xl text-center text-xl text-gray-500">
-                            Personal finance can be boring, and staying consistent over months/years is very difficult 
+                            Personal finance can be boring, and staying consistent over months/years is difficult 
                         </p>
                     </div>
 
@@ -56,7 +57,7 @@ export default function Features() {
                                 {appFeatures.map((item) => (
                                 <div key={item.id} className="relative">
                                     <dt>
-                                    <div className="absolute flex h-12 w-12 items-center justify-center rounded-xl bg-stone-400 text-white">
+                                    <div className="absolute flex h-12 w-12 items-center justify-center rounded-xl bg-green-200 text-green-700">
                                         <item.icon className="h-8 w-8" aria-hidden="true" />
                                     </div>
                                     <p className="ml-16 text-lg font-medium leading-6 text-gray-900">{item.name}</p>
@@ -81,10 +82,11 @@ export default function Features() {
                         <div className="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:items-center lg:gap-8">
                             <div className="lg:col-start-2">
                                 <h3 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Grow your Aviary</h3>
-                                <p className="mt-3 text-lg text-gray-500">
+                                <p className="mt-3 mb-5 text-lg text-gray-500">
                                     Aviary incentivizes long-term consistency. Come back monthly to track your progress (and tweak your goals). 
                                     As you do, you&apos;ll unlock new birds that celebrate your achievements. 
                                 </p>
+                                <LinkButton href='#' text='Get started' link />  
                             </div>
 
                             <div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">

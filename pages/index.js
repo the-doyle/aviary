@@ -3,7 +3,9 @@ import { FaceSmileIcon, CalendarIcon, ChartBarIcon, CheckBadgeIcon } from '@hero
 import PreAuthNav from './preauth/components/PreAuthNav'
 import PreAuthFooter from './preauth/components/PreAuthFooter'
 import LinkButton from './general/LinkButton'
+import LinkButtonDark from './general/LinkButtonDark'
 import Features from './preauth/components/Features'
+import Pricing from './preauth/components/Pricing'
 
 const navigation = [
 	{ name: 'Features', href: '#' },
@@ -16,7 +18,7 @@ const basicFeatures = [
 		description: 'Check in every month', 
 		icon: CalendarIcon, 
 		iconStyle: 'absolute mt-1 h-6 w-6 text-teal-500',
-		style: "ml-10 text-lg font-semibold leading-8 bg-gradient-to-r text-transparent bg-clip-text from-teal-500 to-emerald-500" 
+		style: "ml-10 text-lg font-semibold leading-8 bg-gradient-to-r text-transparent bg-clip-text from-teal-500 to-green-500" 
 	},
 	{ 	
 		description: 'Visualize your progress', 
@@ -65,7 +67,7 @@ export default function Index() {
 									href='#features'
 								/>
 
-								<LinkButton
+								<LinkButtonDark
 									href='/'
 									text='Try the sandbox' 
 								/>
@@ -90,6 +92,8 @@ export default function Index() {
 			</div>
 
 			<Features /> 
+
+			<Pricing />
 
 			<PreAuthFooter />
 		

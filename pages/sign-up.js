@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import BackgroundBirds from './general/BackgroundBirds'
 import SignUpForm from './forms/SignUpForm'
+import LinkButtonDark from './general/LinkButtonDark'
 
 export default function SignUp() {
     return (
@@ -28,9 +29,10 @@ export default function SignUp() {
                         </div>
 
                         <div className="mt-8">
-                            <div className="mt-6">
+                            <div className="my-6">
                                 <SignUpForm />
                             </div>
+                            <LinkButtonDark href='/data' link text='Data' />
                         </div>
                     </div>
                 </div>

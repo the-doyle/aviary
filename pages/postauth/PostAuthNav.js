@@ -78,9 +78,8 @@ export default function PostAuthNav(props) {
                 <Disclosure.Panel className="sm:hidden">
                     <div className="space-y-1 pt-2 pb-3">
                     {navigation.map((item) => (
-                        <Link href={item.href} passHref>
+                        <Link href={item.href} key={item.name} passHref>
                             <Disclosure.Button
-                            key={item.name}
                             as="a"
                             className={classNames(
                                 props.current_tab == item.name

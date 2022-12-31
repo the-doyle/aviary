@@ -5,10 +5,7 @@ import LinkButtonDark from './general/LinkButtonDark'
 import Features from './preauth/Features'
 import Pricing from './preauth/Pricing'
 import Image from 'next/image'
-
-import bird from '../public/bird.png'
-import finch from '../public/finch.png'
-import woodpecker from '../public/woodpecker.png'
+import BackgroundBirds from './general/BackgroundBirds'
 
 export default function Index() {
 	return (
@@ -19,9 +16,7 @@ export default function Index() {
 				<PreAuthNav /> 
 
 
-				<div className='opacity-20 mt-5 absolute z-0 grid grid-flow-row grid-rows-12 grid-cols-12'>
-					{Array.from({ length: 100 }, (_, i) => i % 5 == 0 ? <Image key={i} alt='bird' src={i % 15 == 0 ? finch : i % 10 == 0 ? woodpecker : bird} className="bg-transparent" /> : <p key={i}></p> )}
-				</div>
+				<BackgroundBirds />
 
 				<main className="mx-auto mt-10 max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-24 pb-16 sm:pb-24 lg:pb-32 min-h-screen">
 					<div className="lg:grid lg:grid-cols-12 lg:gap-8 ">

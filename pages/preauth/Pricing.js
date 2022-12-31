@@ -72,6 +72,7 @@ export default function Pricing() {
                         <LinkButton 
                             text='Get started' 
                             href='/sign-up'
+                            link
                         />
 
                         <LinkButtonDark

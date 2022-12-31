@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import BackgroundBirds from './general/BackgroundBirds'
-import SignUpForm from './forms/signupform'
+import SignUpForm from './forms/SignUpForm'
 
 export default function SignUp() {
     return (

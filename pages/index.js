@@ -15,7 +15,6 @@ export default function Index() {
 
 				<PreAuthNav /> 
 
-
 				<BackgroundBirds />
 
 				<main className="mx-auto mt-10 max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-24 pb-16 sm:pb-24 lg:pb-32 min-h-screen">
@@ -31,7 +30,7 @@ export default function Index() {
 								Aviary gamifies simple steps to help you consistently track and grow your net worth.  
 							</p>
 
-							<div className='flex space-x-4 mt-10 border-none border-slate-500 lg:pt-5 lg:border-t lg:border-dashed border-slate-500'>
+							<div className='z-40 flex space-x-4 mt-10 border-none border-slate-500 lg:pt-5 lg:border-t lg:border-dashed border-slate-500'>
 
 								<LinkButton 
 									text='See features' 

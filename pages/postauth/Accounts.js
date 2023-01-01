@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { XCircleIcon } from '@heroicons/react/24/outline'
 import SearchSelectInput from "./SearchSelectInput";
+import GoalProgressBar from "./GoalProgressBar";
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -115,16 +116,16 @@ export default function Accounts() {
     const addGoal = () => {
         setGoals([
             ...goals,
-            { id: goals.length + 1, name: "New goal", account: null, type: "", target: 0, },
+            { id: goals.length + 1, name: "New goal", account: "Schwab Taxable", type: "", target: 0, },
         ]);
     };
 
     const addThreeGoals = () => {
         setGoals([
             ...goals,
-            { id: goals.length + 1, name: "New goal", account: null, type: "", target: 0, },
-            { id: goals.length + 1, name: "New goal", account: null, type: "", target: 0, },
-            { id: goals.length + 1, name: "New goal", account: null, type: "", target: 0, },
+            { id: goals.length + 1, name: "New goal", account: "Schwab Taxable", type: "", target: 0, },
+            { id: goals.length + 2, name: "New goal", account: "Schwab Taxable", type: "", target: 0, },
+            { id: goals.length + 3, name: "New goal", account: "Schwab Taxable", type: "", target: 0, },
         ]);
     };
     
@@ -148,6 +149,18 @@ export default function Accounts() {
         list.splice(i, 1);
         setGoals(list);
     };
+    //#endregion 
+
+    //#region misc functions 
+    function calculateProgress(goal) {
+        // if (!goal.name || !goal.target || !goal.account) {
+        //     return "0%"
+        // }
+        const balance = assets.find(x => x.name === goal.account).balance
+        const progress = (balance / goal.target) * 100
+        console.log(progress)
+        return progress > 100 ? "100%" : progress.toFixed(0) + "%"
+    }
     //#endregion 
 
     return (
@@ -376,7 +389,7 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div className='h-44 lg:h-full col-span-4 lg:col-span-2 py-2 px-3 rounded-lg border border-slate-300'>
+            <div className='col-span-4 lg:col-span-2 py-2 px-3 rounded-lg border border-slate-300'>
                 Charts here
             </div>
 
@@ -490,8 +503,12 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div className='h-44 lg:h-full mt-0 lg:mt-10 col-span-4 lg:col-span-2 py-2 px-3 rounded-lg border border-slate-300'>
-                Charts here
+            <div className='mt-0 lg:mt-48 col-span-4 lg:col-span-2 py-2 px-3'>
+                {goals.map((goal) => (
+                    <div className='pb-1'>
+                        <GoalProgressBar progress={calculateProgress(goal)} goal={goal} />
+                    </div>
+                ))}
             </div>
         </>
     )

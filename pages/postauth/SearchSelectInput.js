@@ -23,7 +23,7 @@ export default function SearchSelectInput(props) {
         <Combobox as="div" value={selectedAccount} onChange={setSelectedAccount}>
             <div className="relative mt-1">
                 <Combobox.Input
-                    className="w-full rounded-md border border-slate-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-slate-600 focus:outline-none focus:ring-1 focus:ring-slate-600 sm:text-sm"
+                    className="w-full rounded-md border border-slate-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-slate-600 focus:outline-none focus:ring-1 focus:ring-slate-600 text-sm"
                     onChange={(event) => setQuery(event.target.value)}
                     displayValue={(account) => account?.name}
                 />
@@ -32,7 +32,7 @@ export default function SearchSelectInput(props) {
                 </Combobox.Button>
 
                 {filteredAccounts.length > 0 && (
-                <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-slate-50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-slate-50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
                     {filteredAccounts.map((account) => (
                     <Combobox.Option
                         key={account.id}

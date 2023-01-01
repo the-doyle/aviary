@@ -1,15 +1,15 @@
 import PostAuthNav from "./postauth/PostAuthNav";
 
-export default function Example() {
+export default function Progress() {
     return (
         <>
         <div className="min-h-full">
-            <PostAuthNav current_tab='Charts' />
+            <PostAuthNav current_tab='Progress' />
 
             <div className="py-10">
                 <header>
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Charts!</h1>
+                        <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Progress!</h1>
                     </div>
                 </header>
                 <main>

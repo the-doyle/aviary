@@ -14,7 +14,9 @@ const formatter = new Intl.NumberFormat('en-US', {
 export default function Accounts() {
     //#region state variables
     const [assets, setAssets] = useState([
-        { id: 1, name: "Schwab Taxable", type: "taxable", balance: 120000 },
+        { id: 1, name: "Schwab Taxable", type: "taxable", balance: 450000 },
+        { id: 1, name: "Schwab Roth IRAs", type: "taxable", balance: 35000 },
+        { id: 1, name: "Primary Home", type: "taxable", balance: 750000 },
     ]);
 
     const [liabilities, setLiabilities] = useState([
@@ -22,7 +24,8 @@ export default function Accounts() {
     ]);
 
     const [goals, setGoals] = useState([
-        { id: 1, name: "Retirement", account: "Schwab Taxable", type: "long", target: 3000000 },
+        { id: 1, name: "Taxable", account: "Schwab Taxable", type: "long", target: 2350000 },
+        { id: 1, name: "Roth IRAs", account: "Schwab Roth IRAs", type: "long", target: 150000 },
     ]);
     //#endregion
     

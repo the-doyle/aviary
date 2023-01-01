@@ -376,7 +376,7 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div className='col-span-4 lg:col-span-2 py-2 px-3 rounded-lg border border-slate-300'>
+            <div className='h-44 lg:h-full col-span-4 lg:col-span-2 py-2 px-3 rounded-lg border border-slate-300'>
                 Charts here
             </div>
 
@@ -490,7 +490,7 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div className='mt-0 lg:mt-10 col-span-4 lg:col-span-2 py-2 px-3 rounded-lg border border-slate-300'>
+            <div className='h-44 lg:h-full mt-0 lg:mt-10 col-span-4 lg:col-span-2 py-2 px-3 rounded-lg border border-slate-300'>
                 Charts here
             </div>
         </>

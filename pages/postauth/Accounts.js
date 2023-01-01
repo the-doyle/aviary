@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { TrashIcon, XCircleIcon } from '@heroicons/react/24/outline'
+import { XCircleIcon } from '@heroicons/react/24/outline'
+import SearchSelectInput from "./SearchSelectInput";
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -10,6 +11,7 @@ const formatter = new Intl.NumberFormat('en-US', {
   });
 
 export default function Accounts() {
+    //#region state variables
     const [assets, setAssets] = useState([
         { id: 1, name: "Schwab Taxable", type: "taxable", balance: 120000 },
     ]);
@@ -17,7 +19,13 @@ export default function Accounts() {
     const [liabilities, setLiabilities] = useState([
         { id: 1, name: "Credit card", type: "debt", balance: 3500 },
     ]);
+
+    const [goals, setGoals] = useState([
+        { id: 1, name: "Retirement", account: "Schwab Taxable", type: "long", target: 3000000 },
+    ]);
+    //#endregion
     
+    //#region asset functions
     const addAsset = () => {
         setAssets([
             ...assets,
@@ -31,9 +39,9 @@ export default function Accounts() {
             ...assets,
             { id: assets.length + 1, name: "New asset", type: "", balance: 0, 
             },
-            { id: assets.length + 1, name: "New asset", type: "", balance: 0, 
+            { id: assets.length + 2, name: "New asset", type: "", balance: 0, 
             },
-            { id: assets.length + 1, name: "New asset", type: "", balance: 0, 
+            { id: assets.length + 3, name: "New asset", type: "", balance: 0, 
             },
         ]);
     };
@@ -58,7 +66,9 @@ export default function Accounts() {
         list.splice(i, 1);
         setAssets(list);
     };
+    //#endregion
     
+    //#region liability functions
     const addLiability = () => {
         setLiabilities([
             ...liabilities,
@@ -72,9 +82,9 @@ export default function Accounts() {
             ...liabilities,
             { id: liabilities.length + 1, name: "New liability", type: "", balance: 0, 
             },
-            { id: liabilities.length + 1, name: "New liability", type: "", balance: 0, 
+            { id: liabilities.length + 2, name: "New liability", type: "", balance: 0, 
             },
-            { id: liabilities.length + 1, name: "New liability", type: "", balance: 0, 
+            { id: liabilities.length + 3, name: "New liability", type: "", balance: 0, 
             },
         ]);
     };
@@ -99,13 +109,51 @@ export default function Accounts() {
         list.splice(i, 1);
         setLiabilities(list);
     };
+    //#endregion
+
+    //#region goal functions 
+    const addGoal = () => {
+        setGoals([
+            ...goals,
+            { id: goals.length + 1, name: "New goal", account: null, type: "", target: 0, },
+        ]);
+    };
+
+    const addThreeGoals = () => {
+        setGoals([
+            ...goals,
+            { id: goals.length + 1, name: "New goal", account: null, type: "", target: 0, },
+            { id: goals.length + 1, name: "New goal", account: null, type: "", target: 0, },
+            { id: goals.length + 1, name: "New goal", account: null, type: "", target: 0, },
+        ]);
+    };
+    
+    const editGoal = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...goals];
+
+        if (name == "target") {
+            let strippedTarget = value.replace("$", "")
+            strippedTarget = strippedTarget.replaceAll(',', '')
+            list[index][name] = strippedTarget
+        } else {
+            list[index][name] = value;
+        }
+    
+        setGoals(list);
+    };
+
+    const deleteGoal = (i) => {
+        const list = [...goals];
+        list.splice(i, 1);
+        setGoals(list);
+    };
+    //#endregion 
 
     return (
-
         <>
-            <div className='col-span-4 md:col-span-2'>
-            
-                <div className="">
+            <div className='col-span-4 lg:col-span-2 py-2 px-3'>
+                <div id='assets' className="">
                     <div className="flex items-center">
                         <div className="flex-auto">
                             <h1 className="text-xl font-semibold text-gray-900">Assets</h1>
@@ -216,7 +264,7 @@ export default function Accounts() {
                     </div> */}
                 </div>
 
-                <div className="mt-10 md:mt-16">
+                <div id='liabilities' className="mt-10 md:mt-16">
                     <div className="flex items-center">
                         <div className="flex-auto">
                             <h1 className="text-xl font-semibold text-gray-900">Liabilities</h1>
@@ -328,10 +376,123 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div className='hidden sm:block sm:col-span-2 mt-10 pr-3 py-2' />
+            <div className='col-span-4 lg:col-span-2 py-2 px-3 rounded-lg border border-slate-300'>
+                Charts here
+            </div>
 
-            
+            <div className='mt-0 lg:mt-10 col-span-4 lg:col-span-2 py-2 px-3'>
+                <div id='goals' className="">
+                    <div className="flex items-center">
+                        <div className="flex-auto">
+                            <h1 className="text-xl font-semibold text-gray-900">Goals</h1>
+                            <p className="mt-2 text-sm text-gray-700">
+                                Grow assets, reduce liabilities, etc.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="mt-8 flex flex-col">
+                        <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div className="inline-block min-w-full py-2 align-middle px-4 md:px-6 lg:px-8">
+                                <table className="min-w-full">
+                                    <thead className='border-b border-slate-400'>
+                                        <tr>
+                                            <th
+                                                scope="col"
+                                                className="py-3.5 text-left text-sm font-semibold text-gray-900"
+                                                >
+                                                Name
+                                            </th>
+                                            <th scope="col" className="py-3.5 pr-6 text-right text-sm font-semibold text-gray-900">
+                                                Account
+                                            </th>
+                                            <th scope="col" className="py-3.5 pr-6 text-right text-sm font-semibold text-gray-900">
+                                                Target balance
+                                            </th>
 
+                                            <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                                <span className="sr-only">Delete</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-none">
+                                    {goals.map((goal, i) => (
+                                        <tr key={goal.id}>
+                                            <td className="whitespace-nowrap py-2 pr-3 text-sm text-gray-500">
+                                                <div className="relative mt-1 rounded-md">
+                                                    <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
+                                                        <input
+                                                            type="text"
+                                                            name="name"
+                                                            id="name"   
+                                                            className="block w-full border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
+                                                            value={goal.name}
+                                                            onChange={(e) => editGoal(e, i)}
+                                                        />  
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="whitespace-nowrap py-2 text-sm text-gray-500">
+                                                <div className="relative mt-1 rounded-md">
+                                                    <div className="mt-1">
+                                                        <SearchSelectInput assets={assets} selected={assets[0]} />  
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="whitespace-nowrap py-2 px-3 text-sm text-gray-500">
+                                                <div className="relative mt-1 rounded-md">
+                                                    <div className="mt-1 border-b border-slate-300 focus-within:border-slate-600">
+                                                        <input
+                                                            type="text"
+                                                            name="target"
+                                                            id="target"
+                                                            className="block w-full text-right border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
+                                                            value={goal.target ? formatter.format(goal.target) : formatter.format(0)}
+                                                            onChange={(e) => editGoal(e, i)}
+                                                            min={0}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td className="relative whitespace-nowrap py-2 pl-3 text-sm font-medium">
+                                                <button 
+                                                    href="#" 
+                                                    className="text-slate-400 hover:text-slate-600"
+                                                    onClick={() => deleteGoal(i)}
+                                                >
+                                                    <XCircleIcon className='h-6 rounded-full'/><span className="sr-only">, {goal.id}</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+
+                                <div className="mt-4 text-right">
+                                    <button
+                                    type="button"
+                                    className="group inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 hover:text-gray-900 shadow-sm hover:bg-gray-200 focus:outline-none"
+                                    onClick={addGoal}
+                                    >
+                                        Add 1
+                                    </button>
+                                    <button
+                                    type="button"
+                                    className="ml-2 group inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 hover:text-gray-900 shadow-sm hover:bg-gray-200 focus:outline-none"
+                                    onClick={addThreeGoals}
+                                    >
+                                        Add 3
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className='mt-0 lg:mt-10 col-span-4 lg:col-span-2 py-2 px-3 rounded-lg border border-slate-300'>
+                Charts here
+            </div>
         </>
     )
 }

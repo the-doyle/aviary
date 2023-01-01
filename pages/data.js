@@ -10,7 +10,7 @@ export default function Example() {
             <div className="py-10">
                 <main>
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <div className='grid grid-cols-4 gap-10 grid-flow-row'>
+                        <div className='grid grid-cols-4 gap-5 lg:gap-10 grid-flow-row'>
                             <Accounts />
                         </div>
                     </div>

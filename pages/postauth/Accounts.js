@@ -505,7 +505,7 @@ export default function Accounts() {
 
             <div className='mt-0 lg:mt-48 col-span-4 lg:col-span-2 py-2 px-3'>
                 {goals.map((goal) => (
-                    <div className='pb-1'>
+                    <div key={goal.id} className='pb-1'>
                         <GoalProgressBar progress={calculateProgress(goal)} goal={goal} />
                     </div>
                 ))}

@@ -1,6 +1,6 @@
 export default function GoalProgressBar(props) {
     return props.goal && props.progress ? (
-        <div className='mb-8 mt-0.5'>
+        <div className='ml-0 lg:ml-10 mb-8 mt-0.5'>
             <h4 className="sr-only">Goal progress</h4>
             <h1 className='block lg:hidden mb-1 text-sm font-medium text-slate-400'>{props.goal.name}</h1>
             <div className="" aria-hidden="true">

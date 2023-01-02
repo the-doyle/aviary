@@ -161,14 +161,13 @@ export default function Accounts() {
         // }
         const balance = assets.find(x => x.name === goal.account).balance
         const progress = (balance / goal.target) * 100
-        console.log(progress)
         return progress > 100 ? "100%" : progress.toFixed(0) + "%"
     }
     //#endregion 
 
     return (
         <>
-            <div className='col-span-4 lg:col-span-2 py-2 px-3'>
+            <div className='col-span-4 lg:col-span-2'>
                 <div id='assets' className="">
                     <div className="flex items-center">
                         <div className="flex-auto">
@@ -392,11 +391,11 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div className='col-span-4 lg:col-span-2 py-2 px-3 rounded-lg border border-slate-300'>
+            <div className='col-span-4 lg:col-span-2'>
                 Charts here
             </div>
 
-            <div className='mt-0 lg:mt-10 col-span-4 lg:col-span-2 py-2 px-3'>
+            <div className='mt-0 lg:mt-10 col-span-4 lg:col-span-2'>
                 <div id='goals' className="">
                     <div className="flex items-center">
                         <div className="flex-auto">
@@ -473,7 +472,7 @@ export default function Accounts() {
                                             <td className="relative whitespace-nowrap py-2 pl-3 text-sm font-medium">
                                                 <button 
                                                     href="#" 
-                                                    className="text-slate-400 hover:text-slate-600"
+                                                    className="text-slate-300 hover:text-slate-600"
                                                     onClick={() => deleteGoal(i)}
                                                 >
                                                     <XCircleIcon className='h-6 rounded-full'/><span className="sr-only">, {goal.id}</span>
@@ -506,7 +505,7 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div className='mt-0 lg:mt-48 col-span-4 lg:col-span-2 py-2 px-3'>
+            <div className='mt-0 lg:mt-48 col-span-4 lg:col-span-2'>
                 {goals.map((goal) => (
                     <div key={goal.id} className='pb-1'>
                         <GoalProgressBar progress={calculateProgress(goal)} goal={goal} />

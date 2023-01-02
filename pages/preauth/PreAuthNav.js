@@ -8,7 +8,6 @@ import Link from 'next/link'
 const navigation = [
 	{ name: 'Features', href: '#features' },
 	{ name: 'Pricing', href: '#pricing' },
-	// { name: 'About', href: '#' },
 ]
 
 export default function PreAuthNav() {
@@ -50,7 +49,7 @@ export default function PreAuthNav() {
                 <div className="hidden text-right md:block">
                     <Link
                     href="#"
-                    className="inline-flex items-center rounded-md border border-green-400 bg-green-200 px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-green-300 hover:text-gray-800 focus:outline-none"
+                    className="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none"
                     >
                         Sign in
                     </Link>

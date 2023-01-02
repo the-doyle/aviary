@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import SignUpForm from './forms/SignUpForm'
+import { PaddleLoader } from './general/PaddleLoader'; 
 import PreAuthFooter from './preauth/PreAuthFooter'
 
-export default function SignUp() {
+export default function Payment() {
     return (
         <>
             <div className="flex min-h-screen">
@@ -15,14 +15,16 @@ export default function SignUp() {
                             src="https://tailwindui.com/img/logos/mark.svg?color=green&shade=600"
                             alt="Your Company"
                             />
-                            <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">Sign up for Aviary</h2>
-                            <h2 className='mt-1 text-base font-medium text-slate-500'>$30 / year</h2>
+                            <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">Payment</h2>
+                            {/* <h2 className='mt-1 text-base font-medium text-slate-500'>$30 / year</h2> */}
                         </div>
 
 
                         <div className="mt-8">
                             <div className="my-6">
-                                <SignUpForm />
+                                <div className='checkout-container'></div>
+                                <PaddleLoader />
+                                
                                 <div className="relative mt-5">
                                     <div className="relative flex justify-start">
                                         <span className="bg-white text-sm text-gray-500">Not ready to sign up? </span>

@@ -15,9 +15,7 @@ export default function Index() {
 
 				<PreAuthNav /> 
 
-				<BackgroundBirds />
-
-				<main className="relative z-10 mx-auto mt-10 max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-24 pb-16 sm:pb-24 lg:pb-32 min-h-screen">
+				<main className="relative mx-auto mt-10 max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-24 pb-16 sm:pb-24 lg:pb-56">
 					<div className="lg:grid lg:grid-cols-12 lg:gap-8 ">
 						<div className="md:mx-auto md:max-w-2xl lg:col-span-6 lg:text-left">
 							<h1>

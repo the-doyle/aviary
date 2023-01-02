@@ -1,4 +1,4 @@
-import Script from "next/script";
+import Script from "next/script"
 
 export default function PaddleLoader() {
     return (
@@ -11,7 +11,7 @@ export default function PaddleLoader() {
 
             Paddle.Setup({
                 vendor: Number(process.env.NEXT_PUBLIC_PADDLE_VENDOR_ID),
-            });
+            })
 
             Paddle.Checkout.open({
                 method: 'inline',
@@ -21,8 +21,8 @@ export default function PaddleLoader() {
                 frameTarget: 'checkout-container', 
                 frameInitialHeight: 416,
                 frameStyle: 'width:100%; min-width:312px; background-color: transparent; border: none;' 
-            });
+            })
         }}
         />
-    );
+    )
 }

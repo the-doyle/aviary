@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { PaddleLoader } from './general/PaddleLoader'; 
+import PaddleLoader from './general/PaddleLoader'; 
 import PreAuthFooter from './preauth/PreAuthFooter'
 
 export default function Payment() {

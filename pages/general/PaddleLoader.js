@@ -1,6 +1,6 @@
 import Script from "next/script";
 
-export function PaddleLoader() {
+export default function PaddleLoader() {
     return (
         <Script
         src="https://cdn.paddle.com/paddle/paddle.js"

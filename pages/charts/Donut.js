@@ -7,11 +7,11 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export default function Donut(props) {
 
     const data = {
-        labels: Object.keys(props.data),
+        labels: props.data ? Object.keys(props.data) : [],
         datasets: [
             {
-                label: props.label,
-                data: Object.values(props.data),
+                label: props.label ? props.label : "",
+                data: props.data ? Object.values(props.data) : [],
                 backgroundColor: [
                     '#1e293b',
                     '#475569',
@@ -44,7 +44,6 @@ export default function Donut(props) {
     return (
         <div className='mt-8'>
             <Doughnut data={data} options={options} />
-
         </div>
     )
 }

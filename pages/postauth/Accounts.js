@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { XCircleIcon, ArrowPathIcon, PlusIcon } from '@heroicons/react/24/outline'
+import { XCircleIcon, ArrowPathIcon, PlusIcon, CheckBadgeIcon, FaceFrownIcon, FaceSmileIcon } from '@heroicons/react/24/outline'
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useUser } from "@supabase/auth-helpers-react";
 import SearchSelectInput from "./SearchSelectInput";
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from "react";
+import LoadingTableBody from "./LoadingTableBody";
+import EmptyTableBody from "./EmptyTableBody";
+import EmptyChartBody from "./EmptyChartBody";
+import Donut from "../charts/Donut";
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -14,31 +18,42 @@ const formatter = new Intl.NumberFormat('en-US', {
     maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
   });
 
-const assetTypes = ['Cash', 'Pre-tax investments', 'Post-tax investments', 'Property']
+function timeout(delay) {
+    return new Promise( res => setTimeout(res, delay) );
+}
+
+function filterData(data) {
+    let summedCategories = {} 
+
+    for (let i = 0; i < data.length; i++) {
+        data[i].type in summedCategories
+            ? summedCategories[data[i].type] += data[i].balance
+            : summedCategories[data[i].type] = data[i].balance
+    }
+
+    return summedCategories
+}
+
+const assetTypes = ['Cash', 'Pre-tax investment', 'Post-tax investment', 'Property', 'Vehicle', 'Other']
+const liabilityTypes = ['Mortage', 'Student loan', 'Auto loan', 'Credit card', 'Other']
 
 export default function Accounts() {
     const supabase = useSupabaseClient() 
     const user = useUser()
 
-    //#region state variables
-    const [assets, setAssets] = useState(null);
-    const [liabilities, setLiabilities] = useState(null);
-    //#endregion
+     //#region secondary state variables
+     const [assets, setAssets] = useState(null);
+     const [liabilities, setLiabilities] = useState(null);
+     //#endregion
     
     //#region asset functions
     const getAssets = async () => {
-        // await fetch(`/api/assets/${user.id}`)
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //         setAssets(data)
-        //     })
-
         const {data: getAssetsData, error: getAssetsError} = await supabase
             .from('assets')
             .select('*')
             .eq('user_id', user.id)
 
-        setAssets(getAssetsData)
+            setAssets(getAssetsData)
     }
 
     const addAsset = async () => {
@@ -55,9 +70,26 @@ export default function Accounts() {
     };
 
     const saveAssets = async () => {
+        setSaveAssetsButton({
+            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
+            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>
+        })
+
         const { data: upsertAssetsData, error: upsertAssetsError } = await supabase
             .from('assets')
             .upsert(assets)
+
+        setSaveAssetsButton({
+            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
+            icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>
+        })
+
+        await timeout(1300);
+
+        setSaveAssetsButton({
+            className: "transition-all group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
+            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
+        })
     }
     
     const editAsset = (e, id) => {
@@ -80,7 +112,7 @@ export default function Accounts() {
         setAssets(list);
     };
 
-    const editAssetType = (name, value, id) => {
+    const editAssetType = (value, name, id) => {
         const list = [...assets]
         for (let i=0; i<list.length; i++) {
             if (list[i].id == id) {
@@ -111,56 +143,117 @@ export default function Accounts() {
     //#endregion
     
     //#region liability functions
-            
-    const addLiability = () => {
-        setLiabilities([
-            ...liabilities,
-            { id: liabilities.length + 1, name: "New liability", type: "", balance: 0, 
-            },
-        ]);
-    };
+    const getLiabilities = async () => {
+        const {data: getLiabilitiesData, error: getLiabilitiesError} = await supabase
+            .from('liabilities')
+            .select('*')
+            .eq('user_id', user.id)
 
-    const addThreeLiabilities = () => {
+        setLiabilities(getLiabilitiesData)
+    }
+
+    const addLiability = async () => {
         setLiabilities([
             ...liabilities,
-            { id: liabilities.length + 1, name: "New liability", type: "", balance: 0, 
-            },
-            { id: liabilities.length + 2, name: "New liability", type: "", balance: 0, 
-            },
-            { id: liabilities.length + 3, name: "New liability", type: "", balance: 0, 
+            {
+                id: uuidv4(), 
+                user_id: user.id,
+                name: "New liability", 
+                type: "Mortgage", 
+                balance: 0, 
             },
         ]);
     };
 
     const saveLiabilities = async () => {
-        return 
+        setSaveLiabilitesButton({
+            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
+            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>
+        })
+
+        const { data: upsertLiabilitiesData, error: upsertLiabilitiesError } = await supabase
+            .from('liabilities')
+            .upsert(liabilities)
+
+        setSaveLiabilitesButton({
+            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
+            icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>
+        })
+
+        await timeout(1300);
+
+        setSaveLiabilitesButton({
+            className: "transition-all group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
+            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
+        })
     }
     
-    const editLiability = (e, index) => {
-        const { name, value } = e.target;
-        const list = [...liabilities];
+    const editLiability = (e, id) => {
+        const { name, value } = e.target
+        const list = [...liabilities]
+        let strippedValue = value
 
         if (name == "balance") {
-            let strippedBalance = value.replace("$", "")
-            strippedBalance = strippedBalance.replaceAll(',', '')
-            list[index][name] = strippedBalance
-        } else {
-            list[index][name] = value;
+            strippedValue = value.replace("$", "")
+            strippedValue = strippedValue.replaceAll(',', '')
+        }
+        
+        for (let i=0; i<list.length; i++) {
+            if (list[i].id == id) {
+                list[i][name] = strippedValue
+                break
+            }
         }
     
         setLiabilities(list);
     };
 
-    const deleteLiability = (i) => {
-        const list = [...liabilities];
-        list.splice(i, 1);
-        setLiabilities(list);
+    const editLiabilityType = (value, name, id) => {
+
+        const list = [...liabilities]
+        for (let i=0; i<list.length; i++) {
+            if (list[i].id == id) {
+                list[i][name] = value
+                break
+            }
+        }
+        setLiabilities(list)
     };
-    //#endregion 
+
+    const deleteLiability = async (id) => {
+        const list = [...liabilities];
+
+        for (let i=0; i<list.length; i++) {
+            if (list[i].id == id) {
+                list.splice(i, 1);
+                break
+            }
+        }
+
+        setLiabilities(list);
+
+        const { data: deleteLiabilityData, error: deleteLiabilityError } = await supabase
+            .from('liabilities')
+            .delete()
+            .eq('id', id)
+    };
+    //#endregion
     
+    //#region secondary state variables
+    const [saveAssetsButton, setSaveAssetsButton] = useState({
+        className: "transition-all group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
+        icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
+    })
+    const [saveLiabilitiesButton, setSaveLiabilitesButton] = useState({
+        className: "transition-all group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
+        icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
+    })
+    //#endregion
+
     useEffect(() => {
         if (user) {
             getAssets() 
+            getLiabilities() 
         }
         
     }, [user])
@@ -175,23 +268,23 @@ export default function Accounts() {
                             <table className="min-w-full">
                                 <thead className='border-b border-slate-400'>
                                     <tr>
-                                        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900">
+                                        <th scope="col" className="py-2 pr-1.5 text-left text-sm font-semibold text-gray-900">
                                             Name
                                         </th>
-                                        <th scope="col" className="py-2 pr-6 text-left text-sm font-semibold text-gray-900">
+                                        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900">
                                             Type
                                         </th>
-                                        <th scope="col" className="py-2 pr-6 text-right text-sm font-semibold text-gray-900">
+                                        <th scope="col" className="py-2 pr-3 text-right text-sm font-semibold text-gray-900">
                                             Balance
                                         </th>
 
-                                        <th scope="col" className="relative py-2 pl-3 pr-4 sm:pr-6">
+                                        <th scope="col" className="py-2 pl-2">
                                             <span className="sr-only">Delete</span>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-none">
-                                {assets ? assets.map((asset) => (
+                                {assets && assets.length > 0 ? assets.map((asset) => (
                                     <tr key={asset.id}>
                                         <td className="whitespace-nowrap py-2 text-sm text-gray-500">
                                             <div className="relative mt-1 rounded-md">
@@ -215,7 +308,7 @@ export default function Accounts() {
                                                         items={assetTypes} 
                                                         selected={asset.type} 
                                                         id={asset.id}
-                                                        name='item'
+                                                        name='type'
                                                      />  
                                                 </div>
                                             </div>
@@ -247,18 +340,21 @@ export default function Accounts() {
                                             </button>
                                         </td>
                                     </tr>
-                                )) : null }
+                                )) : assets 
+                                        ? <EmptyTableBody message="No assets yet" icon={FaceFrownIcon} /> 
+                                        : <LoadingTableBody /> 
+                                }
                                 </tbody>
                             </table>
 
                             <div className="mt-4 text-right">
                                 <button
                                 type="button"
-                                className="group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none"
+                                className={saveAssetsButton.className}
                                 onClick={saveAssets}
                                 >
                                     Save
-                                    <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
+                                    {saveAssetsButton.icon}
                                 </button>
                                 <button
                                 type="button"
@@ -275,7 +371,14 @@ export default function Accounts() {
             </div>
 
             <div className='col-span-4 lg:col-span-2'>
-                Charts here
+                <div className='flex justify-center'>
+                    <div className='w-1/2'>
+                        {assets && assets.length > 0 
+                            ? <Donut data={filterData(assets)} label="$"/>
+                            : <EmptyChartBody message="Add assets to see this chart" /> 
+                        }   
+                    </div>
+                </div>    
             </div>
 
             <div id='liabilities' className='mt-20 col-span-4 lg:col-span-2'>
@@ -286,24 +389,24 @@ export default function Accounts() {
                             <table className="min-w-full">
                                 <thead className='border-b border-slate-400'>
                                     <tr>
-                                        <th
-                                            scope="col"
-                                            className="py-2 text-left text-sm font-semibold text-gray-900"
-                                            >
+                                        <th scope="col" className="py-2 pr-1.5 text-left text-sm font-semibold text-gray-900">
                                             Name
                                         </th>
-                                        <th scope="col" className="py-2 pr-6 text-right text-sm font-semibold text-gray-900">
+                                        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900">
+                                            Type
+                                        </th>
+                                        <th scope="col" className="py-2 pr-3 text-right text-sm font-semibold text-gray-900">
                                             Balance
                                         </th>
 
-                                        <th scope="col" className="relative py-2 pl-3 pr-4 sm:pr-6">
+                                        <th scope="col" className="py-2 pl-2">
                                             <span className="sr-only">Delete</span>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-none">
-                                {liabilities ? liabilities.map((account, i) => (
-                                    <tr key={account.id}>
+                                {liabilities && liabilities.length > 0 ? liabilities.map((liability) => (
+                                    <tr key={liability.id}>
                                         <td className="whitespace-nowrap py-2 text-sm text-gray-500">
                                             <div className="relative mt-1 rounded-md">
                                                 <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
@@ -312,13 +415,26 @@ export default function Accounts() {
                                                         name="name"
                                                         id="name"   
                                                         className="block w-full border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
-                                                        value={account.name}
-                                                        onChange={(e) => editLiability(e, i)}
+                                                        value={liability.name}
+                                                        onChange={(e) => editLiability(e, liability.id)}
                                                     />  
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="whitespace-nowrap py-2 px-3 text-sm text-gray-500">
+                                        <td className="whitespace-nowrap py-2 text-sm text-gray-500">
+                                            <div className="relative mt-1 rounded-md">
+                                                <div className="mt-1 focus-within:border-slate-600">
+                                                    <SearchSelectInput 
+                                                        handleChange={editLiabilityType} 
+                                                        items={liabilityTypes} 
+                                                        selected={liability.type} 
+                                                        id={liability.id}
+                                                        name='type'
+                                                     />  
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className="whitespace-nowrap py-2 px-2 text-sm text-gray-500">
                                             <div className="relative mt-1 rounded-md">
 
                                                 <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
@@ -327,41 +443,44 @@ export default function Accounts() {
                                                         name="balance"
                                                         id="balance"
                                                         className="block w-full text-right border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
-                                                        value={account.balance ? formatter.format(account.balance) : formatter.format(0)}
-                                                        onChange={(e) => editLiability(e, i)}
+                                                        value={liability.balance ? formatter.format(liability.balance) : formatter.format(0)}
+                                                        onChange={(e) => editLiability(e, liability.id)}
                                                         min={0}
                                                     />
                                                 </div>
                                             </div>
                                         </td>
 
-                                        <td className="relative whitespace-nowrap py-2 pl-3 text-sm font-medium">
+                                        <td className="relative whitespace-nowrap pt-1 pl-2 text-sm font-medium">
                                             <button 
                                                 href="#" 
                                                 className="text-slate-300 hover:text-slate-500"
-                                                onClick={() => deleteLiability(i)}
+                                                onClick={() => deleteLiability(liability.id)}
                                             >
-                                                <XCircleIcon className='h-6 rounded-full'/><span className="sr-only">, {account.id}</span>
+                                                <XCircleIcon className='h-6 rounded-full'/><span className="sr-only">, {liability.id}</span>
                                             </button>
                                         </td>
                                     </tr>
-                                )) : null}
+                                )) : liabilities 
+                                        ? <EmptyTableBody message="No liabilities yet" icon={FaceSmileIcon} /> 
+                                        : <LoadingTableBody /> 
+                                }
                                 </tbody>
                             </table>
 
                             <div className="mt-4 text-right">
                                 <button
                                 type="button"
-                                className="group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none"
+                                className={saveLiabilitiesButton.className}
                                 onClick={saveLiabilities}
                                 >
                                     Save
-                                    <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
+                                    {saveLiabilitiesButton.icon}
                                 </button>
                                 <button
                                 type="button"
                                 className="ml-2 group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none"
-                                onClick={addAsset}
+                                onClick={addLiability}
                                 >
                                     New
                                     <PlusIcon className='ml-1 h-4 rounded-full'/>
@@ -373,7 +492,14 @@ export default function Accounts() {
             </div>
 
             <div className='mt-0 lg:mt-20 col-span-4 lg:col-span-2'>
-                Charts here
+                <div className='flex justify-center'>
+                    <div className='w-1/2'>
+                        {liabilities && liabilities.length > 0 
+                            ? <Donut data={filterData(liabilities)} label="$"/>
+                            : <EmptyChartBody message="Add liabilties to see this chart" /> 
+                        }   
+                    </div>
+                </div>
             </div>
         </>
     )

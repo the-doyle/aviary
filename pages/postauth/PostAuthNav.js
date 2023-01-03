@@ -1,6 +1,7 @@
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 const navigation = [
     { name: 'Data', href: '/data' },
@@ -14,6 +15,13 @@ function classNames(...classes) {
 }
 
 export default function PostAuthNav(props) {
+    const supabase = useSupabaseClient() 
+
+    const signOut = async () => {
+        const {error: signOutError } = await supabase.auth.signOut()
+        return true 
+    }
+
     return props.current_tab ? (
         <Disclosure as="nav" className="border-b border-gray-200 bg-white">
             {({ open }) => (
@@ -55,6 +63,7 @@ export default function PostAuthNav(props) {
                         
                         <Link 
                             href='/' 
+                            onClick={signOut}
                             className='border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-6 pb-5 border-b-2 text-sm font-medium'
                         >
                             Sign out
@@ -97,7 +106,7 @@ export default function PostAuthNav(props) {
                     <div className="border-t border-gray-200 pt-4 pb-3">
                     
                     <div className="space-y-1">
-                        <Link href='/' className='block pl-3 pr-4 py-2 border-l-4 text-base font-medium border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800'>Sign out</Link>
+                        <Link href='/' onClick={signOut} className='block pl-3 pr-4 py-2 border-l-4 text-base font-medium border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800'>Sign out</Link>
                     </div>
                     </div>
                 </Disclosure.Panel>

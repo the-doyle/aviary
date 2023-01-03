@@ -48,7 +48,7 @@ export default function PreAuthNav() {
                 </div>
                 <div className="hidden text-right md:block">
                     <Link
-                    href="#"
+                    href="/sign-in"
                     className="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none"
                     >
                         Sign in
@@ -97,7 +97,7 @@ export default function PreAuthNav() {
                             ))}
                         </div>
                         <Link
-                            href="#"
+                            href="/sign-in"
                             className="block w-full bg-gray-50 px-5 py-3 text-center font-medium text-slate-600 hover:bg-gray-100"
                             >
                             Sign in 

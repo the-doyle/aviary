@@ -8,7 +8,9 @@ import { useEffect } from "react";
 import LoadingTableBody from "./LoadingTableBody";
 import EmptyTableBody from "./EmptyTableBody";
 import EmptyChartBody from "./EmptyChartBody";
-import Donut from "../charts/Donut";
+import AssetsDonut from "../charts/AssetsDonut";
+import LiabilitiesDonut from "../charts/LiabilitiesDonut";
+import SummaryStats from "./SummaryStats";
 
 //#region helper functions
 const formatter = new Intl.NumberFormat('en-US', {
@@ -17,7 +19,7 @@ const formatter = new Intl.NumberFormat('en-US', {
     // These options are needed to round to whole numbers if that's what you want.
     //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
     maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-  });
+});
 
 function timeout(delay) {
     return new Promise( res => setTimeout(res, delay) );
@@ -32,7 +34,6 @@ function filterData(data) {
             : summedCategories[data[i].type] = parseInt(data[i].balance)
     }
 
-    console.log(summedCategories)
     return summedCategories
 }
 
@@ -96,7 +97,7 @@ export default function Accounts() {
         await timeout(1300);
 
         setSaveAssetsButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
+            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
             icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
         })
     }
@@ -192,7 +193,7 @@ export default function Accounts() {
         await timeout(1300);
 
         setSaveLiabilitesButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
+            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
             icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
         })
     }
@@ -250,11 +251,11 @@ export default function Accounts() {
     
     //#region secondary state variables
     const [saveAssetsButton, setSaveAssetsButton] = useState({
-        className: "transition-all group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
+        className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
         icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
     })
     const [saveLiabilitiesButton, setSaveLiabilitesButton] = useState({
-        className: "transition-all group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
+        className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
         icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
     })
     //#endregion
@@ -268,21 +269,41 @@ export default function Accounts() {
 
     return (
         <>
-            <div id='assets' className='col-span-4 lg:col-span-2'>
-                <h1 className="inline-flex items-center text-xl font-semibold text-gray-900">Assets</h1>
-                <div className="mt-6 flex flex-col">
+
+            <div id='summary' className='col-span-4'>
+                <h1 className="inline-flex items-center text-xl font-semibold text-slate-300">
+                    Overview
+                </h1>
+                {assets && liabilities
+                    ? 
+                        <>
+                            <SummaryStats 
+                                assets={assets}
+                                liabilities={liabilities} 
+                                lastCheckIn="2 Jan 2023"
+                                numGoals="4" 
+                            /> 
+                        </>
+                    : 
+                        null
+                }           
+            </div>
+
+            <div id='assets' className='mt-16 col-span-4 lg:col-span-2'>
+                <h1 className="inline-flex items-center text-xl font-semibold text-slate-300">Assets</h1>
+                <div className="mt-6 flex flex-col p-3 -mx-3 shadow rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
                             <table className="min-w-full">
-                                <thead className='border-b border-slate-400'>
+                                <thead className='border-b border-slate-300'>
                                     <tr>
-                                        <th scope="col" className="py-2 pr-1.5 text-left text-sm font-semibold text-gray-900">
+                                        <th scope="col" className="py-2 pr-1.5 text-left text-sm font-semibold text-slate-900">
                                             Name
                                         </th>
-                                        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900">
+                                        <th scope="col" className="py-2 text-left text-sm font-semibold text-slate-900">
                                             Type
                                         </th>
-                                        <th scope="col" className="py-2 pr-3 text-right text-sm font-semibold text-gray-900">
+                                        <th scope="col" className="py-2 pr-3 text-right text-sm font-semibold text-slate-900">
                                             Balance
                                         </th>
 
@@ -294,7 +315,7 @@ export default function Accounts() {
                                 <tbody className="divide-none">
                                 {assets && assets.length > 0 ? assets.map((asset) => (
                                     <tr key={asset.id}>
-                                        <td className="whitespace-nowrap py-2 text-sm text-gray-500">
+                                        <td className="whitespace-nowrap py-2 text-sm text-slate-500">
                                             <div className="relative mt-1 rounded-md">
                                                 <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
                                                     <input
@@ -308,7 +329,7 @@ export default function Accounts() {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="whitespace-nowrap py-2 text-sm text-gray-500">
+                                        <td className="whitespace-nowrap py-2 text-sm text-slate-500">
                                             <div className="relative mt-1 rounded-md">
                                                 <div className="mt-1 focus-within:border-slate-600">
                                                     <SearchSelectInput 
@@ -321,7 +342,7 @@ export default function Accounts() {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="whitespace-nowrap py-2 px-2 text-sm text-gray-500">
+                                        <td className="whitespace-nowrap py-2 px-2 text-sm text-slate-500">
                                             <div className="relative mt-1 rounded-md">
 
                                                 <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
@@ -355,6 +376,15 @@ export default function Accounts() {
                                 </tbody>
                             </table>
 
+                            {assets && assets.length > 0 
+                                ? 
+                                    <div className='flex justify-end text-sm text-slate-800 pr-12 mr-1 py-3'>
+                                        <h1 className="font-medium">Total <span className='font-serif pl-1'>&rarr;</span></h1>
+                                        <h1 className="pl-2 font-semibold">{formatter.format(sumList(Object.values(filterData(assets))))}</h1>
+                                    </div>
+                                : null 
+                            }
+
                             <div className="mt-4 text-right">
                                 <button
                                 type="button"
@@ -366,7 +396,7 @@ export default function Accounts() {
                                 </button>
                                 <button
                                 type="button"
-                                className="ml-2 group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none"
+                                className="ml-2 group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none"
                                 onClick={addAsset}
                                 >
                                     New
@@ -378,36 +408,33 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div id='assetBreakdown' className='col-span-4 lg:col-span-2'>
-                <div className='flex justify-center text-lg'>
-                    <h1 className="font-semibold text-slate-800">Total assets &rarr;</h1>
-                    <h1 className="pl-2 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-slate-800 to-slate-400">{assets && assets.length > 0 ? formatter.format(sumList(Object.values(filterData(assets)))) : null}</h1>
-                </div>
-                <div className='flex justify-center'>
-                    <div className='w-1/2'>
-                        {assets && assets.length > 0 
-                            ? <Donut data={filterData(assets)} label="$"/>
-                            : <EmptyChartBody message="Add assets to see this chart" /> 
-                        }   
-                    </div>
-                </div>    
+            <div id='assetBreakdown' className='lg:mt-16 col-span-4 lg:col-span-2 flex flex-col justify-center align-middle'>
+                {assets && assets.length > 0 && sumList(Object.values(filterData(assets))) > 0
+                    ? 
+                        <>
+                            <AssetsDonut data={filterData(assets)} label="$"/>
+                            <p className='text-sm text-center text-slate-300 pt-3'>Hover to see category totals</p>
+                        </>
+                    :   
+                        <EmptyChartBody message="Add assets to see this chart" /> 
+                }    
             </div>
 
-            <div id='liabilities' className='mt-20 col-span-4 lg:col-span-2'>
-                <h1 className="inline-flex items-center text-xl font-semibold text-gray-900">Liabilities</h1>
-                <div className="mt-6 flex flex-col">
+            <div id='liabilities' className='mt-16 col-span-4 lg:col-span-2'>
+                <h1 className="inline-flex items-center text-xl font-semibold text-slate-300">Liabilities</h1>
+                <div className="mt-6 flex flex-col p-3 -mx-3 shadow rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
                             <table className="min-w-full">
-                                <thead className='border-b border-slate-400'>
+                                <thead className='border-b border-slate-300'>
                                     <tr>
-                                        <th scope="col" className="py-2 pr-1.5 text-left text-sm font-semibold text-gray-900">
+                                        <th scope="col" className="py-2 pr-1.5 text-left text-sm font-semibold text-slate-900">
                                             Name
                                         </th>
-                                        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900">
+                                        <th scope="col" className="py-2 text-left text-sm font-semibold text-slate-900">
                                             Type
                                         </th>
-                                        <th scope="col" className="py-2 pr-3 text-right text-sm font-semibold text-gray-900">
+                                        <th scope="col" className="py-2 pr-3 text-right text-sm font-semibold text-slate-900">
                                             Balance
                                         </th>
 
@@ -419,7 +446,7 @@ export default function Accounts() {
                                 <tbody className="divide-none">
                                 {liabilities && liabilities.length > 0 ? liabilities.map((liability) => (
                                     <tr key={liability.id}>
-                                        <td className="whitespace-nowrap py-2 text-sm text-gray-500">
+                                        <td className="whitespace-nowrap py-2 text-sm text-slate-500">
                                             <div className="relative mt-1 rounded-md">
                                                 <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
                                                     <input
@@ -433,7 +460,7 @@ export default function Accounts() {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="whitespace-nowrap py-2 text-sm text-gray-500">
+                                        <td className="whitespace-nowrap py-2 text-sm text-slate-500">
                                             <div className="relative mt-1 rounded-md">
                                                 <div className="mt-1 focus-within:border-slate-600">
                                                     <SearchSelectInput 
@@ -446,7 +473,7 @@ export default function Accounts() {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="whitespace-nowrap py-2 px-2 text-sm text-gray-500">
+                                        <td className="whitespace-nowrap py-2 px-2 text-sm text-slate-500">
                                             <div className="relative mt-1 rounded-md">
 
                                                 <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
@@ -480,6 +507,15 @@ export default function Accounts() {
                                 </tbody>
                             </table>
 
+                            {liabilities && liabilities.length > 0 
+                                ? 
+                                    <div className='flex justify-end text-sm text-slate-800 pr-12 mr-1 py-3'>
+                                        <h1 className="font-medium">Total <span className='font-serif pl-1'>&rarr;</span></h1>
+                                        <h1 className="pl-2 font-semibold">{formatter.format(sumList(Object.values(filterData(liabilities))))}</h1>
+                                    </div>
+                                : null 
+                            }
+
                             <div className="mt-4 text-right">
                                 <button
                                 type="button"
@@ -491,7 +527,7 @@ export default function Accounts() {
                                 </button>
                                 <button
                                 type="button"
-                                className="ml-2 group inline-flex items-center rounded-md border border-gray-300 bg-slate-50 px-2 py-1 text-xs font-medium text-gray-700 shadow-sm hover:bg-slate-100 focus:outline-none"
+                                className="ml-2 group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none"
                                 onClick={addLiability}
                                 >
                                     New
@@ -503,19 +539,16 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div id='liabilityBreakdown' className='mt-0 lg:mt-20 col-span-4 lg:col-span-2'>
-                <div className='flex justify-center text-lg'>
-                    <h1 className="font-semibold text-slate-800">Total liabilities &rarr;</h1>
-                    <h1 className="pl-2 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-slate-800 to-slate-400">{liabilities && liabilities.length > 0 ? formatter.format(sumList(Object.values(filterData(liabilities)))) : null}</h1>
-                </div>
-                <div className='flex justify-center'>
-                    <div className='w-1/2'>
-                        {liabilities && liabilities.length > 0 
-                            ? <Donut data={filterData(liabilities)} label="$"/>
-                            : <EmptyChartBody message="Add liabilties to see this chart" /> 
-                        }   
-                    </div>
-                </div>
+            <div id='liabilityBreakdown' className='lg:mt-16 col-span-4 lg:col-span-2 flex flex-col justify-center align-middle'>
+                {liabilities && liabilities.length > 0 && sumList(Object.values(filterData(liabilities))) > 0
+                    ? 
+                        <>
+                            <AssetsDonut data={filterData(liabilities)} label="$"/>
+                            <p className='text-sm text-center text-slate-300 pt-3'>Hover to see category totals</p>
+                        </>
+                    :   
+                        <EmptyChartBody /> 
+                }    
             </div>
         </>
     )

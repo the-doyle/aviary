@@ -6,7 +6,7 @@ export default function BirdCard(props) {
         <div className='m-10 font-serif'>
             <div className={
                 props.rarity == 'Common' 
-                ? 'rounded-lg shadow-xl p-1.5 bg-gradient-to-r from-zinc-400 to-stone-400 w-40 w-48'
+                ? 'rounded-lg shadow-xl p-1.5 bg-gradient-to-r from-zinc-400 to-slate-400 w-40 w-48'
                 : props.rarity == 'Rare'
                     ? 'rounded-lg shadow-xl p-1.5 bg-gradient-to-r from-sky-400 to-blue-400 w-40 w-48'
                     : props.rarity == 'Exotic' 
@@ -36,7 +36,7 @@ export default function BirdCard(props) {
                         <h1 className='text-slate-500'>{props.date}</h1>
                         <h1 className={
                             props.rarity == 'Common' 
-                            ? 'font-bold bg-gradient-to-r text-transparent bg-clip-text from-zinc-400 to-stone-400'
+                            ? 'font-bold bg-gradient-to-r text-transparent bg-clip-text from-zinc-400 to-slate-400'
                             : props.rarity == 'Rare'
                                 ? 'font-bold bg-gradient-to-r text-transparent bg-clip-text from-sky-400 to-blue-400'
                                 : props.rarity == 'Exotic' 

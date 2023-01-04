@@ -36,7 +36,7 @@ export default function SearchSelectInput(props) {
                     displayValue={(item) => item}
                 />
                 <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
-                    <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                    <ChevronUpDownIcon className="h-5 w-5 text-slate-400" aria-hidden="true" />
                 </Combobox.Button>
 
                 {filteredItems.length > 0 && (
@@ -48,7 +48,7 @@ export default function SearchSelectInput(props) {
                         className={({ active }) =>
                         classNames(
                             'relative cursor-default select-none py-2 pl-3 pr-9',
-                            active ? 'bg-slate-600 text-white' : 'text-gray-900'
+                            active ? 'bg-slate-600 text-white' : 'text-slate-900'
                         )
                         }
                     >

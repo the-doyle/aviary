@@ -23,7 +23,7 @@ export default function PostAuthNav(props) {
     }
 
     return props.current_tab ? (
-        <Disclosure as="nav" className="border-b border-gray-200 bg-white">
+        <Disclosure as="nav" className="border-b border-slate-200 bg-white">
             {({ open }) => (
                 <>
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -48,8 +48,8 @@ export default function PostAuthNav(props) {
                                 href={item.href}
                                 className={classNames(
                                     props.current_tab == item.name
-                                    ? 'border-slate-500 text-gray-900'
-                                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                                    ? 'border-slate-500 text-slate-900'
+                                    : 'border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700',
                                     'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
                                 )}
                                 aria-current={props.current_tab == item.name ? 'page' : undefined}
@@ -64,7 +64,7 @@ export default function PostAuthNav(props) {
                         <Link 
                             href='/' 
                             onClick={signOut}
-                            className='border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-6 pb-5 border-b-2 text-sm font-medium'
+                            className='border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700 inline-flex items-center px-1 pt-6 pb-5 border-b-2 text-sm font-medium'
                         >
                             Sign out
                         </Link>
@@ -72,7 +72,7 @@ export default function PostAuthNav(props) {
                     </div>
                     <div className="-mr-2 flex items-center sm:hidden">
                         {/* Mobile menu button */}
-                        <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2">
+                        <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2">
                         <span className="sr-only">Open main menu</span>
                         {open ? (
                             <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -93,7 +93,7 @@ export default function PostAuthNav(props) {
                             className={classNames(
                                 props.current_tab == item.name
                                 ? 'bg-slate-50 border-slate-500 text-slate-700'
-                                : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800',
+                                : 'border-transparent text-slate-600 hover:bg-slate-50 hover:border-slate-300 hover:text-slate-800',
                                 'block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
                             )}
                             aria-current={props.current_tab == item.name ? 'page' : undefined}
@@ -103,10 +103,10 @@ export default function PostAuthNav(props) {
                         </Link>
                     ))}
                     </div>
-                    <div className="border-t border-gray-200 pt-4 pb-3">
+                    <div className="border-t border-slate-200 pt-4 pb-3">
                     
                     <div className="space-y-1">
-                        <Link href='/' onClick={signOut} className='block pl-3 pr-4 py-2 border-l-4 text-base font-medium border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800'>Sign out</Link>
+                        <Link href='/' onClick={signOut} className='block pl-3 pr-4 py-2 border-l-4 text-base font-medium border-transparent text-slate-600 hover:bg-slate-50 hover:border-slate-300 hover:text-slate-800'>Sign out</Link>
                     </div>
                     </div>
                 </Disclosure.Panel>

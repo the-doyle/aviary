@@ -85,7 +85,7 @@ export default function Goals() {
                 <div>
                 <div className="flex items-center">
                         <div className="flex-auto">
-                            <h1 className="text-xl font-semibold text-gray-900">Goals</h1>
+                            <h1 className="text-xl font-semibold text-slate-900">Goals</h1>
                         </div>
                     </div>
                     <div className="mt-6 flex flex-col">
@@ -96,14 +96,14 @@ export default function Goals() {
                                         <tr>
                                             <th
                                                 scope="col"
-                                                className="py-2 text-left text-sm font-semibold text-gray-900"
+                                                className="py-2 text-left text-sm font-semibold text-slate-900"
                                                 >
                                                 Name
                                             </th>
-                                            <th scope="col" className="py-2 pr-6 text-right text-sm font-semibold text-gray-900">
+                                            <th scope="col" className="py-2 pr-6 text-right text-sm font-semibold text-slate-900">
                                                 Account
                                             </th>
-                                            <th scope="col" className="py-2 pr-6 text-right text-sm font-semibold text-gray-900">
+                                            <th scope="col" className="py-2 pr-6 text-right text-sm font-semibold text-slate-900">
                                                 Target balance
                                             </th>
 
@@ -115,7 +115,7 @@ export default function Goals() {
                                     <tbody className="divide-none">
                                     {goals.map((goal, i) => (
                                         <tr key={goal.id}>
-                                            <td className="whitespace-nowrap py-2 pr-3 text-sm text-gray-500">
+                                            <td className="whitespace-nowrap py-2 pr-3 text-sm text-slate-500">
                                                 <div className="relative mt-1 rounded-md">
                                                     <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
                                                         <input
@@ -129,14 +129,14 @@ export default function Goals() {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="whitespace-nowrap py-2 text-sm text-gray-500">
+                                            <td className="whitespace-nowrap py-2 text-sm text-slate-500">
                                                 <div className="relative mt-1 rounded-md">
                                                     <div className="mt-1">
                                                         <GoalsSearchSelectInput assets={assets} selected={assets[0]} />  
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="whitespace-nowrap py-2 px-3 text-sm text-gray-500">
+                                            <td className="whitespace-nowrap py-2 px-3 text-sm text-slate-500">
                                                 <div className="relative mt-1 rounded-md">
                                                     <div className="mt-1 border-b border-slate-300 focus-within:border-slate-600">
                                                         <input
@@ -169,14 +169,14 @@ export default function Goals() {
                                 <div className="mt-4 text-right">
                                     <button
                                     type="button"
-                                    className="group inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 hover:text-gray-900 shadow-sm hover:bg-gray-200 focus:outline-none"
+                                    className="group inline-flex items-center rounded-md border border-slate-300 bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700 hover:text-slate-900 shadow-sm hover:bg-slate-200 focus:outline-none"
                                     onClick={addGoal}
                                     >
                                         Add 1
                                     </button>
                                     <button
                                     type="button"
-                                    className="ml-2 group inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 hover:text-gray-900 shadow-sm hover:bg-gray-200 focus:outline-none"
+                                    className="ml-2 group inline-flex items-center rounded-md border border-slate-300 bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700 hover:text-slate-900 shadow-sm hover:bg-slate-200 focus:outline-none"
                                     onClick={addThreeGoals}
                                     >
                                         Add 3

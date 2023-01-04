@@ -10,6 +10,7 @@ import EmptyTableBody from "./EmptyTableBody";
 import EmptyChartBody from "./EmptyChartBody";
 import Donut from "../charts/Donut";
 
+//#region helper functions
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -27,15 +28,23 @@ function filterData(data) {
 
     for (let i = 0; i < data.length; i++) {
         data[i].type in summedCategories
-            ? summedCategories[data[i].type] += data[i].balance
-            : summedCategories[data[i].type] = data[i].balance
+            ? summedCategories[data[i].type] += parseInt(data[i].balance)
+            : summedCategories[data[i].type] = parseInt(data[i].balance)
     }
 
+    console.log(summedCategories)
     return summedCategories
 }
 
+function sumList(list) {
+    return list.reduce((partialSum, a) => partialSum + a, 0);
+}
+//#endregion
+
+//#region constants
 const assetTypes = ['Cash', 'Pre-tax investment', 'Post-tax investment', 'Property', 'Vehicle', 'Other']
 const liabilityTypes = ['Mortage', 'Student loan', 'Auto loan', 'Credit card', 'Other']
+//#endregion
 
 export default function Accounts() {
     const supabase = useSupabaseClient() 
@@ -255,7 +264,6 @@ export default function Accounts() {
             getAssets() 
             getLiabilities() 
         }
-        
     }, [user])
 
     return (
@@ -370,7 +378,11 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div className='col-span-4 lg:col-span-2'>
+            <div id='assetBreakdown' className='col-span-4 lg:col-span-2'>
+                <div className='flex justify-center text-lg'>
+                    <h1 className="font-semibold text-slate-800">Total assets &rarr;</h1>
+                    <h1 className="pl-2 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-slate-800 to-slate-400">{assets && assets.length > 0 ? formatter.format(sumList(Object.values(filterData(assets)))) : null}</h1>
+                </div>
                 <div className='flex justify-center'>
                     <div className='w-1/2'>
                         {assets && assets.length > 0 
@@ -491,7 +503,11 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div className='mt-0 lg:mt-20 col-span-4 lg:col-span-2'>
+            <div id='liabilityBreakdown' className='mt-0 lg:mt-20 col-span-4 lg:col-span-2'>
+                <div className='flex justify-center text-lg'>
+                    <h1 className="font-semibold text-slate-800">Total liabilities &rarr;</h1>
+                    <h1 className="pl-2 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-slate-800 to-slate-400">{liabilities && liabilities.length > 0 ? formatter.format(sumList(Object.values(filterData(liabilities)))) : null}</h1>
+                </div>
                 <div className='flex justify-center'>
                     <div className='w-1/2'>
                         {liabilities && liabilities.length > 0 

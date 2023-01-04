@@ -42,7 +42,7 @@ export default function Donut(props) {
     }
 
     return (
-        <div className='mt-8'>
+        <div className='mt-6'>
             <Doughnut data={data} options={options} />
         </div>
     )

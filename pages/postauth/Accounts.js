@@ -54,9 +54,9 @@ export default function Accounts() {
 
      //#region state variables
      const [assets, setAssets] = useState(null);
-     const [sortAssetsOn, setSortAssetsOn] = useState(['name', true])
+     const [sortAssetsOn, setSortAssetsOn] = useState(['balance', true])
      const [liabilities, setLiabilities] = useState(null);
-     const [sortLiabilitiesOn, setSortLiabilitiesOn] = useState(['name', true])
+     const [sortLiabilitiesOn, setSortLiabilitiesOn] = useState(['balance', true])
      //#endregion
     
     //#region asset functions
@@ -75,6 +75,7 @@ export default function Accounts() {
     }
 
     const addAsset = async () => {
+        setSortAssetsOn(['balance', true])
         setAssets([
             ...assets,
             {
@@ -179,6 +180,7 @@ export default function Accounts() {
     }
 
     const addLiability = async () => {
+        setSortLiabilitiesOn(['balance', true])
         setLiabilities([
             ...liabilities,
             {
@@ -331,7 +333,7 @@ export default function Accounts() {
                                         </th>
                                         <th scope="col" className="py-2 pr-3 text-right">
                                             <span className='inline-flex'>
-                                                Balanace
+                                                Balance
                                                 <SortButton sortOn="balance" onClickSort={sortAssets} />
                                             </span>
                                         </th>

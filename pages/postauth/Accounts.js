@@ -11,6 +11,7 @@ import EmptyChartBody from "./EmptyChartBody";
 import AssetsDonut from "../charts/AssetsDonut";
 import LiabilitiesDonut from "../charts/LiabilitiesDonut";
 import SummaryStats from "./SummaryStats";
+import SortButton from "./SortButton";
 
 //#region helper functions
 const formatter = new Intl.NumberFormat('en-US', {
@@ -51,9 +52,11 @@ export default function Accounts() {
     const supabase = useSupabaseClient() 
     const user = useUser()
 
-     //#region secondary state variables
+     //#region state variables
      const [assets, setAssets] = useState(null);
+     const [sortAssetsOn, setSortAssetsOn] = useState(['name', true])
      const [liabilities, setLiabilities] = useState(null);
+     const [sortLiabilitiesOn, setSortLiabilitiesOn] = useState(['name', true])
      //#endregion
     
     //#region asset functions
@@ -62,8 +65,13 @@ export default function Accounts() {
             .from('assets')
             .select('*')
             .eq('user_id', user.id)
+            .order('balance', { ascending: false })
 
             setAssets(getAssetsData)
+    }
+
+    const sortAssets = (property, descending) => {
+        setSortAssetsOn([property, descending])
     }
 
     const addAsset = async () => {
@@ -82,7 +90,8 @@ export default function Accounts() {
     const saveAssets = async () => {
         setSaveAssetsButton({
             className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
-            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>
+            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>,
+            text: 'Saving'
         })
 
         const { data: upsertAssetsData, error: upsertAssetsError } = await supabase
@@ -91,14 +100,16 @@ export default function Accounts() {
 
         setSaveAssetsButton({
             className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
-            icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>
+            icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>,
+            text: 'Done'
         })
 
         await timeout(1300);
 
         setSaveAssetsButton({
             className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
-            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
+            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
+            text: 'Save'
         })
     }
     
@@ -158,8 +169,13 @@ export default function Accounts() {
             .from('liabilities')
             .select('*')
             .eq('user_id', user.id)
+            .order('balance', { ascending: false })
 
         setLiabilities(getLiabilitiesData)
+    }
+
+    const sortLiabilities = (property, descending) => {
+        setSortLiabilitiesOn([property, descending])
     }
 
     const addLiability = async () => {
@@ -178,7 +194,8 @@ export default function Accounts() {
     const saveLiabilities = async () => {
         setSaveLiabilitesButton({
             className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
-            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>
+            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>,
+            text: 'Saving'
         })
 
         const { data: upsertLiabilitiesData, error: upsertLiabilitiesError } = await supabase
@@ -187,14 +204,16 @@ export default function Accounts() {
 
         setSaveLiabilitesButton({
             className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
-            icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>
+            icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>,
+            text: 'Done'
         })
 
         await timeout(1300);
 
         setSaveLiabilitesButton({
             className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
-            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
+            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
+            text: 'Save'
         })
     }
     
@@ -252,11 +271,13 @@ export default function Accounts() {
     //#region secondary state variables
     const [saveAssetsButton, setSaveAssetsButton] = useState({
         className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
-        icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
+        icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
+        text: 'Save'
     })
     const [saveLiabilitiesButton, setSaveLiabilitesButton] = useState({
         className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
-        icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>
+        icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
+        text: 'Save'
     })
     //#endregion
 
@@ -269,7 +290,6 @@ export default function Accounts() {
 
     return (
         <>
-
             <div id='summary' className='col-span-4'>
                 <h1 className="inline-flex items-center text-xl font-semibold text-slate-300">
                     Overview
@@ -296,15 +316,24 @@ export default function Accounts() {
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
                             <table className="min-w-full">
                                 <thead className='border-b border-slate-300'>
-                                    <tr>
-                                        <th scope="col" className="py-2 pr-1.5 text-left text-sm font-semibold text-slate-900">
-                                            Name
+                                    <tr className='text-sm text-slate-500'>
+                                        <th scope="col" className="py-2 pr-1.5 text-left">
+                                            <span className='inline-flex'>
+                                                Name
+                                                <SortButton sortOn="name" onClickSort={sortAssets} />
+                                            </span>
                                         </th>
-                                        <th scope="col" className="py-2 text-left text-sm font-semibold text-slate-900">
-                                            Type
+                                        <th scope="col" className="py-2 text-left">
+                                            <span className='inline-flex'>
+                                                Category
+                                                <SortButton sortOn="type" onClickSort={sortAssets} />
+                                            </span>
                                         </th>
-                                        <th scope="col" className="py-2 pr-3 text-right text-sm font-semibold text-slate-900">
-                                            Balance
+                                        <th scope="col" className="py-2 pr-3 text-right">
+                                            <span className='inline-flex'>
+                                                Balanace
+                                                <SortButton sortOn="balance" onClickSort={sortAssets} />
+                                            </span>
                                         </th>
 
                                         <th scope="col" className="py-2 pl-2">
@@ -313,65 +342,68 @@ export default function Accounts() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-none">
-                                {assets && assets.length > 0 ? assets.map((asset) => (
-                                    <tr key={asset.id}>
-                                        <td className="whitespace-nowrap py-2 text-sm text-slate-500">
-                                            <div className="relative mt-1 rounded-md">
-                                                <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
-                                                    <input
-                                                        type="text"
-                                                        name="name"
-                                                        id="name"   
-                                                        className="block w-full border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
-                                                        value={asset.name}
-                                                        onChange={(e) => editAsset(e, asset.id)}
-                                                    />  
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="whitespace-nowrap py-2 text-sm text-slate-500">
-                                            <div className="relative mt-1 rounded-md">
-                                                <div className="mt-1 focus-within:border-slate-600">
-                                                    <SearchSelectInput 
-                                                        handleChange={editAssetType} 
-                                                        items={assetTypes} 
-                                                        selected={asset.type} 
-                                                        id={asset.id}
-                                                        name='type'
-                                                     />  
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="whitespace-nowrap py-2 px-2 text-sm text-slate-500">
-                                            <div className="relative mt-1 rounded-md">
+                                {assets && assets.length > 0 
+                                    ? assets
+                                        .sort(sortAssetsOn[1] ? (a, b) => a[sortAssetsOn[0]] < b[sortAssetsOn[0]] : (a, b) => a[sortAssetsOn[0]] > b[sortAssetsOn[0]])
+                                        .map((asset) => (
+                                            <tr key={asset.id}>
+                                                <td className="whitespace-nowrap py-2 text-sm text-slate-500">
+                                                    <div className="relative mt-1 rounded-md">
+                                                        <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
+                                                            <input
+                                                                type="text"
+                                                                name="name"
+                                                                id="name"   
+                                                                className="block w-full border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
+                                                                value={asset.name}
+                                                                onChange={(e) => editAsset(e, asset.id)}
+                                                            />  
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="whitespace-nowrap py-2 text-sm text-slate-500">
+                                                    <div className="relative mt-1 rounded-md">
+                                                        <div className="mt-1 focus-within:border-slate-600">
+                                                            <SearchSelectInput 
+                                                                handleChange={editAssetType} 
+                                                                items={assetTypes} 
+                                                                selected={asset.type} 
+                                                                id={asset.id}
+                                                                name='type'
+                                                            />  
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="whitespace-nowrap py-2 px-2 text-sm text-slate-500">
+                                                    <div className="relative mt-1 rounded-md">
 
-                                                <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
-                                                    <input
-                                                        type="text"
-                                                        name="balance"
-                                                        id="balance"
-                                                        className="block w-full text-right border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
-                                                        value={asset.balance ? formatter.format(asset.balance) : formatter.format(0)}
-                                                        onChange={(e) => editAsset(e, asset.id)}
-                                                        min={0}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </td>
+                                                        <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
+                                                            <input
+                                                                type="text"
+                                                                name="balance"
+                                                                id="balance"
+                                                                className="block w-full text-right border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
+                                                                value={asset.balance ? formatter.format(asset.balance) : formatter.format(0)}
+                                                                onChange={(e) => editAsset(e, asset.id)}
+                                                                min={0}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </td>
 
-                                        <td className="relative whitespace-nowrap pt-1 pl-2 text-sm font-medium">
-                                            <button 
-                                                href="#" 
-                                                className="text-slate-300 hover:text-slate-500"
-                                                onClick={() => deleteAsset(asset.id)}
-                                            >
-                                                <XCircleIcon className='h-6 rounded-full'/><span className="sr-only">, {asset.id}</span>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                                <td className="relative whitespace-nowrap pt-1 pl-2 text-sm font-medium">
+                                                    <button 
+                                                        href="#" 
+                                                        className="text-slate-300 hover:text-slate-500"
+                                                        onClick={() => deleteAsset(asset.id)}
+                                                    >
+                                                        <XCircleIcon className='h-6 rounded-full'/><span className="sr-only">, {asset.id}</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
                                 )) : assets 
-                                        ? <EmptyTableBody message="No assets yet" icon={FaceFrownIcon} /> 
-                                        : <LoadingTableBody /> 
+                                    ? <EmptyTableBody message="No assets yet" icon={FaceFrownIcon} /> 
+                                    : <LoadingTableBody /> 
                                 }
                                 </tbody>
                             </table>
@@ -391,7 +423,7 @@ export default function Accounts() {
                                 className={saveAssetsButton.className}
                                 onClick={saveAssets}
                                 >
-                                    Save
+                                    {saveAssetsButton.text}
                                     {saveAssetsButton.icon}
                                 </button>
                                 <button
@@ -408,7 +440,7 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div id='assetBreakdown' className='lg:mt-16 col-span-4 lg:col-span-2 flex flex-col justify-center align-middle'>
+            <div id='assetBreakdown' className='mt-6 lg:mt-16 col-span-4 lg:col-span-2 flex flex-col justify-center align-middle'>
                 {assets && assets.length > 0 && sumList(Object.values(filterData(assets))) > 0
                     ? 
                         <>
@@ -427,15 +459,22 @@ export default function Accounts() {
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
                             <table className="min-w-full">
                                 <thead className='border-b border-slate-300'>
-                                    <tr>
-                                        <th scope="col" className="py-2 pr-1.5 text-left text-sm font-semibold text-slate-900">
-                                            Name
+                                    <tr className='text-sm text-slate-500'>
+                                            <span className='inline-flex'>
+                                                Name
+                                                <SortButton sortOn="name" onClickSort={sortLiabilities} />
+                                            </span>
+                                        <th scope="col" className="py-2 text-left">
+                                            <span className='inline-flex'>
+                                                Category
+                                                <SortButton sortOn="type" onClickSort={sortLiabilities} />
+                                            </span>
                                         </th>
-                                        <th scope="col" className="py-2 text-left text-sm font-semibold text-slate-900">
-                                            Type
-                                        </th>
-                                        <th scope="col" className="py-2 pr-3 text-right text-sm font-semibold text-slate-900">
-                                            Balance
+                                        <th scope="col" className="py-2 pr-3 text-right">
+                                            <span className='inline-flex'>
+                                                Balance
+                                                <SortButton sortOn="balance" onClickSort={sortLiabilities} />
+                                            </span>
                                         </th>
 
                                         <th scope="col" className="py-2 pl-2">
@@ -444,65 +483,68 @@ export default function Accounts() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-none">
-                                {liabilities && liabilities.length > 0 ? liabilities.map((liability) => (
-                                    <tr key={liability.id}>
-                                        <td className="whitespace-nowrap py-2 text-sm text-slate-500">
-                                            <div className="relative mt-1 rounded-md">
-                                                <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
-                                                    <input
-                                                        type="text"
-                                                        name="name"
-                                                        id="name"   
-                                                        className="block w-full border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
-                                                        value={liability.name}
-                                                        onChange={(e) => editLiability(e, liability.id)}
-                                                    />  
+                                {liabilities && liabilities.length > 0 
+                                    ? liabilities
+                                    .sort(sortLiabilitiesOn[1] ? (a, b) => a[sortLiabilitiesOn[0]] < b[sortLiabilitiesOn[0]] : (a, b) => a[sortLiabilitiesOn[0]] > b[sortLiabilitiesOn[0]])
+                                    .map((liability) => (
+                                        <tr key={liability.id}>
+                                            <td className="whitespace-nowrap py-2 text-sm text-slate-500">
+                                                <div className="relative mt-1 rounded-md">
+                                                    <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
+                                                        <input
+                                                            type="text"
+                                                            name="name"
+                                                            id="name"   
+                                                            className="block w-full border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
+                                                            value={liability.name}
+                                                            onChange={(e) => editLiability(e, liability.id)}
+                                                        />  
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td className="whitespace-nowrap py-2 text-sm text-slate-500">
-                                            <div className="relative mt-1 rounded-md">
-                                                <div className="mt-1 focus-within:border-slate-600">
-                                                    <SearchSelectInput 
-                                                        handleChange={editLiabilityType} 
-                                                        items={liabilityTypes} 
-                                                        selected={liability.type} 
-                                                        id={liability.id}
-                                                        name='type'
-                                                     />  
+                                            </td>
+                                            <td className="whitespace-nowrap py-2 text-sm text-slate-500">
+                                                <div className="relative mt-1 rounded-md">
+                                                    <div className="mt-1 focus-within:border-slate-600">
+                                                        <SearchSelectInput 
+                                                            handleChange={editLiabilityType} 
+                                                            items={liabilityTypes} 
+                                                            selected={liability.type} 
+                                                            id={liability.id}
+                                                            name='type'
+                                                        />  
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td className="whitespace-nowrap py-2 px-2 text-sm text-slate-500">
-                                            <div className="relative mt-1 rounded-md">
+                                            </td>
+                                            <td className="whitespace-nowrap py-2 px-2 text-sm text-slate-500">
+                                                <div className="relative mt-1 rounded-md">
 
-                                                <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
-                                                    <input
-                                                        type="text"
-                                                        name="balance"
-                                                        id="balance"
-                                                        className="block w-full text-right border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
-                                                        value={liability.balance ? formatter.format(liability.balance) : formatter.format(0)}
-                                                        onChange={(e) => editLiability(e, liability.id)}
-                                                        min={0}
-                                                    />
+                                                    <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
+                                                        <input
+                                                            type="text"
+                                                            name="balance"
+                                                            id="balance"
+                                                            className="block w-full text-right border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
+                                                            value={liability.balance ? formatter.format(liability.balance) : formatter.format(0)}
+                                                            onChange={(e) => editLiability(e, liability.id)}
+                                                            min={0}
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td className="relative whitespace-nowrap pt-1 pl-2 text-sm font-medium">
-                                            <button 
-                                                href="#" 
-                                                className="text-slate-300 hover:text-slate-500"
-                                                onClick={() => deleteLiability(liability.id)}
-                                            >
-                                                <XCircleIcon className='h-6 rounded-full'/><span className="sr-only">, {liability.id}</span>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                            <td className="relative whitespace-nowrap pt-1 pl-2 text-sm font-medium">
+                                                <button 
+                                                    href="#" 
+                                                    className="text-slate-300 hover:text-slate-500"
+                                                    onClick={() => deleteLiability(liability.id)}
+                                                >
+                                                    <XCircleIcon className='h-6 rounded-full'/><span className="sr-only">, {liability.id}</span>
+                                                </button>
+                                            </td>
+                                        </tr>
                                 )) : liabilities 
-                                        ? <EmptyTableBody message="No liabilities yet" icon={FaceSmileIcon} /> 
-                                        : <LoadingTableBody /> 
+                                    ? <EmptyTableBody message="No liabilities yet" icon={FaceSmileIcon} /> 
+                                    : <LoadingTableBody /> 
                                 }
                                 </tbody>
                             </table>
@@ -522,7 +564,7 @@ export default function Accounts() {
                                 className={saveLiabilitiesButton.className}
                                 onClick={saveLiabilities}
                                 >
-                                    Save
+                                    {saveLiabilitiesButton.text}
                                     {saveLiabilitiesButton.icon}
                                 </button>
                                 <button
@@ -539,7 +581,7 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div id='liabilityBreakdown' className='lg:mt-16 col-span-4 lg:col-span-2 flex flex-col justify-center align-middle'>
+            <div id='liabilityBreakdown' className='mt-6 lg:mt-16 col-span-4 lg:col-span-2 flex flex-col justify-center align-middle'>
                 {liabilities && liabilities.length > 0 && sumList(Object.values(filterData(liabilities))) > 0
                     ? 
                         <>

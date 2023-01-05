@@ -31,12 +31,12 @@ export default function SearchSelectInput(props) {
         <Combobox as="div" value={selectedItem} onChange={(e) => setItem(e)}>
             <div className="relative mt-1 pl-2">
                 <Combobox.Input
-                    className="w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-slate-600 focus:outline-none focus:ring-1 focus:ring-slate-600 text-sm"
+                    className="w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-slate-600 focus:outline-none focus:ring-1 focus:ring-slate-600 text-sm truncate"
                     onChange={(event) => setQuery(event.target.value)}
                     displayValue={(item) => item}
                 />
                 <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
-                    <ChevronUpDownIcon className="h-5 w-5 text-slate-400" aria-hidden="true" />
+                    <ChevronUpDownIcon className="h-5 w-5 text-slate-400 bg-white" aria-hidden="true" />
                 </Combobox.Button>
 
                 {filteredItems.length > 0 && (

@@ -6,12 +6,35 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Donut(props) {
 
+    let arrayLabel = props.data ? Object.keys(props.data) : []
+
+    let arrayData = props.data ? Object.values(props.data) : [] 
+
+    let arrayOfObj = arrayLabel.map(function(d, i) {
+        return {
+            label: d,
+            data: arrayData[i] || 0
+        };
+    });
+
+    let sortedArrayOfObj = arrayOfObj.sort(function(a, b) {
+        return b.data < a.data;
+    });
+
+    let newArrayLabel = [];
+    let newArrayData = [];
+
+    sortedArrayOfObj.forEach(function(d) {
+        newArrayLabel.push(d.label);
+        newArrayData.push(d.data);
+    });
+
     const data = {
-        labels: props.data ? Object.keys(props.data) : [],
+        labels: newArrayLabel,
         datasets: [
             {
                 label: props.label ? props.label : "",
-                data: props.data ? Object.values(props.data) : [],
+                data: newArrayData,
                 backgroundColor: [
                     '#bbf7d0', //green -> cyan
                     '#86efac',

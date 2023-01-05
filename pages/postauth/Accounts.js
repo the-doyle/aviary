@@ -12,6 +12,7 @@ import AssetsDonut from "../charts/AssetsDonut";
 import LiabilitiesDonut from "../charts/LiabilitiesDonut";
 import SummaryStats from "./SummaryStats";
 import SortButton from "./SortButton";
+import DeleteButton from "./DeleteButton";
 
 //#region helper functions
 const formatter = new Intl.NumberFormat('en-US', {
@@ -394,13 +395,7 @@ export default function Accounts() {
                                                 </td>
 
                                                 <td className="relative whitespace-nowrap pt-1 pl-2 text-sm font-medium">
-                                                    <button 
-                                                        href="#" 
-                                                        className="text-slate-300 hover:text-slate-500"
-                                                        onClick={() => deleteAsset(asset.id)}
-                                                    >
-                                                        <XCircleIcon className='h-6 rounded-full'/><span className="sr-only">, {asset.id}</span>
-                                                    </button>
+                                                    {asset ? <DeleteButton deleteAccount={deleteAsset} account={asset} /> : null}
                                                 </td>
                                             </tr>
                                 )) : assets 
@@ -462,10 +457,12 @@ export default function Accounts() {
                             <table className="min-w-full">
                                 <thead className='border-b border-slate-300'>
                                     <tr className='text-sm text-slate-500'>
+                                        <th scope="col" className="py-2 text-left">
                                             <span className='inline-flex'>
                                                 Name
                                                 <SortButton sortOn="name" onClickSort={sortLiabilities} />
                                             </span>
+                                        </th>
                                         <th scope="col" className="py-2 text-left">
                                             <span className='inline-flex'>
                                                 Category
@@ -535,13 +532,7 @@ export default function Accounts() {
                                             </td>
 
                                             <td className="relative whitespace-nowrap pt-1 pl-2 text-sm font-medium">
-                                                <button 
-                                                    href="#" 
-                                                    className="text-slate-300 hover:text-slate-500"
-                                                    onClick={() => deleteLiability(liability.id)}
-                                                >
-                                                    <XCircleIcon className='h-6 rounded-full'/><span className="sr-only">, {liability.id}</span>
-                                                </button>
+                                                {liability ? <DeleteButton deleteAccount={deleteLiability} account={liability} /> : null}
                                             </td>
                                         </tr>
                                 )) : liabilities 

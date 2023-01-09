@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { XCircleIcon, ArrowPathIcon, PlusIcon, CheckBadgeIcon, FaceFrownIcon, FaceSmileIcon } from '@heroicons/react/24/outline'
+import { ArrowPathIcon, PlusIcon, CheckBadgeIcon, FaceFrownIcon, FaceSmileIcon } from '@heroicons/react/24/outline'
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useUser } from "@supabase/auth-helpers-react";
 import SearchSelectInput from "./SearchSelectInput";
@@ -41,6 +41,15 @@ function filterData(data) {
 
 function sumList(list) {
     return list.reduce((partialSum, a) => partialSum + a, 0);
+}
+
+function getDate() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+
+    return yyyy + '-' + mm + '-' + dd;
 }
 //#endregion
 
@@ -100,13 +109,24 @@ export default function Accounts() {
             .from('assets')
             .upsert(assets)
 
+        //filter assets down to necessary attributes 
+        let asset_history = assets.map(({user_id, name, type, ...keepAttrs}) => keepAttrs)
+
+        //add date attribute with today's date 
+        asset_history = asset_history.map(obj => ({ ...obj, date: getDate() }))
+
+        //upsert asset history 
+        const { data: upsertAssetHistoryData, error: upsertAssetHistoryError } = await supabase
+            .from('asset_history')
+            .upsert(asset_history)
+
         setSaveAssetsButton({
             className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
             icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>,
             text: 'Done'
         })
 
-        await timeout(1300);
+        await timeout(2000);
 
         setSaveAssetsButton({
             className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
@@ -121,8 +141,12 @@ export default function Accounts() {
         let strippedValue = value
 
         if (name == "balance") {
-            strippedValue = value.replace("$", "")
-            strippedValue = strippedValue.replaceAll(',', '')
+            if (value && value != '$') {
+                strippedValue = value.replace("$", "")
+                strippedValue = strippedValue.replaceAll(',', '')
+            } else {
+                strippedValue = 0
+            }
         }
         
         for (let i=0; i<list.length; i++) {
@@ -162,6 +186,8 @@ export default function Accounts() {
             .from('assets')
             .delete()
             .eq('id', id)
+
+        console.log(deleteAssetError)
     };
     //#endregion
     
@@ -205,13 +231,24 @@ export default function Accounts() {
             .from('liabilities')
             .upsert(liabilities)
 
+        //filter liabilities down to necessary attributes 
+        let liability_history = liabilities.map(({user_id, name, type, ...keepAttrs}) => keepAttrs)
+
+        //add date attribute with today's date 
+        liability_history = liability_history.map(obj => ({ ...obj, date: getDate() }))
+
+        //upsert asset history 
+        const { data: upsertLiabilityHistoryData, error: upsertLiabilityHistoryError } = await supabase
+            .from('liability_history')
+            .upsert(liability_history)
+
         setSaveLiabilitesButton({
             className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
             icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>,
             text: 'Done'
         })
 
-        await timeout(1300);
+        await timeout(2000);
 
         setSaveLiabilitesButton({
             className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
@@ -226,10 +263,14 @@ export default function Accounts() {
         let strippedValue = value
 
         if (name == "balance") {
-            strippedValue = value.replace("$", "")
-            strippedValue = strippedValue.replaceAll(',', '')
+            if (value && value != '$') {
+                strippedValue = value.replace("$", "")
+                strippedValue = strippedValue.replaceAll(',', '')
+            } else {
+                strippedValue = 0
+            }
         }
-        
+
         for (let i=0; i<list.length; i++) {
             if (list[i].id == id) {
                 list[i][name] = strippedValue

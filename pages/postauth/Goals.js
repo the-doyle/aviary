@@ -49,8 +49,8 @@ function calculateProgress(goal, accounts) {
 }
 
 function calculateLiabilityProgress(goal, accounts) {
-    const balance = accounts.find(x => x.id === goal.liability_id).balance
-    const progress = (balance / goal.target_balance) * 100
+    const account = accounts.find(x => x.id === goal.liability_id)
+    const progress = (account.initial_balance - account.balance) / (account.initial_balance - goal.target_balance) * 100
     return progress > 100 ? 100 : progress.toFixed(0)
 }
 
@@ -193,11 +193,9 @@ export default function Goals() {
     //#region liability_goal functions
     const getLiabilities = async () => {
         const {data: getLiabilitiesData, error: getLiabilitiesError} = await supabase
-            .from('liabilities')
-            .select('id, name, balance')
-            .eq('user_id', user.id)
+            .rpc('get_liabilities_with_initial_balance', { 'user_id': user.id });
 
-            setLiabilities(getLiabilitiesData)
+        setLiabilities(getLiabilitiesData)
     }
 
     const getLiabilityById = (id) => {
@@ -227,6 +225,7 @@ export default function Goals() {
                 name: "New liability goal", 
                 target_date: getDate(),
                 target_balance: 0, 
+                initial_balance: liabilities[0].balance
             },
         ]);
     };

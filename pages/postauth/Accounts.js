@@ -215,7 +215,7 @@ export default function Accounts() {
                 user_id: user.id,
                 name: "New liability", 
                 type: "Mortgage", 
-                balance: 0, 
+                balance: 0
             },
         ]);
     };

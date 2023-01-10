@@ -1,4 +1,5 @@
 import PostAuthNav from "./postauth/PostAuthNav";
+import PreAuthFooter from "./preauth/PreAuthFooter";
 
 export default function Example() {
     return (

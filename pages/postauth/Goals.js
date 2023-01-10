@@ -50,8 +50,13 @@ function calculateProgress(goal, accounts) {
 
 function calculateLiabilityProgress(goal, accounts) {
     const account = accounts.find(x => x.id === goal.liability_id)
+    if (account.balance > account.initial_balance) {
+        return 0
+    } else if (account.balance < goal.target_balance) {
+        return 100 
+    }
     const progress = (account.initial_balance - account.balance) / (account.initial_balance - goal.target_balance) * 100
-    return progress > 100 ? 100 : progress.toFixed(0)
+    return progress.toFixed(0)
 }
 
 //#endregion
@@ -369,7 +374,7 @@ export default function Goals() {
                                         </th>
                                         <th scope="col" className="py-2 pr-3 text-right">
                                             <span className='inline-flex'>
-                                                Target balance
+                                                Goal
                                             </span>
                                         </th>
 
@@ -383,7 +388,7 @@ export default function Goals() {
                                     ? assetGoals
                                         .map((assetGoal) => (
                                             <tr key={assetGoal.id}>
-                                                <td className="whitespace-nowrap py-2 text-sm text-slate-500">
+                                                <td className="whitespace-nowrap py-3 text-sm text-slate-500">
                                                     <div className="relative mt-1 rounded-md">
                                                         <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
                                                             <input
@@ -484,7 +489,7 @@ export default function Goals() {
             </div>
 
             <div id='asset_goals_breakdown' className='mt-6 lg:mt-20 col-span-5 lg:col-span-2 flex flex-col'>
-                <div className='mt-1'>
+                <div className='mt-1.5'>
                     {assetGoals && assets ?
                         assetGoals.map((goal) => (
                             <div key={goal.id} className='pb-1 mt-4 lg:mt-0'>
@@ -495,32 +500,32 @@ export default function Goals() {
                 </div>
             </div>
 
-            <div id='liability_goals' className='col-span-5 lg:col-span-3'>
+            <div id='liability_goals' className='mt-20 lg:mt-0 col-span-5 lg:col-span-3'>
                 <h1 className="inline-flex items-center text-xl font-semibold text-slate-300">Liability goals</h1>
                 <div className="mt-6 flex flex-col p-3 -mx-3 shadow rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
-                            <table className="min-w-full">
+                            <table className="table-auto">
                                 <thead className='border-b border-slate-300'>
                                     <tr className='text-sm text-slate-500'>
                                         <th scope="col" className="py-2 pr-1.5 text-left">
-                                            <span className='inline-flex'>
+                                            <span className=''>
                                                 Name
                                             </span>
                                         </th>
                                         <th scope="col" className="py-2 text-left">
-                                            <span className='inline-flex'>
+                                            <span className=''>
                                                 Account
                                             </span>
                                         </th>
                                         <th scope="col" className="py-2 pr-3 text-left">
-                                            <span className='inline-flex'>
+                                            <span className=''>
                                                 Target date
                                             </span>
                                         </th>
                                         <th scope="col" className="py-2 pr-3 text-right">
-                                            <span className='inline-flex'>
-                                                Target balance
+                                            <span className=''>
+                                                Goal
                                             </span>
                                         </th>
 
@@ -534,7 +539,7 @@ export default function Goals() {
                                     ? liabilityGoals
                                         .map((liabilityGoal) => (
                                             <tr key={liabilityGoal.id}>
-                                                <td className="whitespace-nowrap py-2 text-sm text-slate-500">
+                                                <td className="whitespace-nowrap py-3 text-sm text-slate-500">
                                                     <div className="relative mt-1 rounded-md">
                                                         <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
                                                             <input
@@ -635,7 +640,7 @@ export default function Goals() {
             </div>
 
             <div id='liability_goals_breakdown' className='mt-6 lg:mt-20 col-span-5 lg:col-span-2 flex flex-col'>
-                <div className='mt-1'>
+                <div className='mt-1.5'>
                     {liabilityGoals && liabilities ?
                         liabilityGoals.map((goal) => (
                             <div key={goal.id} className='pb-1 mt-4 lg:mt-0'>

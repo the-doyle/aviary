@@ -67,6 +67,9 @@ export default function Accounts() {
      const [sortAssetsOn, setSortAssetsOn] = useState(['balance', true])
      const [liabilities, setLiabilities] = useState(null);
      const [sortLiabilitiesOn, setSortLiabilitiesOn] = useState(['balance', true])
+     
+     const [lastCheckIn, setLastCheckIn] = useState(null)
+     const [numGoals, setNumGoals] = useState(null)
      //#endregion
     
     //#region asset functions
@@ -186,8 +189,6 @@ export default function Accounts() {
             .from('assets')
             .delete()
             .eq('id', id)
-
-        console.log(deleteAssetError)
     };
     //#endregion
     
@@ -325,12 +326,58 @@ export default function Accounts() {
     })
     //#endregion
 
+    //#region random functions 
+    const getGoals = async () => {
+        const {data: assetGoalsData, error: assetGoalsError} = await supabase
+            .from('asset_goals')
+            .select('id')
+            .in('asset_id', assets.map(a => a.id))
+
+        const {data: liabilityGoalsData, error: liabilityGoalsError} = await supabase
+            .from('liability_goals')
+            .select('id')
+            .in('liability_id', liabilities.map(l => l.id))
+
+        setNumGoals(assetGoalsData.length + liabilityGoalsData.length)
+    }
+
+    const getLastCheckIn = async () => {
+        const {data: liabilityHistoryData, error: liabilityHistoryError} = await supabase
+            .from('liability_history')
+            .select('date')
+            .in('id', liabilities.map(l => l.id))
+
+        const {data: assetHistoryData, error: assetHistoryError} = await supabase
+            .from('asset_history')
+            .select('date')
+            .in('id', assets.map(a => a.id))
+
+        const allDatesSorted = liabilityHistoryData.sort().concat(assetHistoryData.sort())
+
+        if (allDatesSorted) {
+            setLastCheckIn(allDatesSorted.slice(-1)[0].date)
+        } else {
+            setLastCheckIn("Never!")
+        }
+
+    }
+
+
+    //#endregion 
+    
     useEffect(() => {
         if (user) {
             getAssets() 
             getLiabilities() 
         }
     }, [user])
+
+    useEffect(() => {
+        if (assets && liabilities) {
+            getGoals()
+            getLastCheckIn() 
+        }
+    }, [assets, liabilities])
 
     return (
         <>
@@ -344,8 +391,8 @@ export default function Accounts() {
                             <SummaryStats 
                                 assets={assets}
                                 liabilities={liabilities} 
-                                lastCheckIn="2 Jan 2023"
-                                numGoals="4" 
+                                lastCheckIn={lastCheckIn}
+                                numGoals={numGoals}
                             /> 
                         </>
                     : 

@@ -6,7 +6,7 @@ export default function Example() {
         <div className="min-h-full">
             <PostAuthNav current_tab='Aviary' />
 
-            <div className="py-10">
+            <div className="pt-20 pb-20 lg:pb-60 min-h-screen">
                 <header>
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <h1 className="text-3xl font-bold leading-tight tracking-tight text-slate-900">Aviary!</h1>
@@ -22,6 +22,8 @@ export default function Example() {
                     </div>
                 </main>
             </div>
+
+            <PreAuthFooter /> 
         </div>
         </>
     )

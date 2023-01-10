@@ -20,8 +20,6 @@ export default function SignUpForm() {
                 .from('users')
                 .insert({ id: signUpData.user.id, first_name: e.target.first_name.value })
 
-            console.log(insertUserData, insertUserError)
-
             router.push('/payment')
         } else {
             setMessage(signUpError.message)

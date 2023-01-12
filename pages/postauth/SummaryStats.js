@@ -42,5 +42,5 @@ export default function SummaryStats(props) {
             
             </dl>
         </div>
-    ) : null
+    ) : null 
 }

@@ -6,7 +6,14 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      opacity: {
+        '15': '.15',
+      },
+      blur: {
+        xs: '2px',
+      }
+    }
   },
   plugins: [
     require('@tailwindcss/forms'),

@@ -489,7 +489,7 @@ export default function Goals() {
             </div>
 
             <div id='asset_goals_breakdown' className='mt-6 lg:mt-20 col-span-5 lg:col-span-2 flex flex-col'>
-                <div className='mt-1.5'>
+                <div className='mt-1'>
                     {assetGoals && assets ?
                         assetGoals.map((goal) => (
                             <div key={goal.id} className='pb-1 mt-4 lg:mt-0'>
@@ -500,7 +500,7 @@ export default function Goals() {
                 </div>
             </div>
 
-            <div id='liability_goals' className='mt-20 lg:mt-0 col-span-5 lg:col-span-3'>
+            <div id='liability_goals' className='mt-16 col-span-5 lg:col-span-3'>
                 <h1 className="inline-flex items-center text-xl font-semibold text-slate-300">Liability goals</h1>
                 <div className="mt-6 flex flex-col p-3 -mx-3 shadow rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -639,8 +639,8 @@ export default function Goals() {
                 </div>
             </div>
 
-            <div id='liability_goals_breakdown' className='mt-6 lg:mt-20 col-span-5 lg:col-span-2 flex flex-col'>
-                <div className='mt-1.5'>
+            <div id='liability_goals_breakdown' className='mt-6 lg:mt-36 col-span-5 lg:col-span-2 flex flex-col'>
+                <div className='mt-1'>
                     {liabilityGoals && liabilities ?
                         liabilityGoals.map((goal) => (
                             <div key={goal.id} className='pb-1 mt-4 lg:mt-0'>

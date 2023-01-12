@@ -13,6 +13,7 @@ import LiabilitiesDonut from "../charts/LiabilitiesDonut";
 import SummaryStats from "./SummaryStats";
 import SortButton from "./SortButton";
 import DeleteButton from "./DeleteButton";
+import SummaryStatsLoading from "./SummaryStatsLoading"
 
 //#region helper functions
 const formatter = new Intl.NumberFormat('en-US', {
@@ -396,7 +397,7 @@ export default function Accounts() {
                             /> 
                         </>
                     : 
-                        null
+                        <SummaryStatsLoading />
                 }           
             </div>
 

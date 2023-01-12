@@ -1,5 +1,6 @@
 import PostAuthNav from "./postauth/PostAuthNav";
 import PreAuthFooter from "./preauth/PreAuthFooter";
+import Bird from "./aviary/Bird";
 
 export default function Example() {
     return (
@@ -8,18 +9,17 @@ export default function Example() {
             <PostAuthNav current_tab='Aviary' />
 
             <div className="pt-20 pb-20 lg:pb-60 min-h-screen">
-                <header>
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <h1 className="text-3xl font-bold leading-tight tracking-tight text-slate-900">Aviary!</h1>
-                    </div>
-                </header>
                 <main>
                     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        {/* Replace with your content */}
-                        <div className="px-4 py-8 sm:px-0">
-                            <div className="h-96 rounded-lg border-4 border-dashed border-slate-200" />
+                        <div className='flex overflow-scroll rounded-lg bg-white py-2 h-60'>
+                            <Bird unlocked /> 
+                            <Bird unlocked />
+                            <Bird />
+                            <Bird />
+                            <Bird />
+                            <Bird />
+                            <Bird />
                         </div>
-                        {/* /End replace */}
                     </div>
                 </main>
             </div>

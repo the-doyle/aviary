@@ -15,7 +15,7 @@ export default function Bird(props) {
 
     if (props.bird) {
         return (
-            <div className={`flex flex-col h-full px-1 py-2 rounded-lg shadow group min-h-max text-transparent bg-clip-text bg-gradient-to-r
+            <div className={`flex flex-col h-full px-1 py-2 rounded-lg shadow group min-h-max text-transparent hover:bg-slate-100 hover:cursor-pointer bg-clip-text bg-gradient-to-r
                             ${props.unlocked 
                                 ? props.bird.rarity === 'Common' 
                                     ? 'from-slate-600 to-slate-400'

@@ -3,7 +3,7 @@ import birdPic from '../../public/bird.png'
 
 export default function BirdCard(props) {
     return props.rarity && props.name && props.description && props.date ? (
-        <div className='m-10 font-serif'>
+        <div className='m-10 font-serif font-bold'>
             <div className={
                 props.rarity == 'Common' 
                 ? 'rounded-lg shadow-xl p-1.5 bg-gradient-to-r from-zinc-400 to-slate-400 w-40 w-48'

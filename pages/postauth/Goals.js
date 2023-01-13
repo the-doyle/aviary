@@ -459,7 +459,7 @@ export default function Goals() {
                             {assetGoals && assetGoals.length > 0 
                                 ? 
                                     <div className='flex justify-end text-sm text-slate-800 pr-12 mr-1 py-3'>
-                                        <h1 className="font-medium">Total <span className='font-serif pl-1'>&rarr;</span></h1>
+                                        <h1 className="font-medium">Total <span className='font-serif font-bold pl-1'>&rarr;</span></h1>
                                         <h1 className="pl-2 font-semibold">{formatter.format(sumData(assetGoals))}</h1>
                                     </div>
                                 : null 
@@ -610,7 +610,7 @@ export default function Goals() {
                             {liabilityGoals && liabilityGoals.length > 0 
                                 ? 
                                     <div className='flex justify-end text-sm text-slate-800 pr-12 mr-1 py-3'>
-                                        <h1 className="font-medium">Total <span className='font-serif pl-1'>&rarr;</span></h1>
+                                        <h1 className="font-medium">Total <span className='font-serif font-bold pl-1'>&rarr;</span></h1>
                                         <h1 className="pl-2 font-semibold">{formatter.format(sumData(liabilityGoals))}</h1>
                                     </div>
                                 : null 

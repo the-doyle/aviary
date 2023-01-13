@@ -15,16 +15,7 @@ export default function Bird(props) {
 
     if (props.bird) {
         return (
-            <div className={`flex flex-col h-full px-1 py-2 rounded-lg shadow group min-h-max text-transparent hover:bg-slate-100 hover:cursor-pointer bg-clip-text bg-gradient-to-r
-                            ${props.unlocked 
-                                ? props.bird.rarity === 'Common' 
-                                    ? 'from-slate-600 to-slate-400'
-                                    : props.bird.rarity === 'Rare' 
-                                        ? 'from-cyan-600 to-cyan-400'
-                                        : props.bird.rarity === 'Exotic' 
-                                            ? 'from-green-600 to-lime-400'
-                                            : 'from-fuchsia-400 to-teal-400'
-                                : 'from-gray-300 to-gray-300'}`}>
+            <div className={`flex flex-col h-full px-1 py-2 rounded-lg shadow group min-h-max text-transparent ${props.unlocked ? 'hover:bg-slate-50 hover:cursor-pointer' : 'hover:cursor-not-allowed'}`}>
                 <Image 
                     height="300" 
                     width="300" 
@@ -33,8 +24,16 @@ export default function Bird(props) {
                     alt=""
                 />   
                 <h1 
-                    className={`mt-4 text-sm lg:text-md text-center ${props.unlocked ? 'font-medium' : 'font-light'} `}
-                >
+                    className={`mt-4 text-sm lg:text-md text-center bg-clip-text bg-gradient-to-r
+                        ${props.unlocked 
+                            ? props.bird.rarity === 'Common' 
+                                ? 'from-slate-600 to-slate-400 font-medium'
+                                : props.bird.rarity === 'Rare' 
+                                    ? 'from-cyan-600 to-cyan-400 font-medium'
+                                    : props.bird.rarity === 'Exotic' 
+                                        ? 'from-green-600 to-lime-400 font-medium'
+                                        : 'from-fuchsia-400 to-teal-400 font-medium'
+                            : 'from-gray-300 to-gray-300 font-light'}`}>
                     {props.unlocked ? props.bird.name : "Undiscovered"}
                 </h1>
             </div>

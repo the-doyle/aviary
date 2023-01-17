@@ -24,15 +24,15 @@ export default function Bird(props) {
                     alt=""
                 />   
                 <h1 
-                    className={`mt-4 text-sm lg:text-md text-center bg-clip-text bg-gradient-to-r
+                    className={`mt-4 text-sm lg:text-md text-center font-medium bg-clip-text bg-gradient-to-r
                         ${props.unlocked 
                             ? props.bird.rarity === 'Common' 
-                                ? 'from-slate-600 to-slate-400 font-medium'
+                                ? 'from-slate-600 to-slate-400'
                                 : props.bird.rarity === 'Rare' 
-                                    ? 'from-cyan-600 to-cyan-400 font-medium'
+                                    ? 'from-cyan-600 to-cyan-400'
                                     : props.bird.rarity === 'Exotic' 
-                                        ? 'from-green-600 to-lime-400 font-medium'
-                                        : 'from-fuchsia-400 to-teal-400 font-medium'
+                                        ? 'from-green-600 to-lime-400'
+                                        : 'from-fuchsia-400 to-teal-400'
                             : 'from-gray-300 to-gray-300 font-light'}`}>
                     {props.unlocked ? props.bird.name : "Undiscovered"}
                 </h1>

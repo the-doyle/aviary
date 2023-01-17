@@ -5,7 +5,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useState } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useEffect } from "react";
-import AviaryIntro from "./aviary/AviaryIntro";
+import AviaryInfo from "./aviary/AviaryInfo";
 
 export default function Aviary() {
     const supabase = useSupabaseClient() 
@@ -48,8 +48,8 @@ export default function Aviary() {
 
             <div className="pt-20 pb-20 lg:pb-60 min-h-screen">
 
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-10 lg:pb-20">                
-                    <AviaryIntro />
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">                
+                    <AviaryInfo />
                 </div> 
 
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-20">

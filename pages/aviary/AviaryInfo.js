@@ -5,16 +5,20 @@ import { CheckIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
 export default function AviaryInfo(props) {
     const [open, setOpen] = useState(false)
 
-    return (
+    return props.feathers ? (
         <>
-            <div className='flex justify-end'>
+            <div className='flex gap-3 justify-end'>
+                <div className='flex rounded-md border bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm'>
+                    <p>{props.feathers}🪶</p>
+                </div>
+
                 <button
                     type="button"
-                    className="inline-flex items-center rounded-md border bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-gray-50 focus:outline-none"
+                    className="inline-flex items-center rounded-md border bg-gray-50 px-3 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-gray-100 focus:outline-none"
                     onClick={() => setOpen(true)}
                 >
-                    <InformationCircleIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-                    About
+                    <InformationCircleIcon className="h-5 w-5" aria-hidden="true" />
+                    
                 </button>
             </div>
 
@@ -85,5 +89,5 @@ export default function AviaryInfo(props) {
         
         
         </>
-    )
+    ) : null
 }

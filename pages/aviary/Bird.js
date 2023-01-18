@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useState } from "react";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
+import UnlockButton from "./UnlockButton";
 
 export default function Bird(props) {
     const supabase = useSupabaseClient() 
@@ -14,6 +15,10 @@ export default function Bird(props) {
             .getPublicUrl(`${name}.png`)
 
         return hrefData ? hrefData.publicUrl : hrefError
+    }
+
+    const unlockBird = (id) => {
+        console.log("clicked")
     }
 
     if (props.bird) {
@@ -39,22 +44,26 @@ export default function Bird(props) {
 
                 <p className={`${flipped ? 'hidden' : 'absolute w-full'} text-sm text-slate-800 my-auto place-self-center pt-4 px-6`}>{props.bird.description}</p>
 
-                <h1 
-                    className={`my-4 text-sm lg:text-md text-center font-medium bg-clip-text bg-gradient-to-r
+                <div
+                    className={`text-sm lg:text-md font-medium text-center bg-clip-text bg-gradient-to-r
                         ${props.unlocked 
                             ? props.bird.rarity === 'Common' 
-                                ? 'from-slate-600 to-slate-400'
+                                ? 'my-4 from-slate-600 to-slate-400'
                                 : props.bird.rarity === 'Rare' 
-                                    ? 'from-cyan-600 to-cyan-400'
+                                    ? 'my-4 from-cyan-600 to-cyan-400'
                                     : props.bird.rarity === 'Exotic' 
-                                        ? 'from-green-600 to-lime-400'
-                                        : 'from-fuchsia-400 to-teal-400'
-                            : 'from-gray-300 to-gray-300 font-light'}
+                                        ? 'my-4 from-green-600 to-lime-400'
+                                        : 'my-4 from-fuchsia-400 to-teal-400'
+                            : 'my-3 from-gray-300 to-gray-300 font-light'}
                             
                         ${flipped ? null : 'opacity-30'} `}
                 >
-                    {props.unlocked ? props.bird.name : "Undiscovered"}
-                </h1>
+                    {props.unlocked 
+                        ? <h1>{props.bird.name}</h1>
+                        : 
+                            <UnlockButton bird={props.bird} unlockBird={unlockBird} />
+                    }
+                </div>
             </div>
         ) 
     } 

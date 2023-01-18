@@ -23,7 +23,7 @@ export default function BirdCard(props) {
                     </div>
                 
                     <div className="flex justify-center rounded-lg mb-3">
-                        <Image className='w-40' src={birdPic} />
+                        <Image alt="pic"  className='w-40' src={birdPic} />
                     </div>
 
                     <div className="grid grid-rows-5 grid-cols-1 gap-4">

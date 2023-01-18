@@ -54,8 +54,9 @@ export default function Aviary() {
 
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-20">
                     <div className='grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 
-                                    gap-x-4 lg:gap-x-12 sm:gap-x-8
-                                    gap-y-8 lg:gap-y-24 sm:gap-y-16'>
+                                    '>
+                                    {/* gap-x-4 lg:gap-x-12 sm:gap-x-8
+                                    gap-y-8 lg:gap-y-24 sm:gap-y-16'> */}
                         {birds && birds.length > 0 ? 
                             birds
                             .map((bird) => (
@@ -64,7 +65,7 @@ export default function Aviary() {
                                     : <Bird key={bird.id} bird={bird}/> 
                             )) : null 
                         }
-                        <div className='sm:h-64' />
+                        <div className='md:h-64' />
                     </div>
                 </div>
 

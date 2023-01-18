@@ -21,7 +21,7 @@ export default function PreAuthNav() {
                     <div className="flex w-full items-center justify-between md:w-auto">
                         <Link href="/" className='flex items-center mr-5'>
                             <span className="sr-only">Aviary Finance</span>
-                            {/* <Image src={birdPic} className="h-8 w-auto sm:h-10" />  */}
+                            {/* <Image alt="pic"  src={birdPic} className="h-8 w-auto sm:h-10" />  */}
                             <h1 className='text-xl text-green-700 font-bold'>
                                 Aviary
                                 <span className='text-green-500 font-medium'>Finance</span>
@@ -72,7 +72,7 @@ export default function PreAuthNav() {
                     <div className="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
                         <div className="flex items-center justify-between px-5 pt-4">
                             <div className='flex'>
-                                <Image src={birdPic} className="h-8 w-auto" /> 
+                                <Image alt="pic"  src={birdPic} className="h-8 w-auto" /> 
                                 <h1 className='text-lg text-slate-500 font-bold'>
                                     Aviary
                                     <span className='text-slate-400 font-medium'>Finance</span>

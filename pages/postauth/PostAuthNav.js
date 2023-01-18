@@ -20,7 +20,12 @@ export default function PostAuthNav(props) {
 
     const signOut = async () => {
         const {error: signOutError } = await supabase.auth.signOut()
-        return true 
+
+        if (signOutError) {
+            console.log(signOutError)
+        } else {
+            return true 
+        }
     }
 
     return props.current_tab ? (

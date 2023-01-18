@@ -1,14 +1,35 @@
 import { useState } from "react"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useRouter } from 'next/router'
+import Modal from "../general/Modal"
+
+import { ArrowPathIcon, FaceSmileIcon } from "@heroicons/react/24/outline"
+
 
 export default function SignUpForm() {
     const supabase = useSupabaseClient() 
     const router = useRouter() 
-    const [message, setMessage] = useState(null)
+
+    const [open, setOpen] = useState(false)
+
+    const [signUpButton, setSignUpButton] = useState({
+        className: "transition-all group flex w-full justify-center align-middle rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none",
+        icon: <span className='ml-2 group-hover:ml-3 group-hover:-mr-1'>&rarr;</span>,
+        text: 'Sign up'
+    })
+
+    const handleOpen = () => {
+        setOpen(!open)
+    }
 
     const handleSignUp = async (e) => {
         e.preventDefault() 
+
+        setSignUpButton({
+            className: "transition-all group flex w-full justify-center items-center rounded-md border border-transparent bg-green-700 py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none",
+            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>,
+            text: 'Signing up...'
+        })
 
         const {data: signUpData, error: signUpError } = await supabase.auth.signUp({
             email: e.target.email.value,
@@ -16,77 +37,99 @@ export default function SignUpForm() {
         })
         
         if (signUpData) {
+
             const {data: insertUserData, error: insertUserError } = await supabase
                 .from('users')
                 .insert({ id: signUpData.user.id, first_name: e.target.first_name.value })
 
-            router.push('/payment')
+            setOpen(true)
+
+            setSignUpButton({
+                className: "transition-all group flex w-full justify-center items-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none",
+                icon: <FaceSmileIcon className='ml-1 h-4 rounded-full' />,
+                text: 'Sign up in progress'
+            })
+
+            // router.push('/payment')
         } else {
             setMessage(signUpError.message)
+
+            setSignUpButton({
+                className: "transition-all group flex w-full justify-center align-middle rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none",
+                icon: <span className='ml-2 group-hover:ml-3 group-hover:-mr-1'>&rarr;</span>,
+                text: 'Sign up'
+            })
         }
     }
 
     return (
-        <form onSubmit={handleSignUp} method="POST" className="space-y-6">
-            <div>
-                <label htmlFor="first_name" className="block text-sm font-medium text-slate-700">
-                    First name
-                </label>
-                <div className="mt-1">
-                    <input
-                    id="first_name"
-                    name="first_name"
-                    type="text"
-                    required
-                    className="block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
-                    />
-                </div>
-            </div>
+        <>
+            <Modal 
+                open={open}
+                handleOpen={handleOpen}
+                title="Confirm your email"
+                message="Please check your inbox to confirm your email"
+                buttonText="Got it!"
+            /> 
 
-            <div>
-                <label htmlFor="email" className="block text-sm font-medium text-slate-700">
-                    Email address
-                </label>
-                <div className="mt-1">
-                    <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    className="block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
-                    />
+            <form onSubmit={handleSignUp} method="POST" className="space-y-6">
+                <div>
+                    <label htmlFor="first_name" className="block text-sm font-medium text-slate-700">
+                        First name
+                    </label>
+                    <div className="mt-1">
+                        <input
+                        id="first_name"
+                        name="first_name"
+                        type="text"
+                        required
+                        className="block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                        />
+                    </div>
                 </div>
-            </div>
 
-            <div className="space-y-1">
-                <label htmlFor="password" className="block text-sm font-medium text-slate-700">
-                    Password
-                </label>
-                <div className="mt-1">
-                    <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
-                    />
+                <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-slate-700">
+                        Email address
+                    </label>
+                    <div className="mt-1">
+                        <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        autoComplete="email"
+                        required
+                        className="block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                        />
+                    </div>
                 </div>
-            </div>
 
-            <div>
-                <button
-                    type="submit"
-                    className="group flex w-full justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                >
-                    Continue to payment
-                    <span className='ml-2 group-hover:ml-3 group-hover:-mr-1'>&rarr;</span>
-                </button>
-            </div>
-            <div className='text-sm text-red-500'>
-                {message}
-            </div>
-        </form>
+                <div className="space-y-1">
+                    <label htmlFor="password" className="block text-sm font-medium text-slate-700">
+                        Password
+                    </label>
+                    <div className="mt-1">
+                        <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        autoComplete="current-password"
+                        required
+                        className="block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <button
+                        type="submit"
+                        className={signUpButton.className}
+                    >
+                        {signUpButton.text}
+                        {signUpButton.icon}
+                    </button>
+                </div>
+            </form>
+        </>
     )
 }

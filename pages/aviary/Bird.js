@@ -28,7 +28,7 @@ export default function Bird(props) {
                                 : ''}
                             `}
             >
-                <ArrowUturnLeftIcon className={`h-8 pt-4 place-self-end text-white ${props.unlocked ? flipped ? 'group-hover:text-slate-300' : null : null}`} />
+                <ArrowUturnLeftIcon className={`h-8 pt-4 place-self-end ${props.unlocked ? flipped ? 'text-white group-hover:text-slate-300' : 'text-slate-50 group-hover:text-slate-100' : null}`} />
                 
                 <Image alt="pic"  
                     height="300" 

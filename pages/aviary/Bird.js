@@ -17,11 +17,19 @@ export default function Bird(props) {
         return hrefData ? hrefData.publicUrl : hrefError
     }
 
-    const unlockBird = (id) => {
-        console.log("clicked")
+    const unlockBird = async () => {
+        let updatedBirds = props.user.unlocked_birds
+        updatedBirds.push(props.bird.id)
+
+        const updatedFeathers = props.user.feathers -= props.bird.cost
+
+        const {data: unlockBirdData, error: unlockBirdError} = await supabase 
+            .from('users')
+            .update({ unlocked_birds: updatedBirds, feathers: updatedFeathers })
+            .eq('id', props.user.id)
     }
 
-    if (props.bird) {
+    if (props.bird && props.user) {
         return (
             <div 
                 onClick={() => props.unlocked ? setFlipped(!flipped) : null} 
@@ -45,23 +53,20 @@ export default function Bird(props) {
                 <p className={`${flipped ? 'hidden' : 'absolute w-full'} text-sm text-slate-800 my-auto place-self-center pt-4 px-6`}>{props.bird.description}</p>
 
                 <div
-                    className={`text-sm lg:text-md font-medium text-center bg-clip-text bg-gradient-to-r
+                    className={`text-sm lg:text-md font-medium text-center
                         ${props.unlocked 
-                            ? props.bird.rarity === 'Common' 
-                                ? 'my-4 from-slate-600 to-slate-400'
-                                : props.bird.rarity === 'Rare' 
-                                    ? 'my-4 from-cyan-600 to-cyan-400'
-                                    : props.bird.rarity === 'Exotic' 
-                                        ? 'my-4 from-green-600 to-lime-400'
-                                        : 'my-4 from-fuchsia-400 to-teal-400'
-                            : 'my-3 from-gray-300 to-gray-300 font-light'}
+                            ? 'my-4 text-slate-600 font-medium'
+                            : 'my-3 text-gray-300 font-light'
+                        }
                             
                         ${flipped ? null : 'opacity-30'} `}
                 >
                     {props.unlocked 
                         ? <h1>{props.bird.name}</h1>
                         : 
-                            <UnlockButton bird={props.bird} unlockBird={unlockBird} />
+                            props.bird.cost <= props.user.feathers
+                                ? <UnlockButton bird={props.bird} unlockBird={unlockBird} affordable={true} />
+                                : <UnlockButton bird={props.bird} unlockBird={unlockBird} affordable={false} />
                     }
                 </div>
             </div>

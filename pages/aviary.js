@@ -18,7 +18,7 @@ export default function Aviary() {
         const {data: birdsData, error: birdsError} = await supabase
             .from('birds')
             .select('*')
-            .order('rarity_num', {ascending: true})
+            .order('cost', {ascending: true})
 
         setBirds(birdsData)
     }
@@ -39,7 +39,7 @@ export default function Aviary() {
             getBirds() 
             getUserData() 
         }
-    }, [supabase, user])
+    }, [supabase, user, birds])
 
     return (
         <>
@@ -54,13 +54,13 @@ export default function Aviary() {
                     </div> 
 
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-20">
-                        <div className='grid grid-cols-3 lg:grid-cols-5 md:grid-cols-4'>
+                        <div className='grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3'>
                             {birds && birds.length > 0 ? 
                                 birds
                                 .map((bird) => (
                                     userData.unlocked_birds.includes(bird.id)
-                                        ? <Bird unlocked key={bird.id} bird={bird}/> 
-                                        : <Bird key={bird.id} bird={bird}/> 
+                                        ? <Bird unlocked key={bird.id} bird={bird} user={userData}/> 
+                                        : <Bird key={bird.id} bird={bird} user={userData}/> 
                                 )) : null 
                             }
                             <div className='md:h-64' />

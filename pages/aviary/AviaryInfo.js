@@ -58,15 +58,10 @@ export default function AviaryInfo(props) {
                                             </Dialog.Title>
                                             <div className="mt-4">
                                                 <p className="text-sm mb-2 text-gray-500">
-                                                    Aviary has 4 rarities of collectible birds 
-                                                    (<span className='text-transparent bg-clip-text bg-gradient-to-r from-slate-600 to-slate-400'>common, </span> 
-                                                    <span className='text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-cyan-400'>rare, </span> 
-                                                    <span className='text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-lime-400'>exotic, </span> 
-                                                    <span className='text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-600 to-teal-400'> legendary) </span>
-                                                    hand-drawn by San Benito Paper Co. 
+                                                    Aviary has dozens of collectible birds, hand-drawn by San Benito Paper Co. 
                                                 </p>
                                                 <p className="text-sm text-gray-500">
-                                                    As you check in each month to update your net worth, set goals, and track your progress, you&apos;ll unlock new birds for your collection! 
+                                                    As you check in each month to update your net worth, set goals, and track your progress, you&apos;ll earn feathers. You can use feathers to unlock new birds for your collection! 
                                                 </p>
                                             </div>
                                         </div>

@@ -5,7 +5,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useState } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useEffect } from "react";
-import AviaryInfo from "./aviary/AviaryInfo";
+import PageInfo from "./general/PageInfo";
 
 export default function Aviary() {
     const supabase = useSupabaseClient() 
@@ -46,31 +46,36 @@ export default function Aviary() {
         <div className="min-h-full">
             <PostAuthNav current_tab='Aviary' />
 
-            {  birds && birds.length > 0 && userData 
-                ?
-                <div className="pt-20 pb-20 lg:pb-60 min-h-screen">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">                
-                        <AviaryInfo feathers={userData.feathers} />
-                    </div> 
+            <div className="pt-20 pb-20 lg:pb-60 min-h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <main>
+                    <PageInfo 
+                        firstLine='Aviary has dozens of collectible birds, hand-drawn by San Benito Paper Co. ' 
+                        secondLine='As you check in each month to update your net worth, set goals, and track your progress, you&apos;ll earn feathers. You can use feathers to unlock new birds for your collection! '
+                        title='Grow your Aviary'
+                    />
 
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-20">
-                        <div className='grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3'>
-                            {birds && birds.length > 0 ? 
-                                birds
-                                .map((bird) => (
-                                    userData.unlocked_birds.includes(bird.id)
-                                        ? <Bird unlocked key={bird.id} bird={bird} user={userData}/> 
-                                        : <Bird key={bird.id} bird={bird} user={userData}/> 
-                                )) : null 
-                            }
-                            <div className='md:h-64' />
-                        </div>
-                    </div>
-                </div>
+                    <h1 className="inline-flex items-center text-xl font-semibold text-slate-300 mb-5">Aviary</h1>
 
-                : 
-                <div className='min-h-screen' />
-            }
+                    {  birds && birds.length > 0 && userData 
+                        ?
+                            <div className='grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3'>
+                                {birds && birds.length > 0 ? 
+                                    birds
+                                    .map((bird) => (
+                                        userData.unlocked_birds.includes(bird.id)
+                                            ? <Bird unlocked key={bird.id} bird={bird} user={userData}/> 
+                                            : <Bird key={bird.id} bird={bird} user={userData}/> 
+                                    )) : null 
+                                }
+                                <div className='md:h-72' />
+                            </div>
+                        : 
+                            <div className='min-h-screen' />
+                    }
+                </main>
+            </div>
+
+            
 
             <PreAuthFooter /> 
         </div>

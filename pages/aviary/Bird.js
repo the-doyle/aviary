@@ -33,7 +33,7 @@ export default function Bird(props) {
         return (
             <div 
                 onClick={() => props.unlocked ? setFlipped(!flipped) : null} 
-                className={`relative group transition-all flex flex-col h-full px-6 border border-slate-100 group min-h-max text-transparent 
+                className={`relative group transition-all rounded-lg flex flex-col h-full px-6 group min-h-max text-transparent 
                             ${props.unlocked 
                                 ? flipped 
                                     ? 'hover:bg-slate-50 hover:cursor-pointer' 
@@ -62,7 +62,7 @@ export default function Bird(props) {
                         ${flipped ? null : 'opacity-30'} `}
                 >
                     {props.unlocked 
-                        ? <h1>{props.bird.name}</h1>
+                        ?   <h1>{props.bird.name}</h1>
                         : 
                             props.bird.cost <= props.user.feathers
                                 ? <UnlockButton bird={props.bird} unlockBird={unlockBird} affordable={true} />

@@ -1,16 +1,40 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
+import { useUser } from "@supabase/auth-helpers-react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
 
 export default function AviaryInfo(props) {
-    const [open, setOpen] = useState(false)
+    const supabase = useSupabaseClient() 
+    const user = useUser() 
 
-    return props.feathers ? (
+    const [open, setOpen] = useState(false)    
+    const [userData, setUserData] = useState(null)
+
+    const getUserData = async () => {
+        const {data: userData, error: userError} = await supabase
+            .from('users')
+            .select('*')
+            .eq('id', user.id)
+            .limit(1)
+            .single()
+        
+        setUserData(userData)
+    }
+
+    useEffect(() => {
+        if (supabase && user) {
+            getUserData() 
+        }
+    }, [supabase, user])
+
+    return userData && props.firstLine && props.title ? (
         <>
             <div className='flex gap-3 justify-end'>
-                <div className='flex rounded-md border bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm'>
-                    <p>{props.feathers}🪶</p>
-                </div>
+                <Link className='flex rounded-md border bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm' href='/aviary'>
+                    <p>{userData.feathers}🪶</p>
+                </Link>
 
                 <button
                     type="button"
@@ -54,15 +78,19 @@ export default function AviaryInfo(props) {
                                         </div>
                                         <div className="mt-3 sm:mt-5">
                                             <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 text-center">
-                                            Grow your Aviary
+                                            {props.title}
                                             </Dialog.Title>
                                             <div className="mt-4">
+
                                                 <p className="text-sm mb-2 text-gray-500">
-                                                    Aviary has dozens of collectible birds, hand-drawn by San Benito Paper Co. 
+                                                    {props.firstLine}
                                                 </p>
-                                                <p className="text-sm text-gray-500">
-                                                    As you check in each month to update your net worth, set goals, and track your progress, you&apos;ll earn feathers. You can use feathers to unlock new birds for your collection! 
-                                                </p>
+
+                                                {props.secondLine 
+                                                    ? <p className="text-sm text-gray-500">{props.secondLine}</p>
+                                                    : null
+                                                }
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -84,5 +112,17 @@ export default function AviaryInfo(props) {
         
         
         </>
-    ) : null
+    ) :
+    <div className='flex gap-3 justify-end'>
+        <Link className='flex rounded-md border bg-white px-3 py-2 text-sm font-medium text-white shadow-sm' href='/aviary'>
+            <p>20🪶</p>
+        </Link>
+
+        <button
+            type="button"
+            className="inline-flex items-center rounded-md border bg-gray-50 px-3 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-gray-100 focus:outline-none"
+        >
+            <InformationCircleIcon className="h-5 w-5" aria-hidden="true" />
+        </button>
+    </div>
 }

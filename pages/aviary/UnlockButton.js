@@ -8,6 +8,7 @@ function timeout(delay) {
 export default function UnlockButton(props) {
     const unlockBird = props.unlockBird ? props.unlockBird : null 
     const [showConfirm, setShowConfirm] = useState(false)
+    const [wobble, setWobble] = useState(null)
 
     const handleClick = async () => {
         if (showConfirm) {
@@ -16,6 +17,9 @@ export default function UnlockButton(props) {
             setShowConfirm(true)
             await timeout(3000)
             setShowConfirm(false)
+            setWobble(true)
+            await timeout(500)
+            setWobble(false)
         }
     }
 
@@ -27,7 +31,8 @@ export default function UnlockButton(props) {
                     ? 'inline-flex items-center rounded-md border border-green-500 bg-green-50 px-2 font-normal text-slate-600 hover:bg-green-100 focus:outline-none opacity-70'
                     : `inline-flex items-center rounded-md border border-slate-300 focus:outline-none opacity-70
                         bg-slate-100 px-2 font-normal text-slate-600 hover:bg-slate-200 transition-all ease-in-out duration-150
-                        disabled:hover:bg-red-100 disabled:hover:animate-shake disabled:hover:border-red-300 disabled:hover:cursor-pointer`
+                        disabled:hover:bg-red-100 disabled:hover:animate-shake disabled:hover:border-red-300 disabled:hover:cursor-pointer
+                        ${wobble ? 'animate-shake' : null}`
                     
             }
         >

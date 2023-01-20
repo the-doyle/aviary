@@ -382,7 +382,7 @@ export default function Accounts() {
 
     return (
         <>
-            <div id='summary' className='col-span-4'>
+            {/* <div id='summary' className='col-span-4'>
                 <h1 className="inline-flex items-center text-xl font-semibold text-slate-300">
                     Overview
                 </h1>
@@ -399,9 +399,9 @@ export default function Accounts() {
                     : 
                         <SummaryStatsLoading />
                 }           
-            </div>
+            </div> */}
 
-            <div id='assets' className='mt-16 col-span-4 lg:col-span-2'>
+            <div id='assets' className='col-span-4 lg:col-span-2'>
                 <h1 className="inline-flex items-center text-xl font-semibold text-slate-300">Assets</h1>
                 <div className="mt-6 flex flex-col p-3 -mx-3 shadow rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -526,7 +526,7 @@ export default function Accounts() {
                 </div>
             </div>
 
-            <div id='assetBreakdown' className='mt-6 lg:mt-16 col-span-4 lg:col-span-2 flex flex-col justify-center align-middle'>
+            <div id='assetBreakdown' className='mt-6 lg:mt-0 col-span-4 lg:col-span-2 flex flex-col justify-center align-middle'>
                 {assets && assets.length > 0 && sumList(Object.values(filterData(assets))) > 0
                     ? 
                         <>

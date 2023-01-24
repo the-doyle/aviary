@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import LoadingTableBody from "./LoadingTableBody";
 import EmptyTableBody from "./EmptyTableBody";
 import DeleteButton from "./DeleteButton";
-import GoalProgressBar from "./GoalProgressBar";
+import GoalProgressBar from "../goals/GoalProgressBar";
 
 //#region helper functions
 const formatter = new Intl.NumberFormat('en-US', {

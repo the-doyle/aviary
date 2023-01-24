@@ -546,7 +546,7 @@ export default function Accounts() {
                             <table className="min-w-full">
                                 <thead className='border-b border-slate-300'>
                                     <tr className='text-sm text-slate-500'>
-                                        <th scope="col" className="py-2 text-left">
+                                        <th scope="col" className="py-2 pr-1.5 text-left">
                                             <span className='inline-flex'>
                                                 Name
                                                 <SortButton sortOn="name" onClickSort={sortLiabilities} />

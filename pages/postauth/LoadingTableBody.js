@@ -56,6 +56,5 @@ export default function LoadingTableBody() {
                 </td>
             </tr>
         </>
-        
     )
 }

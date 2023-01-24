@@ -505,7 +505,7 @@ export default function Goals() {
                 <div className="mt-6 flex flex-col p-3 -mx-3 shadow rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
-                            <table className="table-auto">
+                            <table className="min-w-full">
                                 <thead className='border-b border-slate-300'>
                                     <tr className='text-sm text-slate-500'>
                                         <th scope="col" className="py-2 pr-1.5 text-left">

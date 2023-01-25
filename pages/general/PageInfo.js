@@ -27,7 +27,7 @@ export default function AviaryInfo(props) {
         if (supabase && user) {
             getUserData() 
         }
-    }, [supabase, user])
+    }, [supabase, user, userData])
 
     return userData && props.firstLine && props.title ? (
         <>

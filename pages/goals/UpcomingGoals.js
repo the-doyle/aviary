@@ -1,5 +1,5 @@
-import { Fragment, useState } from 'react'
-import { PencilSquareIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react'
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import GoalProgressBar from "./GoalProgressBar";
 import NewGoal from './NewGoal';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
@@ -53,7 +53,7 @@ function classNames(...classes) {
 
 export default function UpcomingGoals(props) {
     const supabase = useSupabaseClient() 
-    const [open, setOpen] = useState(false) 
+    const [open, setOpen] = useState(false)
     
     const handleOpen = () => {
         setOpen(!open)
@@ -66,55 +66,62 @@ export default function UpcomingGoals(props) {
             .eq('id', id)
     }
 
-    return props.goals && props.accounts ? (
+    return props.goals && props.accounts && props.year ? (
         <div className='lg:col-span-7 xl:col-span-8'>
 
-            <NewGoal open={open} handleOpen={handleOpen} accounts={props.accounts} /> 
+            <div className='mb-10'>
+                <NewGoal open={open} handleOpen={handleOpen} accounts={props.accounts} /> 
 
-            <div className='flex justify-between mb-2'>
-                <h1 className="inline-flex items-center text-xl font-semibold text-slate-800 mb-5">Upcoming goals</h1>
-                <button
-                        type="button"
-                        className="flex place-items-center text-sm font-medium text-slate-600 hover:text-slate-800 focus:outline-none"
-                        onClick={handleOpen}
-                    >
-                        New goal
-                        <PlusCircleIcon className='h-5 w-5 ml-2' />
-                </button>
-            </div>
+                <div className='flex justify-between mb-2'>
+                    <h1 className="inline-flex items-center text-xl font-semibold text-slate-800 mb-5">{props.year} goals</h1>
+                    <button
+                            type="button"
+                            className="flex place-items-center text-sm font-medium text-slate-600 hover:text-slate-800 focus:outline-none"
+                            onClick={handleOpen}
+                        >
+                            New goal
+                            <PlusCircleIcon className='h-5 w-5 ml-2' />
+                    </button>
+                </div>
 
-            {props.goals
-                .map((goal) => (
-                    <div key={goal.id} className="relative flex space-x-6 xl:static p-2 bg-white border border-dashed border-slate-300 rounded-lg mb-3 hover:border-slate-800">
-                        <div className="flex-auto">
-                            {getClassForGoal(goal, props.accounts) === 'asset' 
-                                ? <h3 className="pr-10 font-medium text-sky-500 xl:pr-0 text-base">{goal.name}</h3>
-                                : <h3 className="pr-10 font-medium text-violet-500 xl:pr-0 text-base">{goal.name}</h3>
-                            }
-                            <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row xl:justify-between xl:place-items-center text-sm">
-                                <div className="xl:w-1/3 flex space-x-3">
-                                    <dd>
-                                        <time dateTime={goal.target_date}>
-                                            {formatDateAsString(goal.target_date)}
-                                        </time>
-                                    </dd>
-                                </div>
-                                <div className="xl:w-1/3 mt-2 flex xl:mt-0">                                    
-                                    <dd>
-                                        {getAccountForGoal(goal, props.accounts)}
-                                        <span className='px-1 md:px-2 font-serif font-bold text-black'>&rarr;</span>
-                                        {formatAsCurrency.format(goal.target_balance)}
-                                    </dd>
-                                </div>
-                                <GoalProgressBar progress={calculateProgress(goal, props.accounts)} goal={goal} class={getClassForGoal(goal, props.accounts)} />
-                            </dl>
+                {props.goals && props.goals.length > 0 ? 
+                    props.goals
+                    .map((goal) => (
+                        <div key={goal.id} className="relative flex space-x-6 xl:static px-2 py-4 bg-white border-t border-slate-200">
+                            <div className="flex-auto">
+                                {getClassForGoal(goal, props.accounts) === 'asset' 
+                                    ? <h3 className="pr-10 font-medium text-sky-500 xl:pr-0 text-base">{goal.name}</h3>
+                                    : <h3 className="pr-10 font-medium text-violet-500 xl:pr-0 text-base">{goal.name}</h3>
+                                }
+                                <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row xl:justify-between xl:place-items-center text-sm">
+                                    <div className="xl:w-1/3 flex space-x-3">
+                                        <dd>
+                                            <time dateTime={goal.target_date}>
+                                                {formatDateAsString(goal.target_date)}
+                                            </time>
+                                        </dd>
+                                    </div>
+                                    <div className="xl:w-1/3 mt-2 flex xl:mt-0">                                    
+                                        <dd>
+                                            {getAccountForGoal(goal, props.accounts)}
+                                            <span className='px-1 md:px-2 font-serif font-bold text-black'>&rarr;</span>
+                                            {formatAsCurrency.format(goal.target_balance)}
+                                        </dd>
+                                    </div>
+                                    <GoalProgressBar progress={calculateProgress(goal, props.accounts)} goal={goal} class={getClassForGoal(goal, props.accounts)} />
+                                </dl>
+                            </div>
+                            <div className='flex-col'>
+                                <EditGoal accounts={props.accounts} goal={goal} /> 
+                                <DeleteButton deleteAccount={deleteGoal} account={goal} />
+                            </div>
                         </div>
-                        <div className='flex-col'>
-                            <EditGoal accounts={props.accounts} goal={goal} /> 
-                            <DeleteButton deleteAccount={deleteGoal} account={goal} />
-                        </div>
+                    )) 
+                    : <div className='flex flex-col gap-5 place-content-center place-items-center h-40 sm:h-80 text-gray-400 rounded-lg bg-slate-100'>
+                        <h1 className='text-base'>You don&apos;t have any {props.year} goals yet </h1>
                     </div>
-            ))}        
+                }        
+            </div>
         </div>
     ) : null 
 }

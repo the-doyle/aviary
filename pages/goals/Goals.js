@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { ArrowPathIcon, PlusIcon, CheckBadgeIcon, FaceFrownIcon, FaceSmileIcon, PlusCircleIcon } from '@heroicons/react/24/outline'
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useUser } from "@supabase/auth-helpers-react";
-import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from "react";
 import UpcomingGoals from './UpcomingGoals'
 import Calendar from "./Calendar";
@@ -55,27 +53,37 @@ export default function Goals() {
     const supabase = useSupabaseClient() 
     const user = useUser()
 
-     //#region state variables
-     const [accounts, setAccounts] = useState(null);
-     const [goals, setGoals] = useState(null)
-     //#endregion
+    //#region state variables
+    const [accounts, setAccounts] = useState(null);
+    const [goals, setGoals] = useState(null)
+    const [yearlyGoals, setYearlyGoals] = useState(null)
+    const [year, setYear] = useState(new Date().getFullYear())
+
+    const changeYear = (newYear) => {
+        setYear(newYear)
+    } 
+    //#endregion
     
     //#region goal functions
     const getAccounts = async () => {
         const {data: getAccountsData, error: getAccountsError} = await supabase
             .rpc('get_accounts_with_initial_balance', { 'user_id': user.id });
 
-            setAccounts(getAccountsData)
+        setAccounts(getAccountsData)
     }
 
     const getGoals = async () => {
         const {data: getGoalsData, error: getGoalsError} = await supabase
-            .from('goals')
-            .select('*')
-            .in('account_id', accounts.map(a => a.id))
-            .order('target_date', { ascending: true })
+            .rpc('goals_with_year', { 'user_id': user.id, 'year': year });
 
         setGoals(getGoalsData)
+    }
+
+    const getYearlyGoals = async () => {
+        const {data: getYearlyGoalsData, error: getYearlyGoalsError} = await supabase
+            .rpc('yearly_goal_counts', { 'user_id': user.id });
+
+        setYearlyGoals(getYearlyGoalsData)
     }
     //#endregion
 
@@ -88,14 +96,15 @@ export default function Goals() {
     useEffect(() => {
         if (accounts) {
             getGoals()
+            getYearlyGoals() 
         }
-    }, [accounts, goals])
+    }, [accounts, goals, year])
 
     return (
         <div>
             <div className="lg:grid lg:grid-cols-12 lg:gap-x-16">
-                <UpcomingGoals goals={goals} accounts={accounts} /> 
-                <Calendar goals={goals} accounts={accounts} />  
+                <UpcomingGoals year={year} goals={goals} accounts={accounts} /> 
+                <Calendar year={year} changeYear={changeYear} goals={goals} accounts={accounts} yearlyGoals={yearlyGoals}/>  
             </div>
         </div>
     )

@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import AccountSelect from './AccountSelect'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import { PencilIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
 
 const formatAsCurrency = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -53,7 +53,7 @@ export default function EditGoal(props) {
         }
 
         const {data: saveGoalData, error: saveGoalError} = await supabase
-            .from('accounts')
+            .from('goals')
             .upsert(data)
 
         setOpen(false) 

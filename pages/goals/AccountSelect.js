@@ -7,7 +7,7 @@ function classNames(...classes) {
 }
 
 export default function AccountSelect(props) {
-    const [selected, setSelected] = useState(props.accounts[0])
+    const [selected, setSelected] = useState(props.accounts ? props.accounts[0] : null)
     const handleAccount = props.handleAccount ? props.handleAccount : null 
 
     const setItem = (e) => {

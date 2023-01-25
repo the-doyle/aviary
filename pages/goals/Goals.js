@@ -67,7 +67,7 @@ export default function Goals() {
     //#region goal functions
     const getAccounts = async () => {
         const {data: getAccountsData, error: getAccountsError} = await supabase
-            .rpc('get_accounts_with_initial_balance', { 'user_id': user.id });
+            .rpc('get_accounts_with_initial_balance', { 'a_id': user.id });
 
         setAccounts(getAccountsData)
     }

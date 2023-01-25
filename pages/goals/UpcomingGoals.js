@@ -1,8 +1,12 @@
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { Fragment, useState } from 'react'
+import { PencilSquareIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import GoalProgressBar from "./GoalProgressBar";
+import NewGoal from './NewGoal';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import DeleteButton from '../postauth/DeleteButton';
+import EditGoal from './EditGoal';
 
+//#region helper functions
 const formatAsCurrency = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -17,96 +21,100 @@ const formatDateAsString = (d) => {
     return date.toLocaleDateString("en-US", options)
 }
 
-const calculateAssetProgress = (goal, accounts) =>  {
-    const balance = accounts.find(x => x.id === goal.asset_id).balance
-    const progress = (balance / goal.target_balance) * 100
-    return progress > 100 ? 100 : progress.toFixed(0)
+const calculateProgress = (goal, accounts) =>  {
+    const account = accounts.find(x => x.id === goal.account_id)
+
+    if (account.class === 'asset') {
+        const progress = (account.balance / goal.target_balance) * 100
+        return progress > 100 ? 100 : progress.toFixed(0)
+    } else {
+        if (account.balance > account.initial_balance) {
+            return 0
+        } else if (account.balance < goal.target_balance) {
+            return 100 
+        }
+        const progress = (account.initial_balance - account.balance) / (account.initial_balance - goal.target_balance) * 100
+        return progress.toFixed(0) 
+    }
 }
 
-const getAssetForGoal = (goal, accounts) =>  {
-    return formatAsCurrency.format(accounts.find(x => x.id === goal.asset_id).balance)
+const getAccountForGoal = (goal, accounts) =>  {
+    return formatAsCurrency.format(accounts.find(x => x.id === goal.account_id).balance)
+}
+
+const getClassForGoal = (goal, accounts) =>  {
+    return accounts.find(x => x.id === goal.account_id).class
 }
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
+//#endregion
 
 export default function UpcomingGoals(props) {
-    return props.assetGoals && props.assets && props.liabilityGoals && props.liabilities ? (
-        <ol className="divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8">
-        {props.assetGoals.map((goal) => (
-            <li key={goal.id} className="relative flex space-x-6 xl:static p-2 bg-slate-50 border rounded-lg">
-                <div className="flex-auto">
-                    <h3 className="pr-10 font-medium text-gray-900 xl:pr-0 text-base">{goal.name}</h3>
-                    <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row xl:justify-between xl:place-items-center">
-                        <div className="xl:w-1/3 flex space-x-3">
-                            <dd>
-                                <time dateTime={goal.target_date}>
-                                    {formatDateAsString(goal.target_date)}
-                                </time>
-                            </dd>
-                        </div>
-                        <div className="xl:w-1/3 mt-2 flex xl:mt-0">                                    
-                            <dd>
-                                {getAssetForGoal(goal, props.assets)}
-                                <span className='px-1 md:px-2'>/</span>
-                                {formatAsCurrency.format(goal.target_balance)}
-                            </dd>
-                        </div>
-                        <GoalProgressBar progress={calculateAssetProgress(goal, props.assets)} goal={goal} />
-                    </dl>
-                </div>
-                <Menu as="div" className="absolute top-1 right-0 xl:relative xl:top-auto xl:right-auto">
-                    <div>
-                    <Menu.Button className="flex items-center rounded-full pl-4 py-1 pr-1 text-gray-500 hover:text-gray-600 focus:outline-none">
-                        <span className="sr-only">Open options</span>
-                        <PencilSquareIcon className="h-5 w-5" aria-hidden="true" />
-                    </Menu.Button>
-                    </div>
+    const supabase = useSupabaseClient() 
+    const [open, setOpen] = useState(false) 
+    
+    const handleOpen = () => {
+        setOpen(!open)
+    }
 
-                    <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
+    const deleteGoal = async (id) => {
+        const {data: deleteGoalData, error: deleteGoalError} = await supabase 
+            .from('goals')
+            .delete()
+            .eq('id', id)
+    }
+
+    return props.goals && props.accounts ? (
+        <div className='lg:col-span-7 xl:col-span-8'>
+
+            <NewGoal open={open} handleOpen={handleOpen} accounts={props.accounts} /> 
+
+            <div className='flex justify-between mb-2'>
+                <h1 className="inline-flex items-center text-xl font-semibold text-slate-800 mb-5">Upcoming goals</h1>
+                <button
+                        type="button"
+                        className="flex place-items-center text-sm font-medium text-slate-600 hover:text-slate-800 focus:outline-none"
+                        onClick={handleOpen}
                     >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <div className="py-1">
-                        <Menu.Item>
-                            {({ active }) => (
-                            <a
-                                href="#"
-                                className={classNames(
-                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                'block px-4 py-2 text-sm'
-                                )}
-                            >
-                                Edit
-                            </a>
-                            )}
-                        </Menu.Item>
-                        <Menu.Item>
-                            {({ active }) => (
-                            <a
-                                href="#"
-                                className={classNames(
-                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                'block px-4 py-2 text-sm'
-                                )}
-                            >
-                                Cancel
-                            </a>
-                            )}
-                        </Menu.Item>
+                        New goal
+                        <PlusCircleIcon className='h-5 w-5 ml-2' />
+                </button>
+            </div>
+
+            {props.goals
+                .map((goal) => (
+                    <div key={goal.id} className="relative flex space-x-6 xl:static p-2 bg-white border border-dashed border-slate-300 rounded-lg mb-3 hover:border-slate-800">
+                        <div className="flex-auto">
+                            {getClassForGoal(goal, props.accounts) === 'asset' 
+                                ? <h3 className="pr-10 font-medium text-sky-500 xl:pr-0 text-base">{goal.name}</h3>
+                                : <h3 className="pr-10 font-medium text-violet-500 xl:pr-0 text-base">{goal.name}</h3>
+                            }
+                            <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row xl:justify-between xl:place-items-center text-sm">
+                                <div className="xl:w-1/3 flex space-x-3">
+                                    <dd>
+                                        <time dateTime={goal.target_date}>
+                                            {formatDateAsString(goal.target_date)}
+                                        </time>
+                                    </dd>
+                                </div>
+                                <div className="xl:w-1/3 mt-2 flex xl:mt-0">                                    
+                                    <dd>
+                                        {getAccountForGoal(goal, props.accounts)}
+                                        <span className='px-1 md:px-2 font-serif font-bold text-black'>&rarr;</span>
+                                        {formatAsCurrency.format(goal.target_balance)}
+                                    </dd>
+                                </div>
+                                <GoalProgressBar progress={calculateProgress(goal, props.accounts)} goal={goal} class={getClassForGoal(goal, props.accounts)} />
+                            </dl>
                         </div>
-                    </Menu.Items>
-                    </Transition>
-                </Menu>
-            </li>
-        ))}
-        </ol>
+                        <div className='flex-col'>
+                            <EditGoal accounts={props.accounts} goal={goal} /> 
+                            <DeleteButton deleteAccount={deleteGoal} account={goal} />
+                        </div>
+                    </div>
+            ))}        
+        </div>
     ) : null 
 }

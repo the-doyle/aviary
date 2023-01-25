@@ -31,7 +31,7 @@ export default function AviaryInfo(props) {
 
     return userData && props.firstLine && props.title ? (
         <>
-            <div className='flex gap-3 justify-end'>
+            <div className='flex gap-3 justify-end mb-10'>
                 <Link className='flex rounded-md border bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm' href='/aviary'>
                     <p>{userData.feathers}🪶</p>
                 </Link>

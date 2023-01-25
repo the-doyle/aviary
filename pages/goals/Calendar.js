@@ -1,73 +1,87 @@
 import {
     ChevronLeftIcon,
     ChevronRightIcon,
-    ChevronDownIcon
+    ChevronDownIcon,
+    CheckCircleIcon,
+    circle
 } from '@heroicons/react/20/solid'
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
+import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline'
 
-
-const days = [
-    { date: '2021-12-27' },
-    { date: '2021-12-28' },
-    { date: '2021-12-29' },
-    { date: '2021-12-30' },
-    { date: '2021-12-31' },
-    { date: '2022-01-01', isCurrentMonth: true },
-    { date: '2022-01-02', isCurrentMonth: true },
-    { date: '2022-01-03', isCurrentMonth: true },
-    { date: '2022-01-04', isCurrentMonth: true },
-    { date: '2022-01-05', isCurrentMonth: true },
-    { date: '2022-01-06', isCurrentMonth: true },
-    { date: '2022-01-07', isCurrentMonth: true },
-    { date: '2022-01-08', isCurrentMonth: true },
-    { date: '2022-01-09', isCurrentMonth: true },
-    { date: '2022-01-10', isCurrentMonth: true },
-    { date: '2022-01-11', isCurrentMonth: true },
-    { date: '2022-01-12', isCurrentMonth: true, isToday: true, isSelected: true },
-    { date: '2022-01-13', isCurrentMonth: true, hasGoal: true },
-    { date: '2022-01-14', isCurrentMonth: true },
-    { date: '2022-01-15', isCurrentMonth: true },
-    { date: '2022-01-16', isCurrentMonth: true },
-    { date: '2022-01-17', isCurrentMonth: true, hasGoal: true},
-    { date: '2022-01-18', isCurrentMonth: true },
-    { date: '2022-01-19', isCurrentMonth: true },
-    { date: '2022-01-20', isCurrentMonth: true },
-    { date: '2022-01-21', isCurrentMonth: true },
-    { date: '2022-01-22', isCurrentMonth: true },
-    { date: '2022-01-23', isCurrentMonth: true, hasGoal: true },
-    { date: '2022-01-24', isCurrentMonth: true, hasGoal: true },
-    { date: '2022-01-25', isCurrentMonth: true },
-    { date: '2022-01-26', isCurrentMonth: true },
-    { date: '2022-01-27', isCurrentMonth: true },
-    { date: '2022-01-28', isCurrentMonth: true },
-    { date: '2022-01-29', isCurrentMonth: true },
-    { date: '2022-01-30', isCurrentMonth: true },
-    { date: '2022-01-31', isCurrentMonth: true },
-    { date: '2022-02-01' },
-    { date: '2022-02-02' },
-    { date: '2022-02-03' },
-    { date: '2022-02-04' },
-    { date: '2022-02-05' },
-    { date: '2022-02-06' },
-]
-
+//#region helper functions
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
+const calculateProgress = (goal, accounts) =>  {
+    const account = accounts.find(x => x.id === goal.account_id)
+
+    if (account.class === 'asset') {
+        const progress = (account.balance / goal.target_balance) * 100
+        return {
+            class: account.class,
+            progress: progress > 100 ? 100 : progress.toFixed(0)
+        }
+    } else {
+        if (account.balance > account.initial_balance) {
+            return {
+                class: account.class,
+                progress: 0
+            }
+        } else if (account.balance < goal.target_balance) {
+            return {
+                class: account.class,
+                progress: 100
+            }
+        }
+        const progress = (account.initial_balance - account.balance) / (account.initial_balance - goal.target_balance) * 100
+        return {
+            class: account.class,
+            progress: progress.toFixed(0)
+        }
+    }
+}
+//#endregion
+
+const months = [
+    {id: 0, name: 'Jan'},
+    {id: 1, name: 'Feb'},
+    {id: 2, name: 'Mar'},
+    {id: 3, name: 'Apr'},
+    {id: 4, name: 'May'},
+    {id: 5, name: 'Jun'},
+    {id: 6, name: 'Jul'},
+    {id: 7, name: 'Aug'},
+    {id: 8, name: 'Sep'},
+    {id: 9, name: 'Oct'},
+    {id: 10, name: 'Nov'},
+    {id: 11, name: 'Dec'},
+]
+
+
 export default function Calendar(props) {
-    return (
+    const [year, setYear] = useState(2023)
+    const today = new Date()
+
+    const filterGoals = (month) => {
+        return function(goal) {
+            const date = new Date(goal.target_date)
+            return date.getMonth() == month && date.getFullYear() == year
+        }
+    }
+
+    return props.goals && props.accounts ? (
         <>
-        <div className="mt-10 lg:mt-0 text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 xl:col-start-9">
+        <div className="mt-10 lg:mt-0 text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 xl:col-start-9 transition-all">
 
             <div className='flex justify-end mb-5'>
                 <Menu as="div" className="relative">
                     <Menu.Button
                         type="button"
-                        className="flex items-center rounded-md border border-gray-300 bg-white py-2 pl-3 pr-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+                        className="flex items-center py-2 pl-3 pr-2 text-sm font-medium text-slate-600 hover:text-slate-800"
                         >
-                        Month view
+                        Year view
                         <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
                     </Menu.Button>
 
@@ -80,126 +94,94 @@ export default function Calendar(props) {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                     >
-                        <Menu.Items className="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg focus:outline-none">
                             <div className="py-1">
-                            <Menu.Item>
-                                {({ active }) => (
-                                <a
-                                    href="#"
-                                    className={classNames(
-                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                    'block px-4 py-2 text-sm'
+                                <Menu.Item>
+                                    {({ active }) => (
+                                    <a
+                                        href="#"
+                                        className={classNames(
+                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                        'block px-4 py-2 text-sm'
+                                        )}
+                                    >
+                                        Year view
+                                    </a>
                                     )}
-                                >
-                                    Month view
-                                </a>
-                                )}
-                            </Menu.Item>
-                            <Menu.Item>
-                                {({ active }) => (
-                                <a
-                                    href="#"
-                                    className={classNames(
-                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                    'block px-4 py-2 text-sm'
+                                </Menu.Item>
+                                <Menu.Item>
+                                    {({ active }) => (
+                                    <a
+                                        href="#"
+                                        className={classNames(
+                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                        'block px-4 py-2 text-sm'
+                                        )}
+                                    >
+                                        Decade view
+                                    </a>
                                     )}
-                                >
-                                    Year view
-                                </a>
-                                )}
-                            </Menu.Item>
-                            <Menu.Item>
-                                {({ active }) => (
-                                <a
-                                    href="#"
-                                    className={classNames(
-                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                    'block px-4 py-2 text-sm'
-                                    )}
-                                >
-                                    Decade view
-                                </a>
-                                )}
-                            </Menu.Item>
+                                </Menu.Item>
                            
                             </div>
                         </Menu.Items>
                     </Transition>
                 </Menu> 
             </div>
-            <div className="flex items-center text-gray-900">
-                <button
-                type="button"
-                className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
-                >
-                    <span className="sr-only">Previous month</span>
-                    <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-                </button>
-                <div className="flex-auto font-semibold">January</div>
-                <button
+
+            <div className='border border-dashed border-slate-300 rounded-lg p-2 mt-4'>
+                
+                <div className="flex items-center text-gray-900">
+                    <button
                     type="button"
                     className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
-                >
-                    <span className="sr-only">Next month</span>
-                    <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-                </button>
-            </div>
-            <div className="mt-6 grid grid-cols-7 text-xs leading-6 text-gray-500">
-                <div>M</div>
-                <div>T</div>
-                <div>W</div>
-                <div>T</div>
-                <div>F</div>
-                <div>S</div>
-                <div>S</div>
-            </div>
-            <div className="isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
-                {days.map((day, dayIdx) => (
-                <button
-                    key={day.date}
-                    type="button"
-                    className={classNames(
-                        'py-1.5 hover:bg-gray-100 focus:z-10',
-                        day.isCurrentMonth ? 'bg-white' : 'bg-gray-50',
-                        (day.isSelected || day.isToday) && 'font-semibold',
-                        day.isSelected && 'text-white',
-                        !day.isSelected && day.isCurrentMonth && !day.isToday && 'text-gray-900',
-                        !day.isSelected && !day.isCurrentMonth && !day.isToday && 'text-gray-400',
-                        day.isToday && !day.isSelected && 'text-slate-600',
-                        dayIdx === 0 && 'rounded-tl-lg',
-                        dayIdx === 6 && 'rounded-tr-lg',
-                        dayIdx === days.length - 7 && 'rounded-bl-lg',
-                        dayIdx === days.length - 1 && 'rounded-br-lg', 
-                        day.isSelected && 'bg-slate-800 text-white'
-                    )}
-                >
-                    <time
-                        dateTime={day.date}
-                        className={classNames(
-                            'mx-auto flex h-7 w-7 items-center justify-center rounded-full',
-                            day.isToday && !day.isSelected && 'text-green-600',
-                            day.isToday && day.isSelected && 'text-white',
-                            day.hasGoal && 'underline-offset-2 decoration-green-500 underline decoration-from-font decoration-double'
-                        )} 
+                    onClick={() => setYear(year - 1)}
                     >
-                        {day.date.split('-').pop().replace(/^0/, '')}
-                        {/* {day.hasGoal 
-                            ?   <svg className="h-2 w-2 text-green-500" fill="currentColor" viewBox="0 0 8 8">
-                                    <circle cx={4} cy={4} r={3} />
-                                </svg> 
-                            : null
-                        } */}
-                    </time>
-                </button>
-                ))}
+                        <span className="sr-only">Previous year</span>
+                        <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                    <div className="flex-auto font-semibold">{year}</div>
+                    <button
+                        type="button"
+                        className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
+                        onClick={() => setYear(year + 1)}
+                    >
+                        <span className="sr-only">Next year</span>
+                        <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                </div>
+
+                <div className="mt-6 flex text-xs leading-6 text-gray-500 text-left">
+                    <div className='flex-col'>
+                        {months.map((month) => (
+                            <div key={month.id} className={month.id === today.getUTCMonth() && year == today.getFullYear() ? 'text-black font-semibold underline underline-offset-2' : null}>{month.name}</div>
+                        ))}
+                    </div>
+                    <div className='mt-0.5'>
+                        <div className='flex-col gap-1 items-start'>
+                            {months.map((month) => (
+                                <div key={month.id} className='flex mb-1 gap-2'>
+                                    <CheckCircleIcon className='h-5 text-white' />
+                                    {props.goals
+                                        .filter(filterGoals(month.id))
+                                        .sort((a, b) => (calculateProgress(a, props.accounts).progress < calculateProgress(b, props.accounts).progress) ? 1 : ((calculateProgress(b, props.accounts).progress < calculateProgress(a, props.accounts).progress) ? -1 : 0))
+                                        .map((goal) => (
+                                            calculateProgress(goal, props.accounts).progress < 100 
+                                                ? <MinusCircleIcon key={goal.id} className={`mt-0.5 ml-0.5 h-4 text-white bg-white rounded-full border ${calculateProgress(goal, props.accounts).class === 'asset' ? 'border-sky-500' : 'border-violet-500'}`} />
+                                                : <CheckCircleIcon key={goal.id} className={`h-5 text-slate-800 ${calculateProgress(goal, props.accounts).class === 'asset' ? 'text-sky-500' : 'text-violet-500'}`} />
+                                            
+                                        ))
+                                    }
+                                </div>
+                            ))}
+                            
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
-            <button
-                type="button"
-                className="mt-8 w-full rounded-md border border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none"
-            >
-                New goal
-            </button>
+
         </div>
         </>
-    )
+    ) : null
 }

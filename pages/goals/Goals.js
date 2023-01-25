@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowPathIcon, PlusIcon, CheckBadgeIcon, FaceFrownIcon, FaceSmileIcon } from '@heroicons/react/24/outline'
+import { ArrowPathIcon, PlusIcon, CheckBadgeIcon, FaceFrownIcon, FaceSmileIcon, PlusCircleIcon } from '@heroicons/react/24/outline'
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useUser } from "@supabase/auth-helpers-react";
 import { v4 as uuidv4 } from 'uuid';
@@ -51,298 +51,51 @@ function calculateLiabilityProgress(goal, accounts) {
 
 //#endregion
 
-export default function Goals2() {
+export default function Goals() {
     const supabase = useSupabaseClient() 
     const user = useUser()
 
      //#region state variables
-     const [assets, setAssets] = useState(null);
-     const [assetGoals, setAssetGoals] = useState(null)
-
-     const [liabilities, setLiabilities] = useState(null);
-     const [liabilityGoals, setLiabilityGoals] = useState(null)
+     const [accounts, setAccounts] = useState(null);
+     const [goals, setGoals] = useState(null)
      //#endregion
     
-    //#region asset_goal functions
-    const getAssets = async () => {
-        const {data: getAssetsData, error: getAssetsError} = await supabase
-            .from('assets')
-            .select('id, name, balance')
-            .eq('user_id', user.id)
+    //#region goal functions
+    const getAccounts = async () => {
+        const {data: getAccountsData, error: getAccountsError} = await supabase
+            .rpc('get_accounts_with_initial_balance', { 'user_id': user.id });
 
-            setAssets(getAssetsData)
+            setAccounts(getAccountsData)
     }
 
-    const getAssetById = (id) => {
-        for (let i = 0; i < assets.length; i++) {
-            if (assets[i].id === id) {
-                return assets[i]
-            }
-        }
-    }
-
-    const getAssetGoals = async () => {
-        const {data: getAssetGoalsData, error: getAssetGoalsError} = await supabase
-            .from('asset_goals')
+    const getGoals = async () => {
+        const {data: getGoalsData, error: getGoalsError} = await supabase
+            .from('goals')
             .select('*')
-            .in('asset_id', assets.map(a => a.id))
-            .order('target_balance', { ascending: false })
+            .in('account_id', accounts.map(a => a.id))
+            .order('target_date', { ascending: true })
 
-        setAssetGoals(getAssetGoalsData)
+        setGoals(getGoalsData)
     }
-
-    const addAssetGoal = async () => {
-        setAssetGoals([
-            ...assetGoals,
-            {
-                id: uuidv4(), 
-                asset_id: assets && assets.length > 0 ? assets[0].id : "", 
-                name: "New asset goal", 
-                target_date: getDate(),
-                target_balance: assets && assets.length > 0 ? assets[0].balance * 2 : 0, 
-            },
-        ]);
-    };
-
-    const saveAssetGoals = async () => {
-        setSaveAssetGoalsButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
-            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>,
-            text: 'Saving'
-        })
-
-        const { data: upsertAssetGoalsData, error: upsertAssetGoalsError } = await supabase
-            .from('asset_goals')
-            .upsert(assetGoals)
-
-        setSaveAssetGoalsButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
-            icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>,
-            text: 'Done'
-        })
-
-        await timeout(2000);
-
-        setSaveAssetGoalsButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
-            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
-            text: 'Save'
-        })
-    }
-    
-    const editAssetGoal = (e, id) => {
-        const { name, value } = e.target
-        const list = [...assetGoals]
-        let strippedValue = value
-
-        if (name == "target_balance") {
-            if (value && value != '$') {
-                strippedValue = value.replace("$", "")
-                strippedValue = strippedValue.replaceAll(',', '')
-            } else {
-                strippedValue = 0
-            }
-        }
-
-        for (let i=0; i<list.length; i++) {
-            if (list[i].id == id) {
-                list[i][name] = strippedValue
-                break
-            }
-        }
-    
-        setAssetGoals(list);
-    };
-
-    const editAssetGoalAccount = (value, name, id) => {
-
-        const list = [...assetGoals]
-        for (let i=0; i<list.length; i++) {
-            if (list[i].id == id) {
-                list[i][name] = value
-                break
-            }
-        }
-        setAssetGoals(list)
-    };
-
-    const deleteAssetGoal = async (id) => {
-        const list = [...assetGoals];
-
-        for (let i=0; i<list.length; i++) {
-            if (list[i].id == id) {
-                list.splice(i, 1);
-                break
-            }
-        }
-
-        setAssetGoals(list);
-
-        const { data: deleteAssetGoalData, error: deleteAssetGoalError } = await supabase
-            .from('asset_goals')
-            .delete()
-            .eq('id', id)
-    };
-    //#endregion
-    
-    //#region liability_goal functions
-    const getLiabilities = async () => {
-        const {data: getLiabilitiesData, error: getLiabilitiesError} = await supabase
-            .rpc('get_liabilities_with_initial_balance', { 'user_id': user.id });
-
-        setLiabilities(getLiabilitiesData)
-    }
-
-    const getLiabilityById = (id) => {
-        for (let i = 0; i < liabilities.length; i++) {
-            if (liabilities[i].id === id) {
-                return liabilities[i]
-            }
-        }
-    }
-
-    const getLiabilityGoals = async () => {
-        const {data: getLiabilityGoalsData, error: getLiabilityGoalsError} = await supabase
-            .from('liability_goals')
-            .select('*')
-            .in('liability_id', liabilities.map(a => a.id))
-            .order('target_balance', { ascending: false })
-
-        setLiabilityGoals(getLiabilityGoalsData)
-    }
-
-    const addLiabilityGoal = async () => {
-        setLiabilityGoals([
-            ...liabilityGoals,
-            {
-                id: uuidv4(), 
-                liability_id: liabilities && liabilities.length > 0 ? liabilities[0].id : "", 
-                name: "New liability goal", 
-                target_date: getDate(),
-                target_balance: 0, 
-                initial_balance: liabilities[0].balance
-            },
-        ]);
-    };
-
-    const saveLiabilityGoals = async () => {
-        setSaveLiabilityGoalsButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
-            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>,
-            text: 'Saving'
-        })
-
-        const { data: upsertLiabilityGoalsData, error: upsertLiabilityGoalsError } = await supabase
-            .from('liability_goals')
-            .upsert(liabilityGoals)
-
-        setSaveLiabilityGoalsButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
-            icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>,
-            text: 'Done'
-        })
-
-        await timeout(2000);
-
-        setSaveLiabilityGoalsButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
-            icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
-            text: 'Save'
-        })
-    }
-
-    const editLiabilityGoal = (e, id) => {
-        const { name, value } = e.target
-        const list = [...liabilityGoals]
-        let strippedValue = value
-
-        if (name == "target_balance") {
-            if (value && value != '$') {
-                strippedValue = value.replace("$", "")
-                strippedValue = strippedValue.replaceAll(',', '')
-            } else {
-                strippedValue = 0
-            }
-        }
-
-        for (let i=0; i<list.length; i++) {
-            if (list[i].id == id) {
-                list[i][name] = strippedValue
-                break
-            }
-        }
-
-        setLiabilityGoals(list);
-    };
-
-    const editLiabilityGoalAccount = (value, name, id) => {
-
-        const list = [...liabilityGoals]
-        for (let i=0; i<list.length; i++) {
-            if (list[i].id == id) {
-                list[i][name] = value
-                break
-            }
-        }
-        setLiabilityGoals(list)
-    };
-
-    const deleteLiabilityGoal = async (id) => {
-        const list = [...liabilityGoals];
-
-        for (let i=0; i<list.length; i++) {
-            if (list[i].id == id) {
-                list.splice(i, 1);
-                break
-            }
-        }
-
-        setLiabilityGoals(list);
-
-        const { data: deleteLiabilityGoalData, error: deleteLiabilityGoalError } = await supabase
-            .from('liability_goals')
-            .delete()
-            .eq('id', id)
-    };
-    //#endregion
-
-    //#region secondary state variables
-    const [saveAssetGoalsButton, setSaveAssetGoalsButton] = useState({
-        className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
-        icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
-        text: 'Save'
-    })
-
-    const [saveLiabilityGoalsButton, setSaveLiabilityGoalsButton] = useState({
-        className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
-        icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
-        text: 'Save'
-    })
     //#endregion
 
     useEffect(() => {
         if (user) {
-            getAssets() 
-            getLiabilities()
+            getAccounts() 
         }
     }, [user])
 
     useEffect(() => {
-        if (assets) {
-            getAssetGoals()
+        if (accounts) {
+            getGoals()
         }
-
-        if (liabilities) {
-            getLiabilityGoals()
-        }
-    }, [assets, liabilities])
+    }, [accounts, goals])
 
     return (
         <div>
-            <h2 className="text-lg font-semibold text-gray-900 mb-5">Upcoming goals</h2>
             <div className="lg:grid lg:grid-cols-12 lg:gap-x-16">
-                <UpcomingGoals assetGoals={assetGoals} assets={assets} liabilityGoals={liabilityGoals} liabilities={liabilities} /> 
-                <Calendar /> 
+                <UpcomingGoals goals={goals} accounts={accounts} /> 
+                <Calendar goals={goals} accounts={accounts} />  
             </div>
         </div>
     )

@@ -18,7 +18,7 @@ function filterData(data) {
 }
 
 function sumList(list) {
-    return list.reduce((partialSum, a) => partialSum + a, 0);
+    return listgreen((partialSum, a) => partialSum + a, 0);
 }
 
 export default function SummaryStats(props) {

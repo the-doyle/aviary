@@ -68,17 +68,15 @@ export default function Accounts() {
      const [sortAssetsOn, setSortAssetsOn] = useState(['balance', true])
      const [liabilities, setLiabilities] = useState(null);
      const [sortLiabilitiesOn, setSortLiabilitiesOn] = useState(['balance', true])
-     
-     const [lastCheckIn, setLastCheckIn] = useState(null)
-     const [numGoals, setNumGoals] = useState(null)
      //#endregion
     
     //#region asset functions
     const getAssets = async () => {
         const {data: getAssetsData, error: getAssetsError} = await supabase
-            .from('assets')
+            .from('accounts')
             .select('*')
             .eq('user_id', user.id)
+            .eq('class', 'asset')
             .order('balance', { ascending: false })
 
             setAssets(getAssetsData)
@@ -97,6 +95,7 @@ export default function Accounts() {
                 user_id: user.id,
                 name: "New asset", 
                 type: "Cash", 
+                class: 'asset',
                 balance: 0, 
             },
         ]);
@@ -110,7 +109,7 @@ export default function Accounts() {
         })
 
         const { data: upsertAssetsData, error: upsertAssetsError } = await supabase
-            .from('assets')
+            .from('accounts')
             .upsert(assets)
 
         //filter assets down to necessary attributes 
@@ -121,7 +120,7 @@ export default function Accounts() {
 
         //upsert asset history 
         const { data: upsertAssetHistoryData, error: upsertAssetHistoryError } = await supabase
-            .from('asset_history')
+            .from('history')
             .upsert(asset_history)
 
         setSaveAssetsButton({
@@ -187,7 +186,7 @@ export default function Accounts() {
         setAssets(list);
 
         const { data: deleteAssetData, error: deleteAssetError } = await supabase
-            .from('assets')
+            .from('accounts')
             .delete()
             .eq('id', id)
     };
@@ -196,9 +195,10 @@ export default function Accounts() {
     //#region liability functions
     const getLiabilities = async () => {
         const {data: getLiabilitiesData, error: getLiabilitiesError} = await supabase
-            .from('liabilities')
+            .from('accounts')
             .select('*')
             .eq('user_id', user.id)
+            .eq('class', 'liability')
             .order('balance', { ascending: false })
 
         setLiabilities(getLiabilitiesData)
@@ -217,6 +217,7 @@ export default function Accounts() {
                 user_id: user.id,
                 name: "New liability", 
                 type: "Mortgage", 
+                class: 'liability',
                 balance: 0
             },
         ]);
@@ -230,7 +231,7 @@ export default function Accounts() {
         })
 
         const { data: upsertLiabilitiesData, error: upsertLiabilitiesError } = await supabase
-            .from('liabilities')
+            .from('accounts')
             .upsert(liabilities)
 
         //filter liabilities down to necessary attributes 
@@ -241,7 +242,7 @@ export default function Accounts() {
 
         //upsert asset history 
         const { data: upsertLiabilityHistoryData, error: upsertLiabilityHistoryError } = await supabase
-            .from('liability_history')
+            .from('history')
             .upsert(liability_history)
 
         setSaveLiabilitesButton({
@@ -308,9 +309,10 @@ export default function Accounts() {
         setLiabilities(list);
 
         const { data: deleteLiabilityData, error: deleteLiabilityError } = await supabase
-            .from('liabilities')
+            .from('accounts')
             .delete()
             .eq('id', id)
+
     };
     //#endregion
     
@@ -373,37 +375,12 @@ export default function Accounts() {
         }
     }, [user])
 
-    useEffect(() => {
-        if (assets && liabilities) {
-            getGoals()
-            getLastCheckIn() 
-        }
-    }, [assets, liabilities])
-
     return (
         <>
-            {/* <div id='summary' className='col-span-4'>
-                <h1 className="inline-flex items-center text-xl font-semibold text-slate-300">
-                    Overview
-                </h1>
-                {assets && liabilities
-                    ? 
-                        <>
-                            <SummaryStats 
-                                assets={assets}
-                                liabilities={liabilities} 
-                                lastCheckIn={lastCheckIn}
-                                numGoals={numGoals}
-                            /> 
-                        </>
-                    : 
-                        <SummaryStatsLoading />
-                }           
-            </div> */}
 
             <div id='assets' className='col-span-4 lg:col-span-2'>
-                <h1 className="inline-flex items-center text-xl font-semibold text-slate-300">Assets</h1>
-                <div className="mt-6 flex flex-col p-3 -mx-3 shadow rounded-lg">
+                <h1 className="inline-flex items-center text-xl font-semibold text-sky-500">Assets</h1>
+                <div className="mt-6 flex flex-col p-3 -mx-3 border border-dashed border-slate-300 rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
                             <table className="min-w-full">
@@ -539,8 +516,8 @@ export default function Accounts() {
             </div>
 
             <div id='liabilities' className='mt-16 col-span-4 lg:col-span-2'>
-                <h1 className="inline-flex items-center text-xl font-semibold text-slate-300">Liabilities</h1>
-                <div className="mt-6 flex flex-col p-3 -mx-3 shadow rounded-lg">
+                <h1 className="inline-flex items-center text-xl font-semibold text-violet-500">Liabilities</h1>
+                <div className="mt-6 flex flex-col p-3 -mx-3 border border-dashed border-slate-300 rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
                             <table className="min-w-full">

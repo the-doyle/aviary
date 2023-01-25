@@ -1,6 +1,6 @@
 import PostAuthNav from "./postauth/PostAuthNav"
 import PreAuthFooter from "./preauth/PreAuthFooter"
-import Goals2 from './goals/Goals'
+import Goals from './goals/Goals'
 import PageInfo from './general/PageInfo'
 
 export default function GoalsPage() {
@@ -16,7 +16,7 @@ export default function GoalsPage() {
                         secondLine='You&apos;ll earn feathers for achieving goals, which can be used to unlock new birds in your Aviary!'
                     />
 
-                    <Goals2 />
+                    <Goals />
                 </main>
             </div>
 

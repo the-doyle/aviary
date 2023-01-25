@@ -36,8 +36,8 @@ export default function Bird(props) {
                 className={`relative group transition-all rounded-lg flex flex-col h-full px-6 group min-h-max text-transparent 
                             ${props.unlocked 
                                 ? flipped 
-                                    ? 'hover:bg-slate-50 hover:cursor-pointer' 
-                                    : 'bg-slate-50 hover:bg-slate-100 hover:cursor-pointer'
+                                    ? 'hover:border hover:border-dashed hover:border-slate-300  hover:cursor-pointer' 
+                                    : 'border border-dashed border-slate-300 hover:border-slate-400 hover:cursor-pointer'
                                 : ''}
                             `}
             >

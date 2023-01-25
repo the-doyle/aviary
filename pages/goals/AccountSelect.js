@@ -15,7 +15,7 @@ export default function AccountSelect(props) {
         handleAccount(e.id)
     }
 
-    return (
+    return props.accounts && props.handleAccount ? (
         <Listbox value={selected} onChange={(e) => setItem(e)}>
         {({ open }) => (
             <>
@@ -77,5 +77,5 @@ export default function AccountSelect(props) {
             </>
         )}
         </Listbox>
-    )
+    ) : null 
 }

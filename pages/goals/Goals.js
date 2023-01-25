@@ -51,7 +51,7 @@ function calculateLiabilityProgress(goal, accounts) {
 
 export default function Goals() {
     const supabase = useSupabaseClient() 
-    const user = useUser()
+    const user = useUser()    
 
     //#region state variables
     const [accounts, setAccounts] = useState(null);
@@ -74,14 +74,14 @@ export default function Goals() {
 
     const getGoals = async () => {
         const {data: getGoalsData, error: getGoalsError} = await supabase
-            .rpc('goals_with_year', { 'user_id': user.id, 'year': year });
+            .rpc('goals_with_year', { 'u_id': user.id, 'year': year });
 
         setGoals(getGoalsData)
     }
 
     const getYearlyGoals = async () => {
         const {data: getYearlyGoalsData, error: getYearlyGoalsError} = await supabase
-            .rpc('yearly_goal_counts', { 'user_id': user.id });
+            .rpc('yearly_goal_counts', { 'u_id': user.id });
 
         setYearlyGoals(getYearlyGoalsData)
     }

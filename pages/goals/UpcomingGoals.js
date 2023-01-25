@@ -73,7 +73,7 @@ export default function UpcomingGoals(props) {
                 <NewGoal open={open} handleOpen={handleOpen} accounts={props.accounts} /> 
 
                 <div className='flex justify-between mb-2'>
-                    <h1 className="inline-flex items-center text-xl font-semibold text-slate-800 mb-5">{props.year} goals</h1>
+                    <h1 className="inline-flex items-center text-2xl font-semibold text-slate-800 mb-5">{props.year} goals</h1>
                     <button
                             type="button"
                             className="flex place-items-center text-sm font-medium text-slate-600 hover:text-slate-800 focus:outline-none"
@@ -90,8 +90,8 @@ export default function UpcomingGoals(props) {
                         <div key={goal.id} className="relative flex space-x-6 xl:static px-2 py-4 bg-white border-t border-slate-200">
                             <div className="flex-auto">
                                 {getClassForGoal(goal, props.accounts) === 'asset' 
-                                    ? <h3 className="pr-10 font-medium text-sky-500 xl:pr-0 text-base">{goal.name}</h3>
-                                    : <h3 className="pr-10 font-medium text-violet-500 xl:pr-0 text-base">{goal.name}</h3>
+                                    ? <h3 className="pr-10 font-medium text-sky-500 xl:pr-0 text-lg">{goal.name}</h3>
+                                    : <h3 className="pr-10 font-medium text-violet-500 xl:pr-0 text-lg">{goal.name}</h3>
                                 }
                                 <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row xl:justify-between xl:place-items-center text-sm">
                                     <div className="xl:w-1/3 flex space-x-3">

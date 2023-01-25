@@ -1,6 +1,5 @@
 import PostAuthNav from "./postauth/PostAuthNav"
 import PreAuthFooter from "./preauth/PreAuthFooter"
-import Goals from './postauth/Goals'
 
 export default function Progress() {
     return (

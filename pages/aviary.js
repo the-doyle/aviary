@@ -58,7 +58,7 @@ export default function Aviary() {
 
                     {  birds && birds.length > 0 && userData 
                         ?
-                            <div className='grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3'>
+                            <div className='grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 gap-1'>
                                 {birds && birds.length > 0 ? 
                                     birds
                                     .map((bird) => (

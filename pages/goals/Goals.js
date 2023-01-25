@@ -110,7 +110,7 @@ export default function Goals() {
                         <Calendar year={year} changeYear={changeYear} goals={goals} accounts={accounts} yearlyGoals={yearlyGoals}/> 
                     </>
                 : 
-                    <div className='flex flex-col gap-5 place-content-center place-items-center h-40 sm:h-80 text-gray-400 rounded-lg bg-slate-100'>
+                    <div className='lg:col-span-7 xl:col-span-8 flex flex-col gap-5 place-content-center place-items-center h-40 sm:h-80 text-gray-400 rounded-lg bg-slate-100'>
                         <h1 className='text-base'>Add at least 1 account to set goals.</h1>
                     </div>
                 } 

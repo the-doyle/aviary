@@ -136,7 +136,7 @@ export default function Calendar(props) {
                         </h1>
                         <div className='flex overflow-hidden'>
                             {[...Array(year.num_goals)].map((e, i) => 
-                                <svg className="mx-0.5 h-2 w-2 text-slate-400" fill="currentColor" viewBox="0 0 8 8">
+                                <svg key={i} className="mx-0.5 h-2 w-2 text-slate-400" fill="currentColor" viewBox="0 0 8 8">
                                     <circle cx={4} cy={4} r={3} />
                                 </svg>
                             )}

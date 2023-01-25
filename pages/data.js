@@ -8,7 +8,7 @@ export default function Data() {
         <>
             <PostAuthNav current_tab='Data' />
 
-            <div className="pt-20 pb-20 lg:pb-60 min-h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="pt-10 lg:pt-20 pb-20 lg:pb-60 min-h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <main>
                     <PageInfo 
                         title='Check in every month'

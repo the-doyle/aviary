@@ -39,7 +39,7 @@ export default function Aviary() {
             getBirds() 
             getUserData() 
         }
-    }, [supabase, user, birds])
+    }, [supabase, user])
 
     return (
         <>
@@ -54,7 +54,7 @@ export default function Aviary() {
                         title='Grow your Aviary'
                     />
 
-                    <h1 className="inline-flex items-center text-xl font-semibold text-slate-800 mb-5">Aviary</h1>
+                    <h1 className="inline-flex items-center text-2xl font-semibold text-slate-800 mb-5">Aviary</h1>
 
                     {  birds && birds.length > 0 && userData 
                         ?

@@ -34,6 +34,8 @@ export default function NewGoal(props) {
     const handleOpen = props.handleOpen ? props.handleOpen : null 
     const [account, setAccount] = useState(props.accounts ? props.accounts[0].id : null)
 
+    const refreshGoals = props.refreshGoals ? props.refreshGoals : null 
+
     const handleAccount = (id) => {
         setAccount(id)
     }
@@ -66,6 +68,8 @@ export default function NewGoal(props) {
         const {data: saveGoalData, error: saveGoalError} = await supabase
             .from('goals')
             .insert(data)
+
+        refreshGoals() 
         
         handleOpen() 
     }

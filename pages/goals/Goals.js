@@ -5,50 +5,6 @@ import { useEffect } from "react";
 import UpcomingGoals from './UpcomingGoals'
 import Calendar from "./Calendar";
 
-//#region helper functions
-
-function timeout(delay) {
-    return new Promise( res => setTimeout(res, delay) );
-}
-
-function sumData(data) {
-    let summedData = 0
-
-    for (let i = 0; i < data.length; i++) {
-        summedData += parseInt(data[i].target_balance)
-    }
-
-    return summedData
-}
-
-function getDate() {
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    const yyyy = today.getFullYear();
-
-    return yyyy + '-' + mm + '-' + dd;
-}
-
-function calculateProgress(goal, accounts) {
-    const balance = accounts.find(x => x.id === goal.asset_id).balance
-    const progress = (balance / goal.target_balance) * 100
-    return progress > 100 ? 100 : progress.toFixed(0)
-}
-
-function calculateLiabilityProgress(goal, accounts) {
-    const account = accounts.find(x => x.id === goal.liability_id)
-    if (account.balance > account.initial_balance) {
-        return 0
-    } else if (account.balance < goal.target_balance) {
-        return 100 
-    }
-    const progress = (account.initial_balance - account.balance) / (account.initial_balance - goal.target_balance) * 100
-    return progress.toFixed(0)
-}
-
-//#endregion
-
 export default function Goals() {
     const supabase = useSupabaseClient() 
     const user = useUser()    
@@ -74,7 +30,7 @@ export default function Goals() {
 
     const getGoals = async () => {
         const {data: getGoalsData, error: getGoalsError} = await supabase
-            .rpc('goals_with_year', { 'u_id': user.id, 'year': year });
+            .rpc('goals_with_account_details', { 'u_id': user.id, 'year': year });
 
         setGoals(getGoalsData)
     }
@@ -84,6 +40,11 @@ export default function Goals() {
             .rpc('yearly_goal_counts', { 'u_id': user.id });
 
         setYearlyGoals(getYearlyGoalsData)
+    }
+
+    const refreshGoals = async () => {
+        getGoals() 
+        getYearlyGoals() 
     }
     //#endregion
 
@@ -95,10 +56,9 @@ export default function Goals() {
 
     useEffect(() => {
         if (accounts) {
-            getGoals()
-            getYearlyGoals() 
+            refreshGoals() 
         }
-    }, [accounts, goals, year])
+    }, [accounts, year])
 
     return (
         <div>
@@ -106,7 +66,7 @@ export default function Goals() {
                 {accounts && accounts.length > 0 
                 ? 
                     <>
-                        <UpcomingGoals year={year} goals={goals} accounts={accounts} /> 
+                        <UpcomingGoals year={year} goals={goals} accounts={accounts} refreshGoals={refreshGoals} /> 
                         <Calendar year={year} changeYear={changeYear} goals={goals} accounts={accounts} yearlyGoals={yearlyGoals}/> 
                     </>
                 : 

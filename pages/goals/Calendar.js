@@ -55,7 +55,6 @@ const months = [
     {id: 11, name: 'Dec'},
 ]
 
-
 export default function Calendar(props) {
     const today = new Date()
     const changeYear = props.changeYear ? props.changeYear : null 

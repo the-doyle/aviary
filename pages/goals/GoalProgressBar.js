@@ -6,6 +6,7 @@ export default function GoalProgressBar(props) {
     const [progress, setProgress] = useState({ width: "0%" })
 
     useEffect(() => {
+        setProgress({ width: "0%" })
         setProgress({ width: props.progress + "%" })
     }, [props.progress])
 

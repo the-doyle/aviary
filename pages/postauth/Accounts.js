@@ -376,7 +376,7 @@ export default function Accounts() {
         <>
 
             <div id='assets' className='col-span-4 lg:col-span-2'>
-                <h1 className="inline-flex items-center text-xl font-semibold text-sky-500">Assets</h1>
+                <h1 className="inline-flex items-center text-2xl font-semibold text-sky-500">Assets</h1>
                 <div className="mt-6 flex flex-col p-3 -mx-3 border border-dashed border-slate-300 rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
@@ -513,7 +513,7 @@ export default function Accounts() {
             </div>
 
             <div id='liabilities' className='mt-16 col-span-4 lg:col-span-2'>
-                <h1 className="inline-flex items-center text-xl font-semibold text-violet-500">Liabilities</h1>
+                <h1 className="inline-flex items-center text-2xl font-semibold text-violet-500">Liabilities</h1>
                 <div className="mt-6 flex flex-col p-3 -mx-3 border border-dashed border-slate-300 rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">

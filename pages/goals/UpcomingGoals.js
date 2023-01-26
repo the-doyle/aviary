@@ -3,7 +3,7 @@ import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import GoalProgressBar from "./GoalProgressBar";
 import NewGoal from './NewGoal';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import DeleteButton from '../postauth/DeleteButton';
+import DeleteGoal from './DeleteGoal';
 import EditGoal from './EditGoal';
 
 //#region helper functions
@@ -21,39 +21,28 @@ const formatDateAsString = (d) => {
     return date.toLocaleDateString("en-US", options)
 }
 
-const calculateProgress = (goal, accounts) =>  {
-    const account = accounts.find(x => x.id === goal.account_id)
-
-    if (account.class === 'asset') {
-        const progress = (account.balance / goal.target_balance) * 100
-        return progress > 100 ? 100 : progress.toFixed(0)
+const calculateProgress = (goal) =>  {
+    let progress = 0
+    if (goal.class === 'asset') {
+        progress = (goal.balance / goal.target_balance) * 100
     } else {
-        if (account.balance > account.initial_balance) {
-            return 0
-        } else if (account.balance < goal.target_balance) {
-            return 100 
+        if (goal.balance > goal.initial_balance) {
+            progress = 0
+        } else if (goal.balance < goal.target_balance) {
+            progress = 100 
+        } else {
+            progress = (goal.initial_balance - goal.balance) / (goal.initial_balance - goal.target_balance) * 100
         }
-        const progress = (account.initial_balance - account.balance) / (account.initial_balance - goal.target_balance) * 100
-        return progress.toFixed(0) 
     }
-}
-
-const getAccountForGoal = (goal, accounts) =>  {
-    return formatAsCurrency.format(accounts.find(x => x.id === goal.account_id).balance)
-}
-
-const getClassForGoal = (goal, accounts) =>  {
-    return accounts.find(x => x.id === goal.account_id).class
-}
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
+    return progress > 100 ? 100 : progress < 10 ? 10 : progress
 }
 //#endregion
 
 export default function UpcomingGoals(props) {
     const supabase = useSupabaseClient() 
     const [open, setOpen] = useState(false)
+
+    const refreshGoals = props.refreshGoals ? props.refreshGoals : null 
     
     const handleOpen = () => {
         setOpen(!open)
@@ -64,13 +53,16 @@ export default function UpcomingGoals(props) {
             .from('goals')
             .delete()
             .eq('id', id)
+            .select() 
+
+        return deleteGoalData
     }
 
     return props.goals && props.accounts && props.year ? (
         <div className='lg:col-span-7 xl:col-span-8'>
 
             <div className='mb-10'>
-                <NewGoal open={open} handleOpen={handleOpen} accounts={props.accounts} /> 
+                <NewGoal open={open} handleOpen={handleOpen} accounts={props.accounts} refreshGoals={refreshGoals} /> 
 
                 <div className='flex justify-between mb-2'>
                     <h1 className="inline-flex items-center text-2xl font-semibold text-slate-800 mb-5">{props.year} goals</h1>
@@ -89,9 +81,9 @@ export default function UpcomingGoals(props) {
                     .map((goal) => (
                         <div key={goal.id} className="relative flex space-x-6 xl:static px-2 py-4 bg-white border-t border-slate-200">
                             <div className="flex-auto">
-                                {getClassForGoal(goal, props.accounts) === 'asset' 
-                                    ? <h3 className="pr-10 font-medium text-sky-500 xl:pr-0 text-lg">{goal.name}</h3>
-                                    : <h3 className="pr-10 font-medium text-violet-500 xl:pr-0 text-lg">{goal.name}</h3>
+                                {goal.class === 'asset' 
+                                    ? <h3 className="pr-10 font-medium text-sky-500 xl:pr-0 text-lg">{goal.goal_name}</h3>
+                                    : <h3 className="pr-10 font-medium text-violet-500 xl:pr-0 text-lg">{goal.goal_name}</h3>
                                 }
                                 <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row xl:justify-between xl:place-items-center text-sm">
                                     <div className="xl:w-1/3 flex space-x-3">
@@ -103,17 +95,17 @@ export default function UpcomingGoals(props) {
                                     </div>
                                     <div className="xl:w-1/3 mt-2 flex xl:mt-0">                                    
                                         <dd>
-                                            {getAccountForGoal(goal, props.accounts)}
+                                            {formatAsCurrency.format(goal.balance)}
                                             <span className='px-1 md:px-2 font-serif font-bold text-black'>&rarr;</span>
                                             {formatAsCurrency.format(goal.target_balance)}
                                         </dd>
                                     </div>
-                                    <GoalProgressBar progress={calculateProgress(goal, props.accounts)} goal={goal} class={getClassForGoal(goal, props.accounts)} />
+                                    <GoalProgressBar progress={calculateProgress(goal)} goal={goal} class={goal.class} />
                                 </dl>
                             </div>
                             <div className='flex-col'>
-                                <EditGoal accounts={props.accounts} goal={goal} /> 
-                                <DeleteButton deleteAccount={deleteGoal} account={goal} />
+                                <EditGoal accounts={props.accounts} goal={goal} refreshGoals={refreshGoals} /> 
+                                <DeleteGoal deleteAccount={deleteGoal} account={goal} refreshGoals={refreshGoals} />
                             </div>
                         </div>
                     )) 

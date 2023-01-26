@@ -20,13 +20,14 @@ export default function EditGoal(props) {
     const supabase = useSupabaseClient() 
 
     const [open, setOpen] = useState(false)
+    const refreshGoals = props.refreshGoals ? props.refreshGoals : null 
 
     const [account, setAccount] = useState(props.goal ? props.goal.account_id : null)
     const handleAccount = (id) => {
         setAccount(id)
     }
     
-    const [name, setName] = useState(props.goal ? props.goal.name : null)
+    const [name, setName] = useState(props.goal ? props.goal.goal_name : null)
     const [date, setDate] = useState(props.goal ? props.goal.target_date : null) 
     const [balance, setBalance] = useState(props.goal ? props.goal.target_balance : null)
 
@@ -55,6 +56,9 @@ export default function EditGoal(props) {
         const {data: saveGoalData, error: saveGoalError} = await supabase
             .from('goals')
             .upsert(data)
+
+        // console.log(saveGoalError)
+        refreshGoals() 
 
         setOpen(false) 
     }

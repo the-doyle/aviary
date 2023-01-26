@@ -24,7 +24,11 @@ const formatDateAsString = (d) => {
 const calculateProgress = (goal) =>  {
     let progress = 0
     if (goal.class === 'asset') {
-        progress = (goal.balance / goal.target_balance) * 100
+        if (goal.balance === goal.target_balance) {
+            progress = 100
+        } else {
+            progress = (goal.balance / goal.target_balance) * 100
+        }
     } else {
         if (goal.balance > goal.initial_balance) {
             progress = 0
@@ -34,6 +38,7 @@ const calculateProgress = (goal) =>  {
             progress = (goal.initial_balance - goal.balance) / (goal.initial_balance - goal.target_balance) * 100
         }
     }
+    
     return progress > 100 ? 100 : progress < 10 ? 10 : progress
 }
 //#endregion
@@ -79,11 +84,20 @@ export default function UpcomingGoals(props) {
                 {props.goals && props.goals.length > 0 ? 
                     props.goals
                     .map((goal) => (
-                        <div key={goal.id} className="relative flex space-x-6 xl:static px-2 py-4 bg-white border-t border-slate-200">
+                        <div 
+                            key={goal.id} 
+                            className='relative flex space-x-6 xl:static px-2 py-4 bg-white border-t border-slate-200'
+                        >
                             <div className="flex-auto">
                                 {goal.class === 'asset' 
-                                    ? <h3 className="pr-10 font-medium text-sky-500 xl:pr-0 text-lg">{goal.goal_name}</h3>
-                                    : <h3 className="pr-10 font-medium text-violet-500 xl:pr-0 text-lg">{goal.goal_name}</h3>
+                                    ? <h3 className="pr-10 font-medium text-sky-500 xl:pr-0 text-lg">
+                                        {goal.goal_name}
+                                        {goal.balance >= goal.target_balance ? <span className='pl-2'>🎉</span> : null}
+                                    </h3>
+                                    : <h3 className="pr-10 font-medium text-violet-500 xl:pr-0 text-lg">
+                                        {goal.goal_name}
+                                        {goal.balance <= goal.target_balance ? <span className='pl-2'>🎉</span> : null}
+                                    </h3>
                                 }
                                 <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row xl:justify-between xl:place-items-center text-sm">
                                     <div className="xl:w-1/3 flex space-x-3">
@@ -112,7 +126,7 @@ export default function UpcomingGoals(props) {
                     : <div className='flex flex-col gap-5 place-content-center place-items-center h-40 sm:h-80 text-gray-400 rounded-lg bg-slate-100'>
                         <h1 className='text-base'>You don&apos;t have any {props.year} goals yet </h1>
                     </div>
-                }        
+                }          
             </div>
         </div>
     ) : null 

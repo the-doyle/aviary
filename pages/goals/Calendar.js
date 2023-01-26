@@ -91,7 +91,7 @@ export default function Calendar(props) {
                     </button>
                 </div>
 
-                <div className="mt-6 flex text-xs leading-6 text-gray-500 text-left">
+                <div className="mt-6 flex text-xs leading-6 text-gray-500 text-left overflow-auto">
                     <div className='flex-col'>
                         {months.map((month) => (
                             <div key={month.id} className={month.id === today.getUTCMonth() && props.year == today.getFullYear() ? 'text-black font-semibold underline underline-offset-2' : null}>{month.name}</div>
@@ -125,7 +125,7 @@ export default function Calendar(props) {
                     <button 
                         key={year.year} 
                         className={`
-                            relative flex w-full items-center gap-5 xl:static p-2 border
+                            relative flex w-full items-center gap-5 xl:static p-2 border overflow-hidden
                             ${year.year === props.year ? 'border-slate-800 hover:border-slate-500' : 'border-dashed border-slate-300 hover:border-slate-500'}
                             rounded-lg mb-3`}
                         onClick={() => props.changeYear(year.year)}
@@ -133,7 +133,7 @@ export default function Calendar(props) {
                         <h1 className='text-slate-800 text-sm'>
                             {year.year} 
                         </h1>
-                        <div className='flex overflow-hidden'>
+                        <div className='flex'>
                             {[...Array(year.num_goals)].map((e, i) => 
                                 <svg key={i} className="mx-0.5 h-2 w-2 text-slate-400" fill="currentColor" viewBox="0 0 8 8">
                                     <circle cx={4} cy={4} r={3} />

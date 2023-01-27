@@ -8,7 +8,7 @@ import Logo from '../general/Logo'
 
 const navigation = [
 	{ name: 'Features', href: '#features' },
-	// { name: 'Pricing', href: '#pricing' },
+	{ name: 'Pricing', href: '#pricing' },
 ]
 
 export default function PreAuthNav() {

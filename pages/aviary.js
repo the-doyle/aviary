@@ -67,8 +67,8 @@ export default function Aviary() {
                                     birds
                                     .map((bird) => (
                                         userData.unlocked_birds.includes(bird.id)
-                                            ? <Bird unlocked key={bird.id} bird={bird} user={userData}/> 
-                                            : <Bird key={bird.id} bird={bird} user={userData}/> 
+                                            ? <Bird unlocked key={bird.id} bird={bird} user={userData} refreshUser={getUserData} /> 
+                                            : <Bird key={bird.id} bird={bird} user={userData} refreshUser={getUserData} /> 
                                     )) : null 
                                 }
                                 <div className='md:h-72' />

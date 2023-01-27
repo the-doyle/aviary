@@ -7,6 +7,7 @@ import UnlockButton from "./UnlockButton";
 export default function Bird(props) {
     const supabase = useSupabaseClient() 
     const [flipped, setFlipped] = useState(true)
+    const refreshUser = props.refreshUser ? props.refreshUser : null 
 
     const getHrefForName = (name) => {
         const {data: hrefData, error: hrefError} = supabase 
@@ -27,9 +28,11 @@ export default function Bird(props) {
             .from('users')
             .update({ unlocked_birds: updatedBirds, feathers: updatedFeathers })
             .eq('id', props.user.id)
+
+        refreshUser() 
     }
 
-    if (props.bird && props.user) {
+    if (props.bird && props.user && props.refreshUser) {
         return (
             <div 
                 onClick={() => props.unlocked ? setFlipped(!flipped) : null} 

@@ -7,10 +7,12 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { useEffect } from "react";
 import PageInfo from "./general/PageInfo";
 import Achievements from "./achievements/Achievements";
+import { useRouter } from 'next/router' 
 
 export default function Aviary() {
     const supabase = useSupabaseClient() 
     const user = useUser() 
+    const router = useRouter() 
 
     const [birds, setBirds] = useState([])
     const [userData, setUserData] = useState(null)
@@ -39,6 +41,8 @@ export default function Aviary() {
         if (supabase && user) {
             getBirds() 
             getUserData() 
+        } else {
+            router.push('/sign-in')
         }
     }, [supabase, user])
 
@@ -62,7 +66,7 @@ export default function Aviary() {
 
                     {  birds && birds.length > 0 && userData 
                         ?
-                            <div className='grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 gap-1'>
+                            <div className='grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 gap-2'>
                                 {birds && birds.length > 0 ? 
                                     birds
                                     .map((bird) => (

@@ -65,7 +65,7 @@ export default function Achievements(props) {
             className={`
                 relative inline-flex items-center p-3 text-sm font-medium text-center
                 ${open ? 'bg-slate-800 hover:bg-slate-500' : 'bg-white hover:bg-slate-50'} 
-                border rounded-lg focus:outline-none transition-all
+                border rounded-md focus:outline-none transition-all
             `}
             onClick={handleClick}
             >
@@ -159,7 +159,7 @@ export default function Achievements(props) {
         </>
     ) : 
         <button 
-            className='flex rounded-lg border bg-white p-3 text-sm font-medium text-slate-700 shadow-sm overflow-visible' 
+            className='flex rounded-md border bg-white p-3 text-sm font-medium text-slate-700 shadow-sm overflow-visible' 
         >
             🪶
         </button>

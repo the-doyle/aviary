@@ -4,10 +4,11 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import birdPic from '../../public/bird.png'
 import Link from 'next/link'
+import Logo from '../general/Logo'
 
 const navigation = [
 	{ name: 'Features', href: '#features' },
-	{ name: 'Pricing', href: '#pricing' },
+	// { name: 'Pricing', href: '#pricing' },
 ]
 
 export default function PreAuthNav() {
@@ -21,7 +22,7 @@ export default function PreAuthNav() {
                     <div className="flex w-full items-center justify-between md:w-auto">
                         <Link href="/" className='flex items-center mr-5'>
                             <span className="sr-only">Aviary Finance</span>
-                            {/* <Image alt="pic"  src={birdPic} className="h-8 w-auto sm:h-10" />  */}
+                            <Logo height="40" width="40" />
                             <h1 className='text-xl text-green-700 font-bold'>
                                 Aviary
                                 <span className='text-green-500 font-medium'>Finance</span>

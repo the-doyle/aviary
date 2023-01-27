@@ -3,25 +3,27 @@ import LinkButton from '../general/LinkButton'
 import LinkButtonDark from '../general/LinkButtonDark'
 
 const features = [
-    'Customizable goals',
-    'Beautiful charts and graphs',
-    'Premium themes',
-    'Email reminders',
-    'Unlockable achievements',
-    'Dozens of hand-drawn birds',
+    'Track your net worth',
+    'Set long-term goals',
+    'Vizualize your progress',
+    // 'Premium themes',
+    // 'Email reminders',
+    'Unlock achievements',
+    'Collect digital hand-drawn birds',
     'More features coming soon!',
 ]
 
 export default function Pricing() {
     return (
-        <div name='pricing' id='pricing' className="relative overflow-hidden bg-white">
+        <div name='pricing' id='pricing' className="relative overflow-hidden bg-slate-50">
             <div className="overflow-hidden py-16 lg:py-24">
                 <div className="relative mx-auto max-w-xl px-6 lg:max-w-7xl lg:px-8">
                     <div className="pb-16 xl:flex xl:items-center xl:justify-between">
                         <div>
-                            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-                                <span className="text-slate-900">Start growing your Aviary for</span>
-                                <span className="text-slate-900"> $30 / year</span>
+                            <h1 className="text-2xl font-bold tracking-tight sm:text-5xl">
+                                <span className="text-slate-900">Start growing your Aviary for free</span>
+                                {/* <span className="text-slate-200 line-through"> $30 / year</span> */}
+                                <span className="text-slate-300"> (beta)</span>
                             </h1>
                         </div>
                     </div>
@@ -70,14 +72,9 @@ export default function Pricing() {
                     <div className='flex space-x-4 mt-10'>
 
                         <LinkButton 
-                            text='Get started' 
+                            text='Get started for free' 
                             href='/sign-up'
                             link
-                        />
-
-                        <LinkButtonDark
-                            href='/'
-                            text='Try the sandbox' 
                         />
 
                     </div>

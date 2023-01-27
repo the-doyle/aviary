@@ -36,8 +36,9 @@ export default function Index() {
 								/>
 
 								<LinkButtonDark
-									href='/'
-									text='Try the sandbox' 
+									href='/sign-up'
+									text='Get started for free' 
+									link
 								/>
 
 							</div>

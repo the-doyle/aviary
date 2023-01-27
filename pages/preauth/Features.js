@@ -1,5 +1,7 @@
-import OverlappingBirdCards from './OverlappingBirdCards'
 import LinkButton from '../general/LinkButton'
+import { useState } from 'react'
+import UnlockableBird from '../aviary/UnlockableBird'
+import AchievementButtonFree from '../achievements/AchievementButtonFree'
 
 import {
     CakeIcon,
@@ -32,8 +34,11 @@ const appFeatures = [
 ]
 
 export default function Features() {
+    const [feathers, setFeathers] = useState(2)
+
     return (
 
+        <>
         <div name='features' id='features' className="relative overflow-hidden bg-slate-50">
             <div className="overflow-hidden py-16 lg:py-24">
                 <div className="relative mx-auto max-w-xl px-6 lg:max-w-7xl lg:px-8">
@@ -46,9 +51,9 @@ export default function Features() {
                         </p>
                     </div>
 
-                    <div className="relative mt-12 lg:mt-24 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
+                    <div className="relative mt-20 lg:mt-24 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
                         <div className="relative">
-                            <h3 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Personal finance, gamified</h3>
+                            <h3 className="text-2xl font-medium tracking-tight text-slate-900 sm:text-3xl">Personal finance, gamified</h3>
                             <p className="mt-3 text-lg text-slate-500">
                                 Aviary pairs beautiful, minimalist goal-setting tools with handcrafted, digitally collectible bird cards. 
                             </p>
@@ -65,7 +70,7 @@ export default function Features() {
                                     <dd className="mt-2 ml-16 text-base text-slate-500">{item.description}</dd>
                                 </div>
                                 ))}
-                                <LinkButton href='/sign-up' text='Get started' link />  
+                                <LinkButton href='/sign-up' text='Get started for free' link />  
                             </dl>
                         </div>
 
@@ -78,25 +83,82 @@ export default function Features() {
                             />
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <div className="relative mt-12 sm:mt-16 lg:mt-24">
-                        <div className="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:items-center lg:gap-8">
-                            <div className="lg:col-start-2">
-                                <h3 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Grow your Aviary</h3>
-                                <p className="mt-3 mb-5 text-lg text-slate-500">
-                                    Aviary incentivizes long-term consistency. Come back monthly to track your progress (and tweak your goals). 
-                                    As you do, you&apos;ll unlock new birds that celebrate your achievements. 
-                                </p>
-                                <LinkButton href='/sign-up' text='Learn about gamification' link />  
-                            </div>
 
-                            <div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">
-                                <OverlappingBirdCards />
-                            </div>
+        <div name='features' id='features' className="relative overflow-hidden">
+            <div className="overflow-hidden py-16 lg:py-24">
+                <div className="relative mx-auto max-w-xl px-6 lg:max-w-7xl lg:px-8">
+                    <div className="relative">
+                        <div className="relative">
+                            <h2 className="text-center text-3xl font-bold leading-8 tracking-tight text-slate-900 sm:text-4xl">
+                                Grow your Aviary
+                            </h2>
+                            <p className="mx-auto mt-4 max-w-4xl lg:text-center text-xl text-slate-500">
+                            Aviary incentivizes long-term consistency. Check-in monthly to complete achievements, earn feathers, and unlock new birds.
+                            </p>
+                        </div>
+
+                        <div className="relative mt-12 sm:mt-16 lg:mt-24">
+                            <div className="relative -mx-4 mt-10 lg:mt-0">
+                                <div className='grid grid-cols-2 lg:grid-cols-4 gap-2'>
+
+                                    <div className='col-span-2 my-4 px-10 lg:px-20'>
+                                        <div className="text-2xl font-medium text-slate-800 text-center mb-5 flex justify-between content-center items-center">
+                                            <h1>Achievements</h1>
+                                            <p className='text-base text-slate-800'>Balance: {feathers} 🪶</p>
+                                        </div>
+                                        <div className='flex-col py-4 items-center'>
+                                            <div className='flex justify-between'>
+                                                <div className='flex-col justify-between align-middle'>
+                                                    <h1 className='text-lg text-green-600 font-semibold'>Hatchling</h1>
+                                                    <p className='text-base text-slate-500'>Set your first goal</p>
+                                                </div>
+                                                <div className='flex-col text-center'>
+                                                    <AchievementButtonFree feathers={feathers} setFeathers={setFeathers} value={3} /> 
+                                                </div>
+                                            </div>
+                                        </div> 
+
+                                        <div className='flex-col py-4 items-center'>
+                                            <div className='flex justify-between'>
+                                                <div className='flex-col justify-between align-middle'>
+                                                    <h1 className='text-lg text-green-600 font-semibold'>Down feathers</h1>
+                                                    <p className='text-base text-slate-500'>Add 5 accounts to your Aviary</p>
+                                                </div>
+                                                <div className='flex-col text-center'>
+                                                    <AchievementButtonFree feathers={feathers} setFeathers={setFeathers} value={5} /> 
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
+
+                                    <UnlockableBird 
+                                        birdName="Pine grosbeak" 
+                                        feathers={feathers} 
+                                        setFeathers={setFeathers}
+                                        cost={3} 
+                                        description="Pine grosbeaks are some of the plumpest finches. They are somewhat sluggish and tame." 
+                                        unlocked
+                                    /> 
+                                    <UnlockableBird 
+                                        birdName="Superb fairywren" 
+                                        feathers={feathers} 
+                                        setFeathers={setFeathers}
+                                        cost={8} 
+                                        description="These birds are cooperative breeders. Groups of 3-5 birds will defend and maintain territories year-round as they raise their young. " 
+                                    /> 
+                                </div>
+                            </div> 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        
+        </>
     )
 }

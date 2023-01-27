@@ -2,13 +2,15 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import Image from 'next/image'
+import Logo from '../general/Logo'
 
 const navigation = [
     { name: 'Accounts', href: '/accounts' },
     { name: 'Goals', href: '/goals' },
-    { name: 'Progress', href: '/progress' },
+    // { name: 'Progress', href: '/progress' },
     { name: 'Aviary', href: '/aviary' },
-    { name: 'Profile', href: '/profile' },
+    // { name: 'Profile', href: '/profile' },
 ]
 
 function classNames(...classes) {
@@ -36,16 +38,7 @@ export default function PostAuthNav(props) {
                     <div className="flex h-16 justify-between">
                     <div className="flex">
                         <div className="flex flex-shrink-0 items-center">
-                        <img
-                            className="block h-8 w-auto lg:hidden"
-                            src="https://tailwindui.com/img/logos/mark.svg?color=slate&shade=600"
-                            alt="Your Company"
-                        />
-                        <img
-                            className="hidden h-8 w-auto lg:block"
-                            src="https://tailwindui.com/img/logos/mark.svg?color=slate&shade=600"
-                            alt="Your Company"
-                        />
+                            <Logo height="40" width="40" /> 
                         </div>
                         <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                             {navigation.map((item) => (

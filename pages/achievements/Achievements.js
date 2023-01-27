@@ -130,8 +130,8 @@ export default function Achievements(props) {
                                         <div className="relative mt-6 flex-1 px-4 sm:px-6">
                                             {achievements
                                                 .map((a) => (
-                                                    <div className='flex-col border-b py-4 items-center'>
-                                                        <div key={a.id} className='flex justify-between'>
+                                                    <div key={a.id} className='flex-col border-b py-4 items-center'>
+                                                        <div className='flex justify-between'>
                                                             <div className='flex-col justify-between align-middle'>
                                                                 <h1 className='text-lg text-green-600 font-semibold'>{a.name}</h1>
                                                                 <p className='text-base text-slate-500'>{a.description}</p>

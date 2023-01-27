@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useEffect } from "react";
 import PageInfo from "./general/PageInfo";
+import Achievements from "./achievements/Achievements";
 
 export default function Aviary() {
     const supabase = useSupabaseClient() 
@@ -48,11 +49,14 @@ export default function Aviary() {
 
             <div className="pt-10 lg:pt-20 pb-20 lg:pb-60 min-h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <main>
-                    <PageInfo 
-                        firstLine='Aviary has dozens of collectible birds, hand-drawn by San Benito Paper Co. ' 
-                        secondLine='As you check in each month to update your net worth, set goals, and track your progress, you&apos;ll earn feathers. You can use feathers to unlock new birds for your collection! '
-                        title='Grow your Aviary'
-                    />
+                    <div className='flex gap-3 justify-end mb-10'>
+                        <Achievements user={userData} refreshUser={getUserData} /> 
+                        <PageInfo 
+                            title='Check in every month'
+                            firstLine='Aviary provides a simple interface for tracking your assets and liabilities.' 
+                            secondLine='Come back monthly to update your balances.'
+                        />
+                    </div>
 
                     <h1 className="inline-flex items-center text-2xl font-semibold text-slate-800 mb-5">Aviary</h1>
 
@@ -74,8 +78,6 @@ export default function Aviary() {
                     }
                 </main>
             </div>
-
-            
 
             <PreAuthFooter /> 
         </div>

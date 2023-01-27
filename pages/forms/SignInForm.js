@@ -18,7 +18,7 @@ export default function SignInForm() {
         if (signInError) {
             setMessage(signInError.message)
         } else {
-            router.push('/data')        }
+            router.push('/accounts')        }
     }
 
     return (

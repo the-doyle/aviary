@@ -56,9 +56,8 @@ const assetTypes = ['Cash', 'Pre-tax investment', 'Post-tax investment', 'Proper
 const liabilityTypes = ['Mortage', 'Student loan', 'Auto loan', 'Credit card', 'Other']
 //#endregion
 
-export default function Accounts() {
+export default function Accounts(props) {
     const supabase = useSupabaseClient() 
-    const user = useUser()
 
      //#region state variables
      const [assets, setAssets] = useState(null);
@@ -72,7 +71,7 @@ export default function Accounts() {
         const {data: getAssetsData, error: getAssetsError} = await supabase
             .from('accounts')
             .select('*')
-            .eq('user_id', user.id)
+            .eq('user_id', props.user.id)
             .eq('class', 'asset')
             .order('balance', { ascending: false })
 
@@ -89,7 +88,7 @@ export default function Accounts() {
             ...assets,
             {
                 id: uuidv4(), 
-                user_id: user.id,
+                user_id: props.user.id,
                 name: "New asset", 
                 type: "Cash", 
                 class: 'asset',
@@ -194,7 +193,7 @@ export default function Accounts() {
         const {data: getLiabilitiesData, error: getLiabilitiesError} = await supabase
             .from('accounts')
             .select('*')
-            .eq('user_id', user.id)
+            .eq('user_id', props.user.id)
             .eq('class', 'liability')
             .order('balance', { ascending: false })
 
@@ -211,7 +210,7 @@ export default function Accounts() {
             ...liabilities,
             {
                 id: uuidv4(), 
-                user_id: user.id,
+                user_id: props.user.id,
                 name: "New liability", 
                 type: "Mortgage", 
                 class: 'liability',
@@ -366,11 +365,11 @@ export default function Accounts() {
     //#endregion 
     
     useEffect(() => {
-        if (user) {
+        if (props.user) {
             getAssets() 
             getLiabilities() 
         }
-    }, [user])
+    }, [props.user])
 
     return (
         <>

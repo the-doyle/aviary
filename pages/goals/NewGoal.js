@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition, Switch } from '@headlessui/react'
 import AccountSelect from './AccountSelect'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
 const formatAsCurrency = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -30,6 +30,7 @@ const getAccountBalanceForId = (id, accounts) =>  {
 
 export default function NewGoal(props) {
     const supabase = useSupabaseClient() 
+    const user = useUser() 
 
     const handleOpen = props.handleOpen ? props.handleOpen : null 
     const [account, setAccount] = useState(props.accounts ? props.accounts[0].id : null)
@@ -68,6 +69,9 @@ export default function NewGoal(props) {
         const {data: saveGoalData, error: saveGoalError} = await supabase
             .from('goals')
             .insert(data)
+
+        const {data: incrementGoalsData, error: incrementGoalsError} = await supabase 
+            .rpc('increment_user_goals', { 'u_id': user.id , 'x': 1 })
 
         refreshGoals() 
         

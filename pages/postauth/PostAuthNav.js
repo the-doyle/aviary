@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 const navigation = [
-    { name: 'Data', href: '/data' },
+    { name: 'Accounts', href: '/accounts' },
     { name: 'Goals', href: '/goals' },
     { name: 'Progress', href: '/progress' },
     { name: 'Aviary', href: '/aviary' },

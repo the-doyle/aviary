@@ -1,6 +1,6 @@
 import PostAuthNav from "./postauth/PostAuthNav"
-import PreAuthFooter from "./preauth/PreAuthFooter"
-import Goals from './goals/Goals'
+import Accounts from './postauth/Accounts'
+import PreAuthFooter from './preauth/PreAuthFooter'
 import PageInfo from './general/PageInfo'
 import Achievements from "./achievements/Achievements";
 
@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useEffect } from "react";
 
-export default function GoalsPage() {
+export default function AccountsPage() {
 
     const user = useUser() 
     const supabase = useSupabaseClient() 
@@ -32,10 +32,9 @@ export default function GoalsPage() {
         }
     }, [user, supabase])
 
-
     return (
         <>
-            <PostAuthNav current_tab='Goals' />
+            <PostAuthNav current_tab='Accounts' />
 
             <div className="pt-10 lg:pt-20 pb-20 lg:pb-60 min-h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <main>
@@ -48,7 +47,9 @@ export default function GoalsPage() {
                         />
                     </div>
 
-                    <Goals user={userData} refreshUser={getUserData}/>
+                    <div className='grid grid-cols-4 gap-5 lg:gap-10 grid-flow-row'>
+                        <Accounts user={userData} refreshUser={getUserData} />
+                    </div>
                 </main>
             </div>
 

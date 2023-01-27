@@ -14,7 +14,6 @@ export default function DeleteGoal(props) {
 
     const handleClick = async () => {
         if (showConfirm) {
-            setIcon('h-5 rounded-full animate-spin')
             const deleteGoalData = await deleteAccount(props.account.id)
             if (deleteGoalData) {
                 refreshGoals() 

@@ -1,50 +1,21 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
-import { useUser } from "@supabase/auth-helpers-react";
-import { useSupabaseClient } from "@supabase/auth-helpers-react"
 
-export default function AviaryInfo(props) {
-    const supabase = useSupabaseClient() 
-    const user = useUser() 
+export default function PageInfo(props) {
 
     const [open, setOpen] = useState(false)    
-    const [userData, setUserData] = useState(null)
 
-    const getUserData = async () => {
-        const {data: userData, error: userError} = await supabase
-            .from('users')
-            .select('*')
-            .eq('id', user.id)
-            .limit(1)
-            .single()
-        
-        setUserData(userData)
-    }
-
-    useEffect(() => {
-        if (supabase && user) {
-            getUserData() 
-        }
-    }, [supabase, user])
-
-    return userData && props.firstLine && props.title ? (
+    return props.firstLine && props.title ? (
         <>
-            <div className='flex gap-3 justify-end mb-10'>
-                <Link className='flex rounded-md border bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm' href='/aviary'>
-                    <p>{userData.feathers}🪶</p>
-                </Link>
-
-                <button
-                    type="button"
-                    className="inline-flex items-center rounded-md border bg-gray-50 px-3 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-gray-100 focus:outline-none"
-                    onClick={() => setOpen(true)}
-                >
-                    <InformationCircleIcon className="h-5 w-5" aria-hidden="true" />
-                    
-                </button>
-            </div>
+            <button
+                type="button"
+                className="inline-flex items-center rounded-md border bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none"
+                onClick={() => setOpen(true)}
+            >
+                <InformationCircleIcon className="h-5 w-5" aria-hidden="true" />
+                
+            </button>
 
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>

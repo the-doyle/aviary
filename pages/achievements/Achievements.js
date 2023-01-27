@@ -130,18 +130,21 @@ export default function Achievements(props) {
                                         <div className="relative mt-6 flex-1 px-4 sm:px-6">
                                             {achievements
                                                 .map((a) => (
-                                                    <div key={a.id} className='flex justify-between border-b pb-4 items-center'>
-                                                        <div className='flex-col justify-between align-middle'>
-                                                            <h1 className='text-base text-green-600 font-medium'>{a.name}</h1>
-                                                            <p className='text-sm text-slate-500'>{a.description}</p>
+                                                    <div className='flex-col border-b py-4 items-center'>
+                                                        <div key={a.id} className='flex justify-between'>
+                                                            <div className='flex-col justify-between align-middle'>
+                                                                <h1 className='text-lg text-green-600 font-semibold'>{a.name}</h1>
+                                                                <p className='text-base text-slate-500'>{a.description}</p>
+                                                            </div>
+                                                            <div className='flex-col text-center'>
+                                                                <AchievementButton achievement={a} claimAchievement={claimAchievement} user={props.user} /> 
+                                                                <p className='text-xs text-slate-600'>
+                                                                    Progress: {props.user[a.tracks]} / {a.requirement}
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <div className='flex-col text-center'>
-                                                            <AchievementButton achievement={a} claimAchievement={claimAchievement} user={props.user} /> 
-                                                            <p className='text-xs text-slate-400'>
-                                                                Progress: {props.user[a.tracks]} / {a.requirement}
-                                                            </p>
-                                                        </div>
-                                                    </div>
+                                                        {/* <p className='flex text-sm italic text-slate-400'> {a.fun_fact} </p> */}
+                                                    </div> 
                                                 ))
                                             }
                                         </div>

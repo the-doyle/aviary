@@ -85,10 +85,6 @@ export default function PageInfo(props) {
         </>
     ) :
     <div className='flex gap-3 justify-end'>
-        <Link className='flex rounded-md border bg-white px-3 py-2 text-sm font-medium text-white shadow-sm' href='/aviary'>
-            <p>20🪶</p>
-        </Link>
-
         <button
             type="button"
             className="inline-flex items-center rounded-md border bg-gray-50 px-3 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-gray-100 focus:outline-none"

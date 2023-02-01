@@ -15,22 +15,22 @@ const features = [
 
 export default function Pricing() {
     return (
-        <div name='pricing' id='pricing' className="relative overflow-hidden bg-slate-50">
+        <div name='pricing' id='pricing' className="relative overflow-hidden bg-inverted">
             <div className="overflow-hidden py-16 lg:py-24">
                 <div className="relative mx-auto max-w-xl px-6 lg:max-w-7xl lg:px-8">
                     <div className="pb-16 xl:flex xl:items-center xl:justify-between">
                         <div>
                             <h1 className="text-2xl font-bold tracking-tight sm:text-5xl">
-                                <span className="text-slate-900">Start growing your Aviary for free</span>
+                                <span className="text-skin-brand">Start growing your Aviary for free</span>
                                 {/* <span className="text-slate-200 line-through"> $30 / year</span> */}
-                                <span className="text-slate-300"> (beta)</span>
+                                <span className="text-skin-brand-light-hover"> (beta)</span>
                             </h1>
                         </div>
                     </div>
-                    <div className="border-slate-500 border-t border-dashed border-slate-500 pt-16 xl:grid xl:grid-cols-3 xl:gap-x-8">
+                    <div className="border-t border-dashed border-skin-base pt-16 xl:grid xl:grid-cols-3 xl:gap-x-8">
                         <div>
-                            <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900">Packed with premium features</p>
-                            <p className="mt-4 text-lg text-slate-500">
+                            <p className="mt-2 text-3xl font-bold tracking-tight text-skin-base">Packed with premium features</p>
+                            <p className="mt-4 text-lg text-skin-light">
                                 Aviary includes everything you need to set goals, track your progress, and grow your net worth. 
                             </p>
                         </div>
@@ -39,13 +39,13 @@ export default function Pricing() {
                             {features.slice(0, 4).map((feature, featureIdx) =>
                                 featureIdx === 0 ? (
                                 <li key={feature} className="flex py-4 md:py-0 md:pb-4">
-                                    <CheckIcon className="h-6 w-6 flex-shrink-0 text-green-500" aria-hidden="true" />
-                                    <span className="ml-3 text-base text-slate-500">{feature}</span>
+                                    <CheckIcon className="h-6 w-6 flex-shrink-0 text-skin-brand" aria-hidden="true" />
+                                    <span className="ml-3 text-base text-skin-light">{feature}</span>
                                 </li>
                                 ) : (
                                 <li key={feature} className="flex py-4">
-                                    <CheckIcon className="h-6 w-6 flex-shrink-0 text-green-500" aria-hidden="true" />
-                                    <span className="ml-3 text-base text-slate-500">{feature}</span>
+                                    <CheckIcon className="h-6 w-6 flex-shrink-0 text-skin-brand" aria-hidden="true" />
+                                    <span className="ml-3 text-base text-skin-light">{feature}</span>
                                 </li>
                                 )
                             )}
@@ -54,13 +54,13 @@ export default function Pricing() {
                             {features.slice(4).map((feature, featureIdx) =>
                                 featureIdx === 0 ? (
                                 <li key={feature} className="flex py-4 md:border-t-0 md:py-0 md:pb-4">
-                                    <CheckIcon className="h-6 w-6 flex-shrink-0 text-green-500" aria-hidden="true" />
-                                    <span className="ml-3 text-base text-slate-500">{feature}</span>
+                                    <CheckIcon className="h-6 w-6 flex-shrink-0 text-skin-brand" aria-hidden="true" />
+                                    <span className="ml-3 text-base text-skin-light">{feature}</span>
                                 </li>
                                 ) : (
                                 <li key={feature} className="flex py-4">
-                                    <CheckIcon className="h-6 w-6 flex-shrink-0 text-green-500" aria-hidden="true" />
-                                    <span className="ml-3 text-base text-slate-500">{feature}</span>
+                                    <CheckIcon className="h-6 w-6 flex-shrink-0 text-skin-brand" aria-hidden="true" />
+                                    <span className="ml-3 text-base text-skin-light">{feature}</span>
                                 </li>
                                 )
                             )}
@@ -71,7 +71,7 @@ export default function Pricing() {
 
                     <div className='flex space-x-4 mt-10'>
 
-                        <LinkButton 
+                        <LinkButtonDark
                             text='Get started for free' 
                             href='/sign-up'
                             link

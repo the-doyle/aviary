@@ -19,9 +19,9 @@ export default function AccountSelect(props) {
         <Listbox value={selected} onChange={(e) => setItem(e)}>
         {({ open }) => (
             <>
-            <Listbox.Label className="block text-sm font-medium text-gray-700">Account</Listbox.Label>
+            <Listbox.Label className="block text-sm font-medium text-skin-light">Account</Listbox.Label>
             <div className="relative mt-1">
-                <Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500 sm:text-sm">
+                <Listbox.Button className="relative w-full cursor-default rounded-md border border-skin-muted bg-skin-inverted py-2 pl-3 pr-10 text-left shadow-sm focus:border-skin-brand focus:outline-none focus:ring-1 focus:ring-skin-brand sm:text-sm">
                     <span className="block truncate">{selected.name}</span>
                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                         <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />

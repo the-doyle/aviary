@@ -13,7 +13,7 @@ export default function SignUp() {
                     <div className="mx-auto w-full max-w-sm lg:w-96">
                         <div>
                             <Logo height="60" width="60" />
-                            <h2 className="mt-6 text-3xl font-bold tracking-tight text-slate-900">Sign up for Aviary</h2>
+                            <h2 className="mt-6 text-3xl font-bold tracking-tight text-skin-brand">Sign up for Aviary</h2>
                             {/* <h2 className='mt-1 text-base font-medium text-slate-500'>$30 / year</h2> */}
                         </div>
 
@@ -22,10 +22,10 @@ export default function SignUp() {
                                 <SignUpForm />
                                 <div className="relative mt-5">
                                     <div className="relative flex justify-start">
-                                        <span className="bg-white text-sm text-slate-500">Already have an account? </span>
+                                        <span className="bg-skin-inverted text-sm text-skin-light">Already have an account? </span>
                                         <Link
                                             href='/sign-in'
-                                            className='pl-1 text-sm font-medium text-green-600 hover:text-green-700'
+                                            className='pl-1 text-sm font-medium text-skin-brand hover:text-skin-brand-hover'
                                             
                                         >
                                             Sign in 

@@ -13,7 +13,7 @@ export default function SignUpForm() {
     const [open, setOpen] = useState(false)
 
     const [signUpButton, setSignUpButton] = useState({
-        className: "transition-all group flex w-full justify-center align-middle rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none",
+        className: "group flex w-full justify-center rounded-md border border-skin-brand bg-skin-brand-light py-2 px-4 text-sm font-medium text-skin-brand-hover shadow-sm hover:bg-skin-brand-light-hover focus:outline-none",
         icon: <span className='ml-2 group-hover:ml-3 group-hover:-mr-1'>&rarr;</span>,
         text: 'Sign up'
     })
@@ -26,7 +26,7 @@ export default function SignUpForm() {
         e.preventDefault() 
 
         setSignUpButton({
-            className: "transition-all group flex w-full justify-center items-center rounded-md border border-transparent bg-green-700 py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none",
+            className: "group flex w-full justify-center rounded-md border border-skin-brand bg-skin-brand-light py-2 px-4 text-sm font-medium text-skin-brand-hover shadow-sm hover:bg-skin-brand-light-hover focus:outline-none",
             icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>,
             text: 'Signing up...'
         })
@@ -45,7 +45,7 @@ export default function SignUpForm() {
             setOpen(true)
 
             setSignUpButton({
-                className: "transition-all group flex w-full justify-center items-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none",
+                className: "group flex w-full justify-center rounded-md border border-skin-brand bg-skin-brand-light py-2 px-4 text-sm font-medium text-skin-brand-hover shadow-sm hover:bg-skin-brand-light-hover focus:outline-none",
                 icon: <FaceSmileIcon className='ml-1 h-4 rounded-full' />,
                 text: 'Sign up in progress'
             })
@@ -83,7 +83,7 @@ export default function SignUpForm() {
                         name="first_name"
                         type="text"
                         required
-                        className="block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border border-skin-muted px-3 py-2 shadow-sm focus:border-skin-brand focus:outline-none focus:ring-skin-brand sm:text-sm"
                         />
                     </div>
                 </div>
@@ -99,7 +99,7 @@ export default function SignUpForm() {
                         type="email"
                         autoComplete="email"
                         required
-                        className="block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border border-skin-muted px-3 pb-2 shadow-sm focus:border-skin-brand focus:outline-none focus:ring-skin-brand sm:text-sm"
                         />
                     </div>
                 </div>
@@ -115,7 +115,7 @@ export default function SignUpForm() {
                         type="password"
                         autoComplete="current-password"
                         required
-                        className="block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border border-skin-muted px-3 pb-2 shadow-sm focus:border-skin-brand focus:outline-none focus:ring-skin-brand sm:text-sm"
                         />
                     </div>
                 </div>

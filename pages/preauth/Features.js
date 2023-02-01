@@ -1,4 +1,4 @@
-import LinkButton from '../general/LinkButton'
+import LinkButtonDark from '../general/LinkButtonDark'
 import { useState } from 'react'
 import UnlockableBird from '../aviary/UnlockableBird'
 import AchievementButtonFree from '../achievements/AchievementButtonFree'
@@ -39,22 +39,22 @@ export default function Features() {
     return (
 
         <>
-        <div name='features' id='features' className="relative overflow-hidden bg-slate-50">
+        <div name='features' id='features' className="relative overflow-hidden bg-skin-secondary">
             <div className="overflow-hidden py-16 lg:py-24">
                 <div className="relative mx-auto max-w-xl px-6 lg:max-w-7xl lg:px-8">
                     <div className="relative">
-                        <h2 className="text-center text-3xl font-bold leading-8 tracking-tight text-slate-900 sm:text-4xl">
+                        <h2 className="text-center text-3xl font-bold leading-8 tracking-tight text-skin-brand sm:text-4xl">
                             Financial goals are tough
                         </h2>
-                        <p className="mx-auto mt-4 max-w-4xl text-center text-xl text-slate-500">
+                        <p className="mx-auto mt-4 max-w-4xl text-center text-xl text-skin-light">
                             Personal finance can be boring, and staying consistent over months/years is difficult 
                         </p>
                     </div>
 
                     <div className="relative mt-20 lg:mt-24 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
                         <div className="relative">
-                            <h3 className="text-2xl font-medium tracking-tight text-slate-900 sm:text-3xl">Personal finance, gamified</h3>
-                            <p className="mt-3 text-lg text-slate-500">
+                            <h3 className="text-2xl font-medium tracking-tight text-skin-base sm:text-3xl">Personal finance, gamified</h3>
+                            <p className="mt-3 text-lg text-skin-light">
                                 Aviary pairs beautiful, minimalist goal-setting tools with handcrafted, digitally collectible bird cards. 
                             </p>
 
@@ -62,15 +62,15 @@ export default function Features() {
                                 {appFeatures.map((item) => (
                                 <div key={item.id} className="relative">
                                     <dt>
-                                    <div className="absolute flex h-12 w-12 items-center justify-center rounded-xl bg-green-200 text-green-700">
+                                    <div className="absolute flex h-12 w-12 items-center justify-center rounded-xl bg-skin-brand-light-hover text-skin-brand-hover">
                                         <item.icon className="h-8 w-8" aria-hidden="true" />
                                     </div>
-                                    <p className="ml-16 text-lg font-medium leading-6 text-slate-900">{item.name}</p>
+                                    <p className="ml-16 text-lg font-medium leading-6 text-skin-base">{item.name}</p>
                                     </dt>
-                                    <dd className="mt-2 ml-16 text-base text-slate-500">{item.description}</dd>
+                                    <dd className="mt-2 ml-16 text-base text-skin-light">{item.description}</dd>
                                 </div>
                                 ))}
-                                <LinkButton href='/sign-up' text='Get started for free' link />  
+                                <LinkButtonDark href='/sign-up' text='Get started for free' link />  
                             </dl>
                         </div>
 
@@ -88,15 +88,15 @@ export default function Features() {
         </div>
 
 
-        <div name='features' id='features' className="relative overflow-hidden">
+        {/* <div name='aviaryfeatures' id='aviaryfeatures' className="relative overflow-hidden">
             <div className="overflow-hidden py-16 lg:py-24">
                 <div className="relative mx-auto max-w-xl px-6 lg:max-w-7xl lg:px-8">
                     <div className="relative">
                         <div className="relative">
-                            <h2 className="text-center text-3xl font-bold leading-8 tracking-tight text-slate-900 sm:text-4xl">
+                            <h2 className="text-center text-3xl font-bold leading-8 tracking-tight text-skin-base sm:text-4xl">
                                 Grow your Aviary
                             </h2>
-                            <p className="mx-auto mt-4 max-w-4xl lg:text-center text-xl text-slate-500">
+                            <p className="mx-auto mt-4 max-w-4xl lg:text-center text-xl text-skin-light">
                             Aviary incentivizes long-term consistency. Check-in monthly to complete achievements, earn feathers, and unlock new birds.
                             </p>
                         </div>
@@ -106,15 +106,15 @@ export default function Features() {
                                 <div className='grid grid-cols-2 lg:grid-cols-4 gap-2'>
 
                                     <div className='col-span-2 my-4 px-10 lg:px-20'>
-                                        <div className="text-2xl font-medium text-slate-800 text-center mb-5 flex justify-between content-center items-center">
+                                        <div className="text-2xl font-medium text-skin-base text-center mb-5 flex justify-between content-center items-center">
                                             <h1>Achievements</h1>
-                                            <p className='text-base text-slate-800'>Balance: {feathers} 🪶</p>
+                                            <p className='text-base text-skin-base'>Balance: {feathers} 🪶</p>
                                         </div>
                                         <div className='flex-col py-4 items-center'>
                                             <div className='flex justify-between'>
                                                 <div className='flex-col justify-between align-middle'>
-                                                    <h1 className='text-lg text-green-600 font-semibold'>Hatchling</h1>
-                                                    <p className='text-base text-slate-500'>Set your first goal</p>
+                                                    <h1 className='text-lg text-skin-brand font-semibold'>Hatchling</h1>
+                                                    <p className='text-base text-skin-light'>Set your first goal</p>
                                                 </div>
                                                 <div className='flex-col text-center'>
                                                     <AchievementButtonFree feathers={feathers} setFeathers={setFeathers} value={3} /> 
@@ -125,8 +125,8 @@ export default function Features() {
                                         <div className='flex-col py-4 items-center'>
                                             <div className='flex justify-between'>
                                                 <div className='flex-col justify-between align-middle'>
-                                                    <h1 className='text-lg text-green-600 font-semibold'>Down feathers</h1>
-                                                    <p className='text-base text-slate-500'>Add 5 accounts to your Aviary</p>
+                                                    <h1 className='text-lg text-skin-brand font-semibold'>Down feathers</h1>
+                                                    <p className='text-base text-skin-light'>Add 5 accounts to your Aviary</p>
                                                 </div>
                                                 <div className='flex-col text-center'>
                                                     <AchievementButtonFree feathers={feathers} setFeathers={setFeathers} value={5} /> 
@@ -156,7 +156,7 @@ export default function Features() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> */}
         
         
         </>

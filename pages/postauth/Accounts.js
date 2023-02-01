@@ -9,6 +9,7 @@ import LoadingTableBody from "./LoadingTableBody";
 import EmptyTableBody from "./EmptyTableBody";
 import EmptyChartBody from "./EmptyChartBody";
 import AssetsDonut from "../charts/AssetsDonut";
+import LiabilitiesDonut from "../charts/LiabilitiesDonut";
 import SortButton from "./SortButton";
 import DeleteButton from "./DeleteButton";
 
@@ -99,7 +100,7 @@ export default function Accounts(props) {
 
     const saveAssets = async () => {
         setSaveAssetsButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
+            className: "transition-all group inline-flex items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light-hover px-2 py-1 text-xs font-medium text-skin-brand-hover shadow-sm focus:outline-none",
             icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>,
             text: 'Saving'
         })
@@ -120,7 +121,7 @@ export default function Accounts(props) {
             .upsert(asset_history)
 
         setSaveAssetsButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
+            className: "transition-all group inline-flex items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light-hover px-2 py-1 text-xs font-medium text-skin-brand-hover shadow-sm focus:outline-none",
             icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>,
             text: 'Done'
         })
@@ -128,7 +129,7 @@ export default function Accounts(props) {
         await timeout(2000);
 
         setSaveAssetsButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
+            className: "transition-all group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-2 py-1 text-xs font-medium text-skin-light shadow-sm hover:bg-skin-secondary-hover focus:outline-none", 
             icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
             text: 'Save'
         })
@@ -220,8 +221,9 @@ export default function Accounts(props) {
     };
 
     const saveLiabilities = async () => {
+
         setSaveLiabilitesButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
+            className: "transition-all group inline-flex items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light-hover px-2 py-1 text-xs font-medium text-skin-brand-hover shadow-sm focus:outline-none",
             icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>,
             text: 'Saving'
         })
@@ -242,7 +244,7 @@ export default function Accounts(props) {
             .upsert(liability_history)
 
         setSaveLiabilitesButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-300 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm focus:outline-none",
+            className: "transition-all group inline-flex items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light-hover px-2 py-1 text-xs font-medium text-skin-brand-hover shadow-sm focus:outline-none",
             icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>,
             text: 'Done'
         })
@@ -250,7 +252,7 @@ export default function Accounts(props) {
         await timeout(2000);
 
         setSaveLiabilitesButton({
-            className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
+            className: "transition-all group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-2 py-1 text-xs font-medium text-skin-light shadow-sm hover:bg-skin-secondary-hover focus:outline-none", 
             icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
             text: 'Save'
         })
@@ -314,12 +316,12 @@ export default function Accounts(props) {
     
     //#region secondary state variables
     const [saveAssetsButton, setSaveAssetsButton] = useState({
-        className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
+        className: "transition-all group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-2 py-1 text-xs font-medium text-skin-light shadow-sm hover:bg-skin-secondary-hover focus:outline-none", 
         icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
         text: 'Save'
     })
     const [saveLiabilitiesButton, setSaveLiabilitesButton] = useState({
-        className: "transition-all group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none", 
+        className: "transition-all group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-2 py-1 text-xs font-medium text-skin-light shadow-sm hover:bg-skin-secondary-hover focus:outline-none",
         icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
         text: 'Save'
     })
@@ -360,8 +362,6 @@ export default function Accounts(props) {
         }
 
     }
-
-
     //#endregion 
     
     useEffect(() => {
@@ -375,13 +375,13 @@ export default function Accounts(props) {
         <>
 
             <div id='assets' className='col-span-4 lg:col-span-2'>
-                <h1 className="inline-flex items-center text-2xl font-semibold text-sky-500">Assets</h1>
-                <div className="mt-6 flex flex-col p-3 -mx-3 border border-dashed border-slate-300 rounded-lg">
+                <h1 className="inline-flex items-center text-2xl font-semibold text-skin-assets">Assets</h1>
+                <div className="mt-6 flex flex-col p-3 -mx-3 border border-dashed border-skin-secondary-button-border rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
                             <table className="min-w-full">
-                                <thead className='border-b border-slate-300'>
-                                    <tr className='text-sm text-slate-500'>
+                                <thead className='border-b border-skin-secondary-button-border'>
+                                    <tr className='text-sm text-skin-light'>
                                         <th scope="col" className="py-2 pr-1.5 text-left">
                                             <span className='inline-flex'>
                                                 Name
@@ -412,23 +412,23 @@ export default function Accounts(props) {
                                         .sort(sortAssetsOn[1] ? (a, b) => a[sortAssetsOn[0]] < b[sortAssetsOn[0]] : (a, b) => a[sortAssetsOn[0]] > b[sortAssetsOn[0]])
                                         .map((asset) => (
                                             <tr key={asset.id}>
-                                                <td className="whitespace-nowrap py-2 text-sm text-slate-500">
+                                                <td className="whitespace-nowrap py-2 text-sm text-skin-light">
                                                     <div className="relative mt-1 rounded-md">
-                                                        <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
+                                                        <div className="mt-1 border-b border-skin-secondary-button-border focus-within:border-skin-light">
                                                             <input
                                                                 type="text"
                                                                 name="name"
                                                                 id="name"   
-                                                                className="block w-full border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
+                                                                className="block w-full border-0 border-b border-transparent focus:border-skin-light focus:ring-0 text-sm text-skin-light focus:text-skin-base"
                                                                 value={asset.name}
                                                                 onChange={(e) => editAsset(e, asset.id)}
                                                             />  
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="whitespace-nowrap py-2 text-sm text-slate-500">
+                                                <td className="whitespace-nowrap py-2 text-sm text-skin-light">
                                                     <div className="relative mt-1 rounded-md">
-                                                        <div className="mt-1 focus-within:border-slate-600">
+                                                        <div className="mt-1 focus-within:border-skin-light">
                                                             <SearchSelectInput 
                                                                 handleChange={editAssetType} 
                                                                 items={assetTypes} 
@@ -439,15 +439,15 @@ export default function Accounts(props) {
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="whitespace-nowrap py-2 px-2 text-sm text-slate-500">
+                                                <td className="whitespace-nowrap py-2 px-2 text-sm text-skin-light">
                                                     <div className="relative mt-1 rounded-md">
 
-                                                        <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
+                                                        <div className="mt-1 border-b border-skin-secondary-button-border focus-within:border-skin-light">
                                                             <input
                                                                 type="text"
                                                                 name="balance"
                                                                 id="balance"
-                                                                className="block w-full text-right border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
+                                                                className="block w-full text-right border-0 border-b border-transparent focus:border-skin-light focus:ring-0 text-sm text-skin-light focus:text-skin-base"
                                                                 value={asset.balance ? formatter.format(asset.balance) : formatter.format(0)}
                                                                 onChange={(e) => editAsset(e, asset.id)}
                                                                 min={0}
@@ -469,7 +469,7 @@ export default function Accounts(props) {
 
                             {assets && assets.length > 0 
                                 ? 
-                                    <div className='flex justify-end text-sm text-slate-800 pr-12 mr-1 py-3'>
+                                    <div className='flex justify-end text-sm text-skin-base pr-12 mr-1 py-3'>
                                         <h1 className="font-medium">Total <span className='font-serif font-bold pl-1'>&rarr;</span></h1>
                                         <h1 className="pl-2 font-semibold">{formatter.format(sumList(Object.values(filterData(assets))))}</h1>
                                     </div>
@@ -487,7 +487,7 @@ export default function Accounts(props) {
                                 </button>
                                 <button
                                 type="button"
-                                className="ml-2 group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none"
+                                className="ml-2 group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-2 py-1 text-xs font-medium text-skin-light shadow-sm hover:bg-skin-secondary-hover focus:outline-none"
                                 onClick={addAsset}
                                 >
                                     New
@@ -504,7 +504,7 @@ export default function Accounts(props) {
                     ? 
                         <>
                             <AssetsDonut data={filterData(assets)} label="$"/>
-                            <p className='text-sm text-center text-slate-300 pt-3'>Hover to see category totals</p>
+                            <p className='text-sm text-center text-skin-muted pt-3'>Hover to see category totals</p>
                         </>
                     :   
                         <EmptyChartBody message="Add assets to see this chart" /> 
@@ -512,13 +512,13 @@ export default function Accounts(props) {
             </div>
 
             <div id='liabilities' className='mt-16 col-span-4 lg:col-span-2'>
-                <h1 className="inline-flex items-center text-2xl font-semibold text-violet-500">Liabilities</h1>
-                <div className="mt-6 flex flex-col p-3 -mx-3 border border-dashed border-slate-300 rounded-lg">
+                <h1 className="inline-flex items-center text-2xl font-semibold text-skin-liabilities">Liabilities</h1>
+                <div className="mt-6 flex flex-col p-3 -mx-3 border border-dashed border-skin-seconary-button-border rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
                             <table className="min-w-full">
-                                <thead className='border-b border-slate-300'>
-                                    <tr className='text-sm text-slate-500'>
+                                <thead className='border-b border-skin-secondary-button-border'>
+                                    <tr className='text-sm text-skin-light'>
                                         <th scope="col" className="py-2 pr-1.5 text-left">
                                             <span className='inline-flex'>
                                                 Name
@@ -549,23 +549,23 @@ export default function Accounts(props) {
                                     .sort(sortLiabilitiesOn[1] ? (a, b) => a[sortLiabilitiesOn[0]] < b[sortLiabilitiesOn[0]] : (a, b) => a[sortLiabilitiesOn[0]] > b[sortLiabilitiesOn[0]])
                                     .map((liability) => (
                                         <tr key={liability.id}>
-                                            <td className="whitespace-nowrap py-2 text-sm text-slate-500">
+                                            <td className="whitespace-nowrap py-2 text-sm text-skin-light">
                                                 <div className="relative mt-1 rounded-md">
-                                                    <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
+                                                    <div className="mt-1 border-b border-skin-secondary-button-border focus-within:border-skin-light">
                                                         <input
                                                             type="text"
                                                             name="name"
                                                             id="name"   
-                                                            className="block w-full border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
+                                                            className="block w-full border-0 border-b border-transparent focus:border-skin-light focus:ring-0 text-sm text-skin-light focus:text-skin-base"
                                                             value={liability.name}
                                                             onChange={(e) => editLiability(e, liability.id)}
                                                         />  
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="whitespace-nowrap py-2 text-sm text-slate-500">
+                                            <td className="whitespace-nowrap py-2 text-sm text-skin-light">
                                                 <div className="relative mt-1 rounded-md">
-                                                    <div className="mt-1 focus-within:border-slate-600">
+                                                    <div className="mt-1 focus-within:border-skin-light">
                                                         <SearchSelectInput 
                                                             handleChange={editLiabilityType} 
                                                             items={liabilityTypes} 
@@ -576,15 +576,15 @@ export default function Accounts(props) {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="whitespace-nowrap py-2 px-2 text-sm text-slate-500">
+                                            <td className="whitespace-nowrap py-2 px-2 text-sm text-skin-light">
                                                 <div className="relative mt-1 rounded-md">
 
-                                                    <div className="mt-1 border-b border-slate-200 focus-within:border-slate-600">
+                                                    <div className="mt-1 border-b border-skin-secondary-button-border focus-within:border-skin-light">
                                                         <input
                                                             type="text"
                                                             name="balance"
                                                             id="balance"
-                                                            className="block w-full text-right border-0 border-b border-transparent focus:border-slate-600 focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
+                                                            className="block w-full text-right border-0 border-b border-transparent focus:border-skin-light focus:ring-0 text-sm text-skin-light focus:text-skin-base"
                                                             value={liability.balance ? formatter.format(liability.balance) : formatter.format(0)}
                                                             onChange={(e) => editLiability(e, liability.id)}
                                                             min={0}
@@ -606,7 +606,7 @@ export default function Accounts(props) {
 
                             {liabilities && liabilities.length > 0 
                                 ? 
-                                    <div className='flex justify-end text-sm text-slate-800 pr-12 mr-1 py-3'>
+                                    <div className='flex justify-end text-sm text-skin-base pr-12 mr-1 py-3'>
                                         <h1 className="font-medium">Total <span className='font-serif font-bold pl-1'>&rarr;</span></h1>
                                         <h1 className="pl-2 font-semibold">{formatter.format(sumList(Object.values(filterData(liabilities))))}</h1>
                                     </div>
@@ -624,7 +624,7 @@ export default function Accounts(props) {
                                 </button>
                                 <button
                                 type="button"
-                                className="ml-2 group inline-flex items-center rounded-md border border-slate-300 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none"
+                                className="ml-2 group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-2 py-1 text-xs font-medium text-skin-light shadow-sm hover:bg-skin-secondary-hover focus:outline-none"
                                 onClick={addLiability}
                                 >
                                     New
@@ -640,8 +640,8 @@ export default function Accounts(props) {
                 {liabilities && liabilities.length > 0 && sumList(Object.values(filterData(liabilities))) > 0
                     ? 
                         <>
-                            <AssetsDonut data={filterData(liabilities)} label="$"/>
-                            <p className='text-sm text-center text-slate-300 pt-3'>Hover to see category totals</p>
+                            <LiabilitiesDonut data={filterData(liabilities)} label="$"/>
+                            <p className='text-sm text-center text-skin-muted pt-3'>Hover to see category totals</p>
                         </>
                     :   
                         <EmptyChartBody /> 

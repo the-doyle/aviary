@@ -13,32 +13,20 @@ export default function LiabilitiesDonut(props) {
                 label: props.label ? props.label : "",
                 data: props.data ? Object.values(props.data) : [],
                 backgroundColor: [
-                    '#c084fc', //purple -> fuchsia
-                    '#d8b4fe',
-                    '#e9d5ff',
-                    '#f5d0fe',
-                    '#f0abfc',
-                    '#e879f9',
-                    // '#1e293b', //slate
-                    // '#475569',
-                    // '#64748b',
-                    // '#94a3b8',
-                    // '#cbd5e1',
-                    // '#e2e8f0',
+                    '#4f46e5', //indigo
+                    '#6366f1',
+                    '#818cf8',
+                    '#a5b4fc',
+                    '#c7d2fe',
+                    '#e0e7ff',
                 ],
                 borderColor: [
-                    '#c084fc', //purple -> fuchsia
-                    '#d8b4fe',
-                    '#e9d5ff',
-                    '#f5d0fe',
-                    '#f0abfc',
-                    '#e879f9',
-                    // '#1e293b', //slate
-                    // '#475569',
-                    // '#64748b',
-                    // '#94a3b8',
-                    // '#cbd5e1',
-                    // '#e2e8f0',
+                    '#4f46e5', //indigo
+                    '#6366f1',
+                    '#818cf8',
+                    '#a5b4fc',
+                    '#c7d2fe',
+                    '#e0e7ff',
                 ],
                 borderWidth: 1,
             },

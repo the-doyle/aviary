@@ -4,7 +4,7 @@ export default function LinkButton(props) {
     return props.href && props.text && !props.link ? (
         <a
           href={props.href}
-          className="group inline-flex items-center rounded-md border border-slate-400 bg-slate-50 px-4 py-2 text-sm sm:text-base font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none"
+          className="group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-4 py-2 text-sm sm:text-base font-medium text-skin-base shadow-sm hover:bg-skin-secondary-hover focus:outline-none"
         >
             {props.text}
             <span className='ml-2 group-hover:ml-3 group-hover:-mr-1'>
@@ -14,7 +14,7 @@ export default function LinkButton(props) {
     ) : props.href && props.text && props.link ? (
         <Link
           href={props.href}
-          className="group inline-flex items-center rounded-md border border-slate-400 bg-slate-50 px-4 py-2 text-sm sm:text-base font-medium text-slate-700 shadow-sm hover:bg-slate-100 focus:outline-none"
+          className="group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-4 py-2 text-sm sm:text-base font-medium text-skin-base shadow-sm hover:bg-skin-secondary-hover focus:outline-none"
         >
             {props.text}
             <span className=' ml-2 group-hover:ml-3 group-hover:-mr-1'>

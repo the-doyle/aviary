@@ -62,17 +62,13 @@ export default function Achievements(props) {
         <>
             <button 
             type="button" 
-            className={`
-                relative inline-flex items-center p-3 text-sm font-medium text-center
-                ${open ? 'bg-slate-800 hover:bg-slate-500' : 'bg-white hover:bg-slate-50'} 
-                border rounded-md focus:outline-none transition-all
-            `}
+            className='inline-flex items-center rounded-md border border-skin-secondary-button-border text-skin-light bg-skin-secondary p-3 text-sm font-medium hover:bg-skin-secondary-hover focus:outline-none'
             onClick={handleClick}
             >
                 🪶
                 {claimableAchievements > 0 
                     ? 
-                        <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-green-500 border-2 border-white rounded-full -top-2 -right-2">
+                        <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-skin-inverted bg-brand border-2 border-skin-inverted rounded-full -top-2 -right-2">
                             {claimableAchievements}
                         </div>
                     :   null 
@@ -108,13 +104,13 @@ export default function Achievements(props) {
                                 >
                                     <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
                                     <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-                                        <div className="py-6 px-4 sm:px-6 bg-slate-100 rounded-b-xl">
+                                        <div className="py-6 px-4 sm:px-6 bg-skin-secondary-hover">
                                             <div className="flex items-start justify-between">
-                                                <Dialog.Title className="text-xl font-medium text-slate-800">Achievements</Dialog.Title>
+                                                <Dialog.Title className="text-2xl font-medium text-skin-base">Achievements</Dialog.Title>
                                                 <div className="ml-3 flex h-7 items-center">
                                                     <button
                                                         type="button"
-                                                        className="rounded-md text-slate-600 hover:text-slate-800 focus:outline-none"
+                                                        className="rounded-md text-skin-light hover:text-skin-base focus:outline-none"
                                                         onClick={() => setOpen(false)}
                                                     >
                                                         <span className="sr-only">Close panel</span>
@@ -122,7 +118,7 @@ export default function Achievements(props) {
                                                     </button>
                                                 </div>
                                             </div>
-                                            <h1 className='text-sm text-gray-800 mt-1'>
+                                            <h1 className='text-sm text-skin-base mt-1'>
                                                 {props.user.feathers} 🪶
                                             </h1>
                                         </div>
@@ -133,12 +129,12 @@ export default function Achievements(props) {
                                                     <div key={a.id} className='flex-col border-b py-4 items-center'>
                                                         <div className='flex justify-between'>
                                                             <div className='flex-col justify-between align-middle'>
-                                                                <h1 className='text-lg text-green-600 font-semibold'>{a.name}</h1>
-                                                                <p className='text-base text-slate-500'>{a.description}</p>
+                                                                <h1 className='text-lg text-skin-brand font-semibold'>{a.name}</h1>
+                                                                <p className='text-base text-skin-light'>{a.description}</p>
                                                             </div>
                                                             <div className='flex-col text-center'>
                                                                 <AchievementButton achievement={a} claimAchievement={claimAchievement} user={props.user} /> 
-                                                                <p className='text-xs text-slate-600'>
+                                                                <p className='text-xs text-skin-muted'>
                                                                     Progress: {props.user[a.tracks]} / {a.requirement}
                                                                 </p>
                                                             </div>
@@ -159,7 +155,7 @@ export default function Achievements(props) {
         </>
     ) : 
         <button 
-            className='flex rounded-md border bg-white p-3 text-sm font-medium text-slate-700 shadow-sm overflow-visible' 
+            className='inline-flex items-center rounded-md border border-skin-secondary-button-border text-skin-light bg-skin-secondary p-3 text-sm font-medium hover:bg-skin-secondary-hover focus:outline-none' 
         >
             🪶
         </button>

@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import SignInForm from './forms/SignInForm'
 import PreAuthFooter from './preauth/PreAuthFooter'
-import Image from 'next/image'
 import Logo from './general/Logo'
 
 export default function SignIn() {
@@ -13,7 +12,7 @@ export default function SignIn() {
                     <div className="mx-auto w-full max-w-sm lg:w-96">
                         <div>
                             <Logo height="60" width="60" />
-                            <h2 className="mt-6 text-3xl font-bold tracking-tight text-slate-900">Welcome back!</h2>
+                            <h2 className="mt-6 text-3xl font-bold tracking-tight text-skin-brand">Welcome back!</h2>
                         </div>
 
                         <div className="mt-8">
@@ -21,10 +20,10 @@ export default function SignIn() {
                                 <SignInForm />
                                 <div className="relative mt-5">
                                     <div className="relative flex justify-start">
-                                        <span className="bg-white text-sm text-slate-500">Don&apos;t have an account? </span>
+                                        <span className="bg-skin-inverted text-sm text-skin-light">Don&apos;t have an account? </span>
                                         <Link
                                             href='/sign-up'
-                                            className='pl-1 text-sm font-medium text-green-600 hover:text-green-700'
+                                            className='pl-1 text-sm font-medium text-skin-brand hover:text-skin-brand-hover'
                                             
                                         >
                                             Sign up

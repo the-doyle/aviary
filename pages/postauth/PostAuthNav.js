@@ -2,7 +2,6 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import Image from 'next/image'
 import Logo from '../general/Logo'
 
 const navigation = [
@@ -31,7 +30,7 @@ export default function PostAuthNav(props) {
     }
 
     return props.current_tab ? (
-        <Disclosure as="nav" className="border-b border-slate-200 bg-white">
+        <Disclosure as="nav" className="border-b border-skin-secondary-hover bg-skin-inverted">
             {({ open }) => (
                 <>
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -47,8 +46,8 @@ export default function PostAuthNav(props) {
                                 href={item.href}
                                 className={classNames(
                                     props.current_tab == item.name
-                                    ? 'border-slate-500 text-slate-900'
-                                    : 'border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700',
+                                    ? 'border-skin-light text-skin-base'
+                                    : 'border-transparent text-skin-light hover:border-skin-light hover:text-skin-base',
                                     'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
                                 )}
                                 aria-current={props.current_tab == item.name ? 'page' : undefined}
@@ -63,7 +62,7 @@ export default function PostAuthNav(props) {
                         <Link 
                             href='/' 
                             onClick={signOut}
-                            className='border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700 inline-flex items-center px-1 pt-6 pb-5 border-b-2 text-sm font-medium'
+                            className='border-transparent text-skin-light hover:border-skin-light hover:text-skin-base inline-flex items-center px-1 pt-6 pb-5 border-b-2 text-sm font-medium'
                         >
                             Sign out
                         </Link>
@@ -71,7 +70,7 @@ export default function PostAuthNav(props) {
                     </div>
                     <div className="-mr-2 flex items-center sm:hidden">
                         {/* Mobile menu button */}
-                        <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2">
+                        <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-skin-inverted p-2 text-skin-light hover:bg-skin-secondary hover:text-skin-light focus:outline-none">
                         <span className="sr-only">Open main menu</span>
                         {open ? (
                             <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -91,8 +90,8 @@ export default function PostAuthNav(props) {
                             as="a"
                             className={classNames(
                                 props.current_tab == item.name
-                                ? 'bg-slate-50 border-slate-500 text-slate-700'
-                                : 'border-transparent text-slate-600 hover:bg-slate-50 hover:border-slate-300 hover:text-slate-800',
+                                ? 'bg-skin-secondary border-skin-light text-skin-base'
+                                : 'border-transparent text-skin-light hover:bg-skin-secondary hover:border-skin-light hover:text-skin-base',
                                 'block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
                             )}
                             aria-current={props.current_tab == item.name ? 'page' : undefined}
@@ -102,10 +101,10 @@ export default function PostAuthNav(props) {
                         </Link>
                     ))}
                     </div>
-                    <div className="border-t border-slate-200 pt-4 pb-3">
+                    <div className="border-t border-skin-secondary-hover pt-4 pb-3">
                     
                     <div className="space-y-1">
-                        <Link href='/' onClick={signOut} className='block pl-3 pr-4 py-2 border-l-4 text-base font-medium border-transparent text-slate-600 hover:bg-slate-50 hover:border-slate-300 hover:text-slate-800'>Sign out</Link>
+                        <Link href='/' onClick={signOut} className='block pl-3 pr-4 py-2 border-l-4 text-base font-medium border-transparent text-skin-light hover:bg-skin-secondary hover:border-skin-light hover:text-skin-base'>Sign out</Link>
                     </div>
                     </div>
                 </Disclosure.Panel>

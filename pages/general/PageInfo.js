@@ -10,7 +10,7 @@ export default function PageInfo(props) {
         <>
             <button
                 type="button"
-                className="inline-flex items-center rounded-md border bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none"
+                className="inline-flex items-center rounded-md border border-skin-secondary-button-border text-skin-light bg-skin-secondary px-3 py-2 text-sm font-medium hover:bg-skin-secondary-hover focus:outline-none"
                 onClick={() => setOpen(true)}
             >
                 <InformationCircleIcon className="h-5 w-5" aria-hidden="true" />
@@ -42,23 +42,20 @@ export default function PageInfo(props) {
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                             >
-                                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-skin-inverted px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                                     <div>
-                                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                                            <CheckIcon className="h-6 w-6 text-green-600" aria-hidden="true" />
-                                        </div>
                                         <div className="mt-3 sm:mt-5">
-                                            <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 text-center">
+                                            <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-skin-base text-center">
                                             {props.title}
                                             </Dialog.Title>
                                             <div className="mt-4">
 
-                                                <p className="text-sm mb-2 text-gray-500">
+                                                <p className="text-sm mb-2 text-skin-light">
                                                     {props.firstLine}
                                                 </p>
 
                                                 {props.secondLine 
-                                                    ? <p className="text-sm text-gray-500">{props.secondLine}</p>
+                                                    ? <p className="text-sm text-skin-light">{props.secondLine}</p>
                                                     : null
                                                 }
                                                 
@@ -68,7 +65,7 @@ export default function PageInfo(props) {
                                     <div className="mt-5 sm:mt-6">
                                         <button
                                             type="button"
-                                            className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none sm:text-sm"
+                                            className="inline-flex w-full justify-center rounded-md border border-skin-brand-button-border bg-skin-brand-light px-4 py-2 text-base font-medium text-skin-brand-hover shadow-sm hover:bg-skin-brand-light-hover focus:outline-none sm:text-sm"
                                             onClick={() => setOpen(false)}
                                         >
                                             Got it!

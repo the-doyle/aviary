@@ -36,32 +36,20 @@ export default function Donut(props) {
                 label: props.label ? props.label : "",
                 data: newArrayData,
                 backgroundColor: [
-                    '#bbf7d0', //green -> cyan
-                    '#86efac',
-                    '#4ade80',
-                    '#22d3ee',
-                    '#67e8f9',
-                    '#a5f3fc',
-                    // '#1e293b', //slate
-                    // '#475569',
-                    // '#64748b',
-                    // '#94a3b8',
-                    // '#cbd5e1',
-                    // '#e2e8f0',
+                    '#0284c7', //sky
+                    '#0ea5e9',
+                    '#38bdf8',
+                    '#7dd3fc',
+                    '#bae6fd',
+                    '#e0f2fe',
                 ],
                 borderColor: [
-                    '#bbf7d0', //green -> cyan
-                    '#86efac',
-                    '#4ade80',
-                    '#22d3ee',
-                    '#67e8f9',
-                    '#a5f3fc',
-                    // '#1e293b', (slate)
-                    // '#475569',
-                    // '#64748b',
-                    // '#94a3b8',
-                    // '#cbd5e1',
-                    // '#e2e8f0',
+                    '#0284c7', //sky
+                    '#0ea5e9',
+                    '#38bdf8',
+                    '#7dd3fc',
+                    '#bae6fd',
+                    '#e0f2fe',
                 ],
                 borderWidth: 1,
             },

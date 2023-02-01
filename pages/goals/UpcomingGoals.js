@@ -70,10 +70,10 @@ export default function UpcomingGoals(props) {
                 <NewGoal open={open} handleOpen={handleOpen} accounts={props.accounts} refreshGoals={refreshGoals} /> 
 
                 <div className='flex justify-between mb-2'>
-                    <h1 className="inline-flex items-center text-2xl font-semibold text-slate-800 mb-5">{props.year} goals</h1>
+                    <h1 className="inline-flex items-center text-2xl font-semibold text-skin-base mb-5">{props.year} goals</h1>
                     <button
                             type="button"
-                            className="flex place-items-center text-sm font-medium text-slate-600 hover:text-slate-800 focus:outline-none"
+                            className="flex place-items-center text-sm font-medium text-skin-light hover:text-skin-base focus:outline-none"
                             onClick={handleOpen}
                         >
                             New goal
@@ -86,20 +86,20 @@ export default function UpcomingGoals(props) {
                     .map((goal) => (
                         <div 
                             key={goal.id} 
-                            className='relative flex space-x-6 xl:static px-2 py-4 bg-white border-t border-slate-200'
+                            className='relative flex space-x-6 xl:static px-2 py-4 bg-white border-t border-skin-secondary-button-border'
                         >
                             <div className="flex-auto">
                                 {goal.class === 'asset' 
-                                    ? <h3 className="pr-10 font-medium text-sky-500 xl:pr-0 text-lg">
+                                    ? <h3 className="pr-10 font-medium text-skin-assets xl:pr-0 text-lg">
                                         {goal.goal_name}
                                         {goal.balance >= goal.target_balance ? <span className='pl-2'>🎉</span> : null}
                                     </h3>
-                                    : <h3 className="pr-10 font-medium text-violet-500 xl:pr-0 text-lg">
+                                    : <h3 className="pr-10 font-medium text-skin-liabilities xl:pr-0 text-lg">
                                         {goal.goal_name}
                                         {goal.balance <= goal.target_balance ? <span className='pl-2'>🎉</span> : null}
                                     </h3>
                                 }
-                                <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row xl:justify-between xl:place-items-center text-sm">
+                                <dl className="mt-2 flex flex-col text-skin-muted xl:flex-row xl:justify-between xl:place-items-center text-sm">
                                     <div className="xl:w-1/3 flex space-x-3">
                                         <dd>
                                             <time dateTime={goal.target_date}>
@@ -110,7 +110,7 @@ export default function UpcomingGoals(props) {
                                     <div className="xl:w-1/3 mt-2 flex xl:mt-0">                                    
                                         <dd>
                                             {formatAsCurrency.format(goal.balance)}
-                                            <span className='px-1 md:px-2 font-serif font-bold text-black'>&rarr;</span>
+                                            <span className='px-1 md:px-2 font-serif font-bold'>&rarr;</span>
                                             {formatAsCurrency.format(goal.target_balance)}
                                         </dd>
                                     </div>
@@ -123,7 +123,7 @@ export default function UpcomingGoals(props) {
                             </div>
                         </div>
                     )) 
-                    : <div className='flex flex-col gap-5 place-content-center place-items-center h-40 sm:h-80 text-gray-400 rounded-lg bg-slate-100'>
+                    : <div className='flex flex-col gap-5 place-content-center place-items-center h-40 sm:h-80 text-skin-muted rounded-lg bg-skin-secondary'>
                         <h1 className='text-base'>You don&apos;t have any {props.year} goals yet </h1>
                     </div>
                 }          

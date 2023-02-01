@@ -2,7 +2,6 @@ import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
-import birdPic from '../../public/bird.png'
 import Link from 'next/link'
 import Logo from '../general/Logo'
 
@@ -23,13 +22,13 @@ export default function PreAuthNav() {
                         <Link href="/" className='flex items-center mr-5'>
                             <span className="sr-only">Aviary Finance</span>
                             <Logo height="40" width="40" />
-                            <h1 className='text-xl text-green-700 font-bold'>
+                            <h1 className='text-xl text-skin-brand-hover font-bold'>
                                 Aviary
-                                <span className='text-green-500 font-medium'>Finance</span>
+                                <span className='text-skin-brand font-medium'>Finance</span>
                             </h1>
                         </Link>
                         <div className="-mr-2 flex items-center md:hidden">
-                            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500">
+                            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-skin-inverted p-2 text-light hover:bg-skin-secondary hover:text-skin-base focus:outline-none">
                                 <span className="sr-only">Open main menu</span>
                                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                             </Popover.Button>
@@ -40,7 +39,7 @@ export default function PreAuthNav() {
                             <a 
                             key={item.name} 
                             href={item.href} 
-                            className="font-medium text-slate-600 hover:text-slate-900"
+                            className="font-medium text-skin-light hover:text-skin-base"
                             >
                                 {item.name}
                             </a>
@@ -50,7 +49,7 @@ export default function PreAuthNav() {
                 <div className="hidden text-right md:block">
                     <Link
                     href="/sign-in"
-                    className="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none"
+                    className="inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-4 py-2 text-sm font-medium text-skin-base shadow-sm hover:bg-skin-secondary-hover focus:outline-none"
                     >
                         Sign in
                     </Link>
@@ -70,17 +69,17 @@ export default function PreAuthNav() {
                 focus
                 className="absolute inset-x-0 top-0 z-10 origin-top-right transform p-2 transition md:hidden"
                 >
-                    <div className="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
+                    <div className="overflow-hidden rounded-lg bg-skin-inverted shadow-md ring-1 ring-black ring-opacity-5">
                         <div className="flex items-center justify-between px-5 pt-4">
                             <div className='flex'>
-                                <Image alt="pic"  src={birdPic} className="h-8 w-auto" /> 
-                                <h1 className='text-lg text-slate-500 font-bold'>
+                                <Logo height="40" width="40" />
+                                <h1 className='text-lg text-skin-brand-hover font-bold'>
                                     Aviary
-                                    <span className='text-slate-400 font-medium'>Finance</span>
+                                    <span className='text-skin-brand font-medium'>Finance</span>
                                 </h1>
                             </div>
                             <div className="-mr-2">
-                                <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500">
+                                <Popover.Button className="inline-flex items-center justify-center rounded-md bg-skin-inverted p-2 text-skin-light hover:text-skin-base focus:outline-none">
                                 <span className="sr-only">Close main menu</span>
                                 <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                                 </Popover.Button>
@@ -91,7 +90,7 @@ export default function PreAuthNav() {
                                 <Link
                                 key={item.name}
                                 href={item.href}
-                                className="block rounded-md px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                                className="block rounded-md px-3 py-2 text-base font-medium text-skin-light hover:bg-skin-secondary-hover hover:text-skin-base"
                                 >
                                     {item.name}
                                 </Link>
@@ -99,7 +98,7 @@ export default function PreAuthNav() {
                         </div>
                         <Link
                             href="/sign-in"
-                            className="block w-full bg-slate-50 px-5 py-3 text-center font-medium text-slate-600 hover:bg-slate-100"
+                            className="block w-full bg-skin-secondary px-5 py-3 text-center font-medium text-skin-light hover:bg-skin-secondary-hover"
                             >
                             Sign in 
                         </Link>

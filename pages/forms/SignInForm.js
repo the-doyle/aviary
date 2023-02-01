@@ -24,7 +24,7 @@ export default function SignInForm() {
     return (
         <form onSubmit={handleSignIn} method="POST" className="space-y-6">
             <div>
-                <label htmlFor="email" className="block text-sm font-medium text-slate-700">
+                <label htmlFor="email" className="block text-sm font-medium text-skin-light">
                     Email address
                 </label>
                 <div className="mt-1">
@@ -34,13 +34,13 @@ export default function SignInForm() {
                     type="email"
                     autoComplete="email"
                     required
-                    className="block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                    className="block w-full appearance-none rounded-md border border-skin-muted px-3 py-2 shadow-sm focus:border-skin-brand focus:outline-none focus:ring-skin-brand sm:text-sm"
                     />
                 </div>
             </div>
 
             <div className="space-y-1">
-                <label htmlFor="password" className="block text-sm font-medium text-slate-700">
+                <label htmlFor="password" className="block text-sm font-medium text-skin-base">
                     Password
                 </label>
                 <div className="mt-1">
@@ -50,7 +50,7 @@ export default function SignInForm() {
                     type="password"
                     autoComplete="current-password"
                     required
-                    className="block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                    className="block w-full appearance-none rounded-md border border-skin-muted px-3 pb-2 shadow-sm focus:border-skin-brand focus:outline-non focus:ring-skin-brand sm:text-sm"
                     />
                 </div>
             </div>
@@ -58,7 +58,7 @@ export default function SignInForm() {
             <div>
                 <button
                     type="submit"
-                    className="group flex w-full justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                    className="group flex w-full justify-center rounded-md border border-skin-brand bg-skin-brand-light py-2 px-4 text-sm font-medium text-skin-brand-hover shadow-sm hover:bg-skin-brand-light-hover focus:outline-none"
                 >
                     Sign in
                     <span className='ml-2 group-hover:ml-3 group-hover:-mr-1'>&rarr;</span>

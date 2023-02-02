@@ -76,9 +76,10 @@ export default function PreAuthFooter() {
 				</Link>
 				))}
 			</div> */}
-			<div className="mt-8 md:order-1 md:mt-0">
-				<p className="text-center text-base text-slate-400">&copy; 2023 Aviary Finance. All rights reserved.</p>
+			<div className="mt-8 md:mt-0">
+				<p className="text-center text-base text-skin-muted">&copy; 2023 Aviary Finance. All rights reserved.</p>
 			</div>
+			<div className='text-skin-muted'> Bird icon made by <Link href="https://www.flaticon.com/authors/freepik" title="Freepik"> Freepik </Link></div>
 		</div>
 	</footer>
 	)

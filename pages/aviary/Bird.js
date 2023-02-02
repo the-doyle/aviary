@@ -39,12 +39,12 @@ export default function Bird(props) {
                 className={`relative group transition-all rounded-lg flex flex-col h-full px-6 group min-h-max text-transparent 
                             ${props.unlocked 
                                 ? flipped 
-                                    ? 'hover:border hover:border-dashed hover:border-slate-300  hover:cursor-pointer' 
-                                    : 'border border-dashed border-slate-300 hover:border-slate-400 hover:cursor-pointer'
+                                    ? 'hover:border hover:border-dashed hover:border-skin-secondary-button-border hover:cursor-pointer' 
+                                    : 'border border-dashed border-skin-secondary-button-border hover:border-skin-muted hover:cursor-pointer'
                                 : ''}
                             `}
             >
-                <ArrowUturnLeftIcon className={`h-8 pt-4 place-self-end ${props.unlocked ? flipped ? 'text-white group-hover:text-slate-300' : 'text-slate-50 group-hover:text-slate-100' : null}`} />
+                <ArrowUturnLeftIcon className={`h-8 pt-4 place-self-end ${props.unlocked ? flipped ? 'text-skin-inverted group-hover:text-skin-muted' : 'text-skin-secondary group-hover:text-skin-secondary-hover' : null}`} />
                 
                 <Image alt="pic"  
                     height="300" 
@@ -53,13 +53,13 @@ export default function Bird(props) {
                     className={`${!props.unlocked ? 'opacity-15 grayscale' : null} ${flipped ? null : 'opacity-5'} my-auto pt-4 transition-all`} 
                 />   
 
-                <p className={`${flipped ? 'hidden' : 'absolute w-full'} text-sm text-slate-800 my-auto place-self-center pt-4 px-6`}>{props.bird.description}</p>
+                <p className={`${flipped ? 'hidden' : 'absolute w-full'} text-sm text-skin-base my-auto place-self-center pt-4 px-6`}>{props.bird.description}</p>
 
                 <div
                     className={`text-sm lg:text-md font-medium text-center
                         ${props.unlocked 
-                            ? 'my-4 text-slate-600 font-medium'
-                            : 'my-3 text-gray-300 font-light'
+                            ? 'my-4 text-skin-light font-medium'
+                            : 'my-3 text-skin-muted font-light'
                         }
                             
                         ${flipped ? null : 'opacity-30'} `}

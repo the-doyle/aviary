@@ -8,13 +8,40 @@
         --color-light: #4b5563; 
         --color-muted: #9ca3af; 
         --color-inverted: #ffffff;
-        --color-assets: #0ea5e9; 
-        --color-liabilities: #6366f1;
+        --color-assets: #22c55e; 
+        --color-liabilities: #0ea5e9;
         --color-brand: #a78bfa;
         --color-brand-hover: #8b5cf6; 
         --color-brand-light: #f5f3ff;
         --color-brand-light-hover: #ede9fe; 
         --color-brand-button-border: #ddd6fe; 
+        --color-secondary-button-border: #d1d5db; 
+        --color-secondary: #f9fafb; 
+        --color-secondary-hover: #f3f4f6; 
+    }
+
+    .theme-nuthatch {
+        /* dark */
+        --color-base: #1f2937; 
+
+        /* lighter, still dark */
+        --color-light: #4b5563; 
+
+        /* lighter still */
+        --color-muted: #9ca3af; 
+
+        /* white */
+        --color-inverted: #ffffff;
+
+        --color-assets: #22c55e; 
+        --color-liabilities: #0ea5e9;
+        
+        --color-brand: #a78bfa;
+        --color-brand-hover: #8b5cf6; 
+        --color-brand-light: #f5f3ff;
+        --color-brand-light-hover: #ede9fe; 
+        --color-brand-button-border: #ddd6fe; 
+
         --color-secondary-button-border: #d1d5db; 
         --color-secondary: #f9fafb; 
         --color-secondary-hover: #f3f4f6; 

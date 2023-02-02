@@ -9,7 +9,7 @@ export default function Achievements(props) {
 
     const [open, setOpen] = useState(false)
     const [achievements, setAchievements] = useState(null)
-    const [claimableAchievements, setClaimableAchievements] = useState(0)
+    const [claimableAchievements, setClaimableAchievements] = useState(10)
     const refreshUser = props.refreshUser ? props.refreshUser : null 
 
     //#region functions
@@ -62,19 +62,21 @@ export default function Achievements(props) {
         <>
             <button 
             type="button" 
-            className='inline-flex items-center rounded-md border border-skin-secondary-button-border text-skin-light bg-skin-secondary p-3 text-sm font-medium hover:bg-skin-secondary-hover focus:outline-none'
+            className={`group flex justify-center rounded-md border border-skin-secondary-button-border text-skin-base bg-skin-secondary p-3 text-sm font-medium hover:bg-skin-secondary-hover focus:outline-none`}
             onClick={handleClick}
             >
                 🪶
+
                 {claimableAchievements > 0 
                     ? 
-                        <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-skin-inverted bg-brand border-2 border-skin-inverted rounded-full -top-2 -right-2">
+                        <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-skin-inverted bg-skin-brand border-2 border-skin-inverted rounded-full -top-2 -right-2">
                             {claimableAchievements}
                         </div>
                     :   null 
                 }
                 
             </button>
+
         
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>

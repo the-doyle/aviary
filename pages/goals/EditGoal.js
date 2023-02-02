@@ -66,7 +66,7 @@ export default function EditGoal(props) {
     return props.accounts && props.goal ? (
         <>
             <button 
-                className="text-slate-300 hover:text-slate-500"
+                className="text-skin-muted hover:text-skin-light"
                 onClick={() => setOpen(!open)}
             >
                 <PencilSquareIcon className='h-5'/>
@@ -96,10 +96,10 @@ export default function EditGoal(props) {
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                             >
-                                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-skin-inverted px-4 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                                     <div>
                                         <div className="mt-3">
-                                            <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 text-center">
+                                            <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-skin-base text-center">
                                                 {name ? name : "Goal name"}
                                             </Dialog.Title>
                                             <div className="mt-4">
@@ -107,7 +107,7 @@ export default function EditGoal(props) {
                                                     <AccountSelect accounts={props.accounts} handleAccount={handleAccount} /> 
                                                 </div>
                                                 <div className='pb-4'>
-                                                    <label htmlFor="text" className="block text-sm font-medium text-gray-700">
+                                                    <label htmlFor="text" className="block text-sm font-medium text-skin-light">
                                                         Goal name
                                                     </label>
                                                     <div className="mt-1">
@@ -115,14 +115,14 @@ export default function EditGoal(props) {
                                                         type="text"
                                                         name="name"
                                                         id="name"
-                                                        className="block w-full rounded-md border-slate-300 shadow-sm focus:border-slate-500 focus:ring-slate-500 sm:text-sm"
+                                                        className="block w-full rounded-md border-skin-muted shadow-sm focus:border-skin-brand focus:ring-skin-brand sm:text-sm"
                                                         value={name}
                                                         onChange={(e) => setName(e.target.value)}
                                                         />
                                                     </div>
                                                 </div>
                                                 <div className='pb-4'>
-                                                    <label htmlFor="text" className="block text-sm font-medium text-gray-700">
+                                                    <label htmlFor="text" className="block text-sm font-medium text-skin-light">
                                                         Target balance
                                                     </label>
                                                     <div className="mt-1">
@@ -130,7 +130,7 @@ export default function EditGoal(props) {
                                                         type="text"
                                                         name="target_balance"
                                                         id="target_balance"
-                                                        className="block w-full rounded-md border-slate-300 shadow-sm focus:border-slate-500 focus:ring-slate-500 sm:text-sm"
+                                                        className="block w-full rounded-md border-skin-muted shadow-sm focus:border-skin-brand focus:ring-skin-brand sm:text-sm"
                                                         value={formatAsCurrency.format(balance)}
                                                         onChange={(e) => handleBalanceChange(e.target.value)}
                                                         />
@@ -138,14 +138,14 @@ export default function EditGoal(props) {
                                                     </div>
                                                 </div>
                                                 <div className='pb-4'>
-                                                    <label htmlFor="date" className="block text-sm font-medium text-gray-700">
+                                                    <label htmlFor="date" className="block text-sm font-medium text-skin-light">
                                                         Date
                                                     </label>
                                                     <input
                                                         type="date"
                                                         name="target_date"
                                                         id="target_date"   
-                                                        className="block w-full border-0 border-b border-transparent focus:border-transparent focus:ring-0 text-sm text-slate-600 focus:text-slate-800"
+                                                        className="block w-full border-0 border-b border-transparent focus:border-transparent focus:ring-0 text-sm text-skin-light focus:text-skin-base"
                                                         value={date}
                                                         onChange={(e) => setDate(e.target.value)}
                                                     /> 
@@ -156,14 +156,14 @@ export default function EditGoal(props) {
                                     <div className="mt-5 sm:mt-6 flex items-right gap-5">
                                         <button
                                             type="button"
-                                            className="inline-flex w-full justify-center rounded-md border border bg-gray-50 px-4 py-2 text-base font-medium text-slate-800 shadow-sm hover:bg-gray-100 focus:outline-none sm:text-sm"
+                                            className="inline-flex w-full justify-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-4 py-2 text-base font-medium text-skin-base shadow-sm hover:bg-skin-secondary-hover focus:outline-none sm:text-sm"
                                             onClick={() => setOpen(!open)}
                                         >
                                             Cancel
                                         </button>
                                         <button
                                             type="button"
-                                            className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none sm:text-sm"
+                                            className="inline-flex w-full justify-center rounded-md border border-skin-brand-button-border bg-skin-brand-light px-4 py-2 text-skin-brand-hover font-medium text-base shadow-sm hover:bg-skin-brand-light-hover focus:outline-none sm:text-sm"
                                             onClick={saveGoal}
                                         >
                                             Update goal

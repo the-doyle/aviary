@@ -28,9 +28,9 @@ export default function UnlockButton(props) {
             disabled={props.affordable ? false : true}
             onClick={handleClick}
             className={showConfirm 
-                    ? 'inline-flex items-center rounded-md border border-green-500 bg-green-50 px-2 font-normal text-slate-600 hover:bg-green-100 focus:outline-none opacity-70'
-                    : `inline-flex items-center rounded-md border border-slate-300 focus:outline-none opacity-70
-                        bg-slate-100 px-2 font-normal text-slate-600 hover:bg-slate-200 transition-all ease-in-out duration-150
+                    ? 'inline-flex items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light px-2 font-normal text-skin-brand-hover hover:bg-skin-brand-light-hover focus:outline-none opacity-70'
+                    : `inline-flex items-center rounded-md border border-skin-secondary-button-border focus:outline-none opacity-70
+                        bg-slate-100 px-2 font-normal text-skin-light hover:bg-skin-secondary-hover transition-all ease-in-out duration-150
                         disabled:hover:bg-red-100 disabled:hover:animate-shake disabled:hover:border-red-300 disabled:hover:cursor-pointer
                         ${wobble ? 'animate-shake' : null}`
                     
@@ -40,7 +40,7 @@ export default function UnlockButton(props) {
                 ? <LockOpenIcon className='h-4 w-4' />
                 : <LockClosedIcon className='h-4 w-4' />
             }
-            <span className='px-1 font-serif text-lg text-slate-800'>&rarr;</span>
+            <span className='px-1 font-serif text-lg text-skin-base'>&rarr;</span>
             {props.bird.cost}🪶
         </button>
     ) : null           

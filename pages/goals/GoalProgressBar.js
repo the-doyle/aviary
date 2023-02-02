@@ -29,7 +29,7 @@ export default function GoalProgressBar(props) {
                         <div className="flex justify-end align-middle">
                             <ArrowRightCircleIcon className={
                                 `h-4 text-white rounded-full border 
-                                ${props.class === 'asset' ? 'border-skin-assets bg-skin-assets' : 'border-skin-assets bg-skin-assets'}
+                                ${props.class === 'asset' ? 'border-skin-assets bg-skin-assets' : 'border-skin-liabilities bg-skin-liabilities'}
                                 `} 
                             />
                         </div>
@@ -37,7 +37,7 @@ export default function GoalProgressBar(props) {
                         <div className="flex justify-end align-middle">
                             <CheckCircleIcon className={
                                 `h-4 text-white rounded-full border 
-                                ${props.class === 'asset' ? 'border-skin-assets bg-skin-assets' : 'border-skin-assets bg-skin-assets'}
+                                ${props.class === 'asset' ? 'border-skin-assets bg-skin-assets' : 'border-skin-liabilities bg-skin-liabilities'}
                                 `} 
                             />
                         </div>

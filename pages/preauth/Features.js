@@ -1,4 +1,4 @@
-import LinkButtonDark from '../general/LinkButtonDark'
+import LinkButton from '../general/LinkButton'
 import { useState } from 'react'
 import UnlockableBird from '../aviary/UnlockableBird'
 import AchievementButtonFree from '../achievements/AchievementButtonFree'
@@ -70,7 +70,7 @@ export default function Features() {
                                     <dd className="mt-2 ml-16 text-base text-skin-light">{item.description}</dd>
                                 </div>
                                 ))}
-                                <LinkButtonDark href='/sign-up' text='Get started for free' link />  
+                                <LinkButton href='/sign-up' text='Get started' link />  
                             </dl>
                         </div>
 

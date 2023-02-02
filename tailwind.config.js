@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      transitionProperty: {
+        'width': 'width'
+      },
       textColor: {
         skin: {
           base: 'var(--color-base)',
@@ -19,6 +22,9 @@ module.exports = {
           'brand-hover': 'var(--color-brand-hover)',
           'brand-light': 'var(--color-brand-light)',
           'brand-light-hover': 'var(--color-brand-light-hover)',
+          'brand-button-border': 'var(--color-brand-button-border)',
+          'secondary': 'var(--color-secondary)',
+          'secondary-hover': 'var(--color-secondary-hover)',
         }
       },
       backgroundColor: {

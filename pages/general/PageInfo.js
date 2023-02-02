@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { CheckIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
+import { InformationCircleIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 
 export default function PageInfo(props) {
 
@@ -55,9 +56,19 @@ export default function PageInfo(props) {
                                                 </p>
 
                                                 {props.secondLine 
-                                                    ? <p className="text-sm text-skin-light">{props.secondLine}</p>
-                                                    : null
+                                                    ?   <p className="text-sm text-skin-light">
+                                                            {props.secondLine}
+
+                                                            {props.externalHref 
+                                                                ? <Link className='ml-1 text-sm text-skin-brand hover:text-skin-brand-hover' target='_blank' href={props.externalHref}>sanbenitopaper.com</Link> 
+                                                                : null 
+                                                            }
+                                                            
+                                                        </p>
+                                                    :   null
                                                 }
+
+                                                
                                                 
                                             </div>
                                         </div>

@@ -70,11 +70,11 @@ export default function Calendar(props) {
         <>
         <div className="mt-10 lg:mt-0 lg:col-start-8 lg:col-end-13 lg:row-start-1 xl:col-start-9 transition-all">
 
-            <div className='border border-dashed border-slate-300 rounded-lg p-2'>
+            <div className='border border-dashed border-skin-secondary-button-border rounded-lg p-2'>
                 <div className="flex items-center text-gray-900">
                     <button
                     type="button"
-                    className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
+                    className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-skin-muted hover:text-skin-light"
                     onClick={() => changeYear(props.year - 1)}
                     >
                         <span className="sr-only">Previous year</span>
@@ -83,7 +83,7 @@ export default function Calendar(props) {
                     <div className="flex-auto font-semibold text-center">{props.year}</div>
                     <button
                         type="button"
-                        className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
+                        className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-skin-muted hover:text-skin-light"
                         onClick={() => changeYear(props.year + 1)}
                     >
                         <span className="sr-only">Next year</span>
@@ -91,24 +91,23 @@ export default function Calendar(props) {
                     </button>
                 </div>
 
-                <div className="mt-6 flex text-xs leading-6 text-gray-500 text-left overflow-auto">
+                <div className="mt-6 flex text-xs leading-6 text-skin-light text-left overflow-auto">
                     <div className='flex-col'>
                         {months.map((month) => (
-                            <div key={month.id} className={month.id === today.getUTCMonth() && props.year == today.getFullYear() ? 'text-black font-semibold underline underline-offset-2' : null}>{month.name}</div>
+                            <div key={month.id} className={month.id === today.getUTCMonth() && props.year == today.getFullYear() ? 'text-skin-base font-semibold underline underline-offset-2' : null}>{month.name}</div>
                         ))}
                     </div>
                     <div className='mt-0.5'>
                         <div className='flex-col gap-1 items-start'>
                             {months.map((month) => (
                                 <div key={month.id} className='flex mb-1 gap-2'>
-                                    <CheckCircleIcon className='h-5 text-white' />
+                                    <CheckCircleIcon className='h-5 text-skin-inverted' />
                                     {props.goals
                                         .filter(filterGoals(month.id))
                                         .map((goal) => (
                                             calculateProgress(goal, props.accounts).progress < 100 
-                                                ? <MinusCircleIcon key={goal.id} className={`mt-0.5 ml-0.5 h-4 text-white bg-white rounded-full border ${calculateProgress(goal, props.accounts).class === 'asset' ? 'border-sky-500' : 'border-violet-500'}`} />
-                                                : <CheckCircleIcon key={goal.id} className={`h-5 text-slate-800 ${calculateProgress(goal, props.accounts).class === 'asset' ? 'text-sky-500' : 'text-violet-500'}`} />
-                                            
+                                                ? <MinusCircleIcon key={goal.id} className={`mt-0.5 ml-0.5 h-4 text-skin-inverted bg-skin-inverted rounded-full border ${calculateProgress(goal, props.accounts).class === 'asset' ? 'border-skin-assets' : 'border-skin-liabilities'}`} />
+                                                : <CheckCircleIcon key={goal.id} className={`h-5 text-skin-base ${calculateProgress(goal, props.accounts).class === 'asset' ? 'text-skin-assets' : 'text-skin-liabilities'}`} />
                                         ))
                                     }
                                 </div>
@@ -126,16 +125,16 @@ export default function Calendar(props) {
                         key={year.year} 
                         className={`
                             relative flex w-full items-center gap-5 xl:static p-2 border overflow-hidden
-                            ${year.year === props.year ? 'border-slate-800 hover:border-slate-500' : 'border-dashed border-slate-300 hover:border-slate-500'}
+                            ${year.year === props.year ? 'border-skin-muted hover:border-skin-light' : 'border-dashed border-skin-secondary-button-border hover:border-skin-muted'}
                             rounded-lg mb-3`}
                         onClick={() => props.changeYear(year.year)}
                     >
-                        <h1 className='text-slate-800 text-sm'>
+                        <h1 className='text-skin-base text-sm'>
                             {year.year} 
                         </h1>
                         <div className='flex'>
                             {[...Array(year.num_goals)].map((e, i) => 
-                                <svg key={i} className="mx-0.5 h-2 w-2 text-slate-400" fill="currentColor" viewBox="0 0 8 8">
+                                <svg key={i} className="mx-0.5 h-2 w-2 text-skin-muted" fill="currentColor" viewBox="0 0 8 8">
                                     <circle cx={4} cy={4} r={3} />
                                 </svg>
                             )}

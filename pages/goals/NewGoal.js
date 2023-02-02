@@ -172,7 +172,7 @@ export default function NewGoal(props) {
                                         </button>
                                         <button
                                             type="button"
-                                            className="inline-flex w-full justify-center rounded-md border border-skin-brand-button-border bg-skin-brand-light px-4 py-2 text-skin-brand-hover font-medium text-base shadow-sm hover:bg-skin-brand-light-hover focus:outline-none sm:text-sm"
+                                            className="inline-flex w-full justify-center rounded-md border border-skin-brand-button-border bg-skin-brand-light px-4 py-2 text-skin-brand-hover font-medium text-base shadow-sm hover:bg-skin focus:outline-none sm:text-sm"
                                             onClick={saveGoal}
                                         >
                                             Create goal

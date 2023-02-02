@@ -56,13 +56,16 @@ export default function Aviary() {
                     <div className='flex gap-3 justify-end mb-10'>
                         <Achievements user={userData} refreshUser={getUserData} /> 
                         <PageInfo 
-                            title='Check in every month'
-                            firstLine='Aviary provides a simple interface for tracking your assets and liabilities.' 
-                            secondLine='Come back monthly to update your balances.'
+                            title='Grow your Aviary'
+                            firstLine='After earning feathers by completing achievements, you can unlock new birds here. New birds are added monthly!' 
+                            secondLine='Aviary birds are hand-drawn by Jennifer Doyle. You can find more of her work at'
+                            externalHref='https://sanbenitopaper.com'
                         />
                     </div>
 
-                    <h1 className="inline-flex items-center text-2xl font-semibold text-slate-800 mb-5">Aviary</h1>
+                    <h1 className="inline-flex items-center text-2xl font-semibold text-skin-brand mb-5">Aviary</h1>
+
+                    
 
                     {  birds && birds.length > 0 && userData 
                         ?

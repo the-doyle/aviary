@@ -1,6 +1,5 @@
 import { CheckIcon } from '@heroicons/react/24/outline'
 import LinkButton from '../general/LinkButton'
-import LinkButtonDark from '../general/LinkButtonDark'
 
 const features = [
     'Track your net worth',
@@ -71,8 +70,8 @@ export default function Pricing() {
 
                     <div className='flex space-x-4 mt-10'>
 
-                        <LinkButtonDark
-                            text='Get started for free' 
+                        <LinkButton
+                            text='Get started' 
                             href='/sign-up'
                             link
                         />

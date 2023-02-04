@@ -5,20 +5,8 @@ import LinkButtonDark from './general/LinkButtonDark'
 import Features from './preauth/Features'
 import Pricing from './preauth/Pricing'
 import Image from 'next/image'
-import { useUser } from '@supabase/auth-helpers-react'
-import { useEffect } from 'react'
-import { useRouter } from "next/router";
 
 export default function Index() {
-
-	const user = useUser();
-	const router = useRouter() 
-
-	useEffect(() => {
-		if (user) {
-			router.replace('/accounts');
-		}
-	}, [user]);
 
 	return (
 		<div className=''>

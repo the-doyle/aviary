@@ -2,8 +2,21 @@ import Link from 'next/link'
 import SignInForm from './forms/SignInForm'
 import PreAuthFooter from './preauth/PreAuthFooter'
 import Logo from './general/Logo'
+import { useUser } from '@supabase/auth-helpers-react'
+import { useEffect } from 'react'
+import { useRouter } from "next/router";
 
 export default function SignIn() {
+
+    const user = useUser();
+	const router = useRouter() 
+
+	useEffect(() => {
+		if (user) {
+			router.replace('/accounts');
+		}
+	}, [user]);
+
     return (
         <>
             <div className="flex min-h-screen">

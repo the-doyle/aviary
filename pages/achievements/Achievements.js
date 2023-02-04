@@ -69,8 +69,10 @@ export default function Achievements(props) {
 
                 {claimableAchievements > 0 
                     ? 
-                        <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-skin-inverted bg-skin-brand border-2 border-skin-inverted rounded-full -top-2 -right-2">
-                            {claimableAchievements}
+                        <div className=''>
+                            <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-skin-inverted bg-skin-brand border-2 border-skin-inverted rounded-full -top-2 -right-2">
+                                {claimableAchievements}
+                            </div>
                         </div>
                     :   null 
                 }

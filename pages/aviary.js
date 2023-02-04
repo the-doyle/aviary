@@ -44,7 +44,7 @@ export default function Aviary() {
         } 
     }, [supabase, user])
 
-    return (
+    return userData ? (
         <>
         <div className="min-h-full">
             <PostAuthNav current_tab='Aviary' />
@@ -61,9 +61,8 @@ export default function Aviary() {
                         />
                     </div>
 
-                    <h1 className="inline-flex items-center text-2xl font-semibold text-skin-brand mb-5">Aviary</h1>
-
-                    
+                    <h1 className="inline-flex items-center text-2xl font-semibold text-skin-brand mb-2">Aviary</h1>
+                    <h1 className="items-center text-lg font-medium text-skin-muted mb-5">Balance:  {userData.feathers}🪶</h1>
 
                     {  birds && birds.length > 0 && userData 
                         ?
@@ -86,6 +85,6 @@ export default function Aviary() {
 
             <PreAuthFooter /> 
         </div>
-        </>
-    )
+        </> 
+    ) : null
 }

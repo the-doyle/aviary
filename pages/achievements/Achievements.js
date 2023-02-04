@@ -136,7 +136,7 @@ export default function Achievements(props) {
                                                             </div>
                                                             <div className='flex-col text-center'>
                                                                 <AchievementButton achievement={a} claimAchievement={claimAchievement} user={props.user} /> 
-                                                                {props.user[a.tracks] >= a.requirement
+                                                                {props.user[a.tracks] > a.requirement
                                                                     ? null 
                                                                     : 
                                                                     <p className='text-xs text-skin-muted'>

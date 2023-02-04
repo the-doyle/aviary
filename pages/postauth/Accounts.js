@@ -385,7 +385,7 @@ export default function Accounts(props) {
                         noBorder
                         title='What are assets?'
                         firstLine='Assets are things you own that have value, like property, investments, or cash. ' 
-                        secondLine='To track your net worth, add key assets like your checking/savings accounts, investments, property, etc. It probably wouldn&apos;t make sense to include small items like shoes.'
+                        secondLine='To track your net worth, add key assets like your checking/savings accounts, investments, property, etc.'
                     />
                 </div>
                 

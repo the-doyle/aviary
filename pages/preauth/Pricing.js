@@ -20,11 +20,11 @@ export default function Pricing() {
 
                     <div className="relative">
                         <h2 className="text-center text-3xl font-bold leading-8 tracking-tight text-skin-base sm:text-4xl">
-                            Start growing your Aviary for free
+                            Get started for free
                             <span className='text-skin-muted'> (beta)</span>
                         </h2>
                         <p className="mx-auto mt-4 max-w-4xl text-center text-xl text-skin-light">
-                            Personal finance can be boring, and staying consistent over months/years is difficult 
+                            Currently in beta testing. New features are being added weekly! 
                         </p>
                     </div>
 

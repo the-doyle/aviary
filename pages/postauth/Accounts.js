@@ -12,6 +12,7 @@ import AssetsDonut from "../charts/AssetsDonut";
 import LiabilitiesDonut from "../charts/LiabilitiesDonut";
 import SortButton from "./SortButton";
 import DeleteButton from "./DeleteButton";
+import PageInfo from "../general/PageInfo";
 
 //#region helper functions
 const formatter = new Intl.NumberFormat('en-US', {
@@ -84,6 +85,9 @@ export default function Accounts(props) {
     }
 
     const addAsset = async () => {
+        const {data: incrementAssetsData, error: incrementAssetsError} = await supabase 
+            .rpc('increment_user_assets', { 'u_id': props.user.id , 'x': 1 })
+        
         setSortAssetsOn(['balance', true])
         setAssets([
             ...assets,
@@ -375,7 +379,16 @@ export default function Accounts(props) {
         <>
 
             <div id='assets' className='col-span-4 lg:col-span-2'>
-                <h1 className="inline-flex items-center text-2xl font-semibold text-skin-assets">Assets</h1>
+                <div className='flex align-middle'>
+                    <h1 className="inline-flex items-center text-2xl font-semibold text-skin-assets">Assets</h1>
+                    <PageInfo 
+                        noBorder
+                        title='What are assets?'
+                        firstLine='Assets are things you own that have value, like property, investments, or cash. ' 
+                        secondLine='To track your net worth, add key assets like your checking/savings accounts, investments, property, etc. It probably wouldn&apos;t make sense to include small items like shoes.'
+                    />
+                </div>
+                
                 <div className="mt-6 flex flex-col p-3 -mx-3 border border-dashed border-skin-secondary-button-border rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
@@ -512,7 +525,15 @@ export default function Accounts(props) {
             </div>
 
             <div id='liabilities' className='mt-16 col-span-4 lg:col-span-2'>
-                <h1 className="inline-flex items-center text-2xl font-semibold text-skin-liabilities">Liabilities</h1>
+                <div className='flex align-middle'>
+                    <h1 className="inline-flex items-center text-2xl font-semibold text-skin-liabilities">Liabilities</h1>
+                    <PageInfo 
+                        noBorder
+                        title='What are liabilities?'
+                        firstLine='Liablities are things you owe, or debt.' 
+                        secondLine='Common liablities include credit card debt, a home mortgage, auto loans, etc.'
+                    />
+                </div>
                 <div className="mt-6 flex flex-col p-3 -mx-3 border border-dashed border-skin-seconary-button-border rounded-lg">
                     <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">

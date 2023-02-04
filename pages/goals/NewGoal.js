@@ -78,7 +78,7 @@ export default function NewGoal(props) {
         handleOpen() 
     }
 
-    return props.handleOpen && props.open && props.accounts ? (
+    return props.handleOpen && props.accounts ? (
         <>
             <Transition.Root show={props.open} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={() => handleOpen(false)}>

@@ -9,9 +9,10 @@ export default function PageInfo(props) {
 
     return props.firstLine && props.title ? (
         <>
+        
             <button
                 type="button"
-                className="inline-flex items-center rounded-md border border-skin-secondary-button-border text-skin-light bg-skin-secondary px-3 py-2 text-sm font-medium hover:bg-skin-secondary-hover focus:outline-none"
+                className={`inline-flex items-center ${props.noBorder ? 'text-skin-muted mt-1' : 'rounded-md border border-skin-secondary-button-border text-skin-light bg-skin-secondary hover:bg-skin-secondary-hover '} px-3 py-2 text-sm font-medium focus:outline-none`}
                 onClick={() => setOpen(true)}
             >
                 <InformationCircleIcon className="h-5 w-5" aria-hidden="true" />

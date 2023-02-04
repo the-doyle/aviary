@@ -31,9 +31,7 @@ export default function AccountsPage() {
     useEffect(() => {
         if (user && supabase) {
             getUserData() 
-        } else {
-            router.push('sign-in')
-        }
+        } 
     }, [user, supabase])
 
     return (

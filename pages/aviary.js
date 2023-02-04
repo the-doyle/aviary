@@ -41,9 +41,7 @@ export default function Aviary() {
         if (supabase && user) {
             getBirds() 
             getUserData() 
-        } else {
-            router.push('/sign-in')
-        }
+        } 
     }, [supabase, user])
 
     return (

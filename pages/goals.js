@@ -8,7 +8,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useEffect } from "react";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 export default function GoalsPage() {
 
@@ -31,8 +31,6 @@ export default function GoalsPage() {
     useEffect(() => {
         if (user && supabase) {
             getUserData() 
-        } else {
-            router.push('sign-in')
         }
     }, [user, supabase])
 

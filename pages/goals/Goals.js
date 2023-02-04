@@ -11,6 +11,7 @@ export default function Goals(props) {
     //#region state variables
     const [accounts, setAccounts] = useState(null);
     const [goals, setGoals] = useState(null)
+    const [allGoals, setAllGoals] = useState(null)
     const [yearlyGoals, setYearlyGoals] = useState(null)
     const [year, setYear] = useState(new Date().getFullYear())
     const refreshUser = props.refreshUser ? props.refreshUser : null 
@@ -35,6 +36,13 @@ export default function Goals(props) {
         setGoals(getGoalsData)
     }
 
+    const getAllGoals = async () => {
+        const {data: getAllGoalsData, error: gettAllGoalsError} = await supabase
+            .rpc('all_goals_with_account_details', { 'u_id': props.user.id });
+
+        setAllGoals(getAllGoalsData)
+    }
+
     const getYearlyGoals = async () => {
         const {data: getYearlyGoalsData, error: getYearlyGoalsError} = await supabase
             .rpc('yearly_goal_counts', { 'u_id': props.user.id });
@@ -44,6 +52,7 @@ export default function Goals(props) {
 
     const refreshGoals = async () => {
         getGoals() 
+        getAllGoals() 
         getYearlyGoals() 
         refreshUser() 
     }
@@ -67,7 +76,7 @@ export default function Goals(props) {
                 {accounts && accounts.length > 0 
                 ? 
                     <>
-                        <UpcomingGoals year={year} goals={goals} accounts={accounts} refreshGoals={refreshGoals} /> 
+                        <UpcomingGoals year={year} goals={goals} allGoals={allGoals} accounts={accounts} refreshGoals={refreshGoals} /> 
                         <Calendar year={year} changeYear={changeYear} goals={goals} accounts={accounts} yearlyGoals={yearlyGoals}/> 
                     </>
                 : 

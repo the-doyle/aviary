@@ -149,6 +149,7 @@ export default function Achievements(props) {
                                                     </div> 
                                                 ))
                                             }
+                                            <p className='mt-5 text-sm text-skin-muted text-center'>More achievements will be added soon!</p>
                                         </div>
                                     </div>
                                     </Dialog.Panel>

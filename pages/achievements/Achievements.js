@@ -62,7 +62,7 @@ export default function Achievements(props) {
         <>
             <button 
             type="button" 
-            className={`group flex justify-center rounded-md border border-skin-secondary-button-border text-skin-base bg-skin-secondary p-3 text-sm font-medium hover:bg-skin-secondary-hover focus:outline-none`}
+            className={`group relative flex justify-center rounded-md border border-skin-secondary-button-border text-skin-base bg-skin-secondary p-3 text-sm font-medium hover:bg-skin-secondary-hover focus:outline-none`}
             onClick={handleClick}
             >
                 🪶
@@ -136,7 +136,7 @@ export default function Achievements(props) {
                                                             </div>
                                                             <div className='flex-col text-center'>
                                                                 <AchievementButton achievement={a} claimAchievement={claimAchievement} user={props.user} /> 
-                                                                {props.user[a.tracks] > a.requirement
+                                                                {props.user.achievements.includes(a.id)
                                                                     ? null 
                                                                     : 
                                                                     <p className='text-xs text-skin-muted'>

@@ -45,7 +45,7 @@ export default function SignUpForm() {
             setOpen(true)
 
             setSignUpButton({
-                className: "group flex w-full justify-center rounded-md border border-skin-brand bg-skin-brand-light py-2 px-4 text-sm font-medium text-skin-brand-hover shadow-sm hover:bg-skin-brand-light-hover focus:outline-none",
+                className: "group flex w-full justify-center rounded-md border border-skin-brand bg-skin-brand-light py-2 px-4 text-sm font-medium text-skin-brand-hover shadow-sm hover:cursor-default focus:outline-none align-middle",
                 icon: <FaceSmileIcon className='ml-1 h-4 rounded-full' />,
                 text: 'Sign up in progress'
             })

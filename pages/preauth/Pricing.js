@@ -1,5 +1,5 @@
 import { CheckIcon } from '@heroicons/react/24/outline'
-import LinkButton from '../general/LinkButton'
+import LinkButtonDark from '../general/LinkButtonDark'
 
 const features = [
     'Track your net worth',
@@ -17,18 +17,20 @@ export default function Pricing() {
         <div name='pricing' id='pricing' className="relative overflow-hidden bg-inverted">
             <div className="overflow-hidden py-16 lg:py-24">
                 <div className="relative mx-auto max-w-xl px-6 lg:max-w-7xl lg:px-8">
-                    <div className="pb-16 xl:flex xl:items-center xl:justify-between">
-                        <div>
-                            <h1 className="text-2xl font-bold tracking-tight sm:text-5xl">
-                                <span className="text-skin-brand">Start growing your Aviary for free</span>
-                                {/* <span className="text-slate-200 line-through"> $30 / year</span> */}
-                                <span className="text-skin-brand-light-hover"> (beta)</span>
-                            </h1>
-                        </div>
+
+                    <div className="relative">
+                        <h2 className="text-center text-3xl font-bold leading-8 tracking-tight text-skin-base sm:text-4xl">
+                            Start growing your Aviary for free
+                            <span className='text-skin-muted'> (beta)</span>
+                        </h2>
+                        <p className="mx-auto mt-4 max-w-4xl text-center text-xl text-skin-light">
+                            Personal finance can be boring, and staying consistent over months/years is difficult 
+                        </p>
                     </div>
-                    <div className="border-t border-dashed border-skin-base pt-16 xl:grid xl:grid-cols-3 xl:gap-x-8">
+
+                    <div className="mt-16 sm:mt-24 xl:grid xl:grid-cols-3 xl:gap-x-8">
                         <div>
-                            <p className="mt-2 text-3xl font-bold tracking-tight text-skin-base">Packed with premium features</p>
+                            <p className="mt-2 text-2xl font-medium tracking-tight text-skin-base sm:text-3xl">Packed with premium features</p>
                             <p className="mt-4 text-lg text-skin-light">
                                 Aviary includes everything you need to set goals, track your progress, and grow your net worth. 
                             </p>
@@ -70,7 +72,7 @@ export default function Pricing() {
 
                     <div className='flex space-x-4 mt-10'>
 
-                        <LinkButton
+                        <LinkButtonDark
                             text='Get started' 
                             href='/sign-up'
                             link

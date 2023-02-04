@@ -46,7 +46,7 @@ export default function PreAuthNav() {
                         ))}
                     </div>
                 </div>
-                <div className="hidden text-right md:block">
+                <div className="hidden text-right md:block z-50">
                     <Link
                     href="/sign-in"
                     className="inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-4 py-2 text-sm font-medium text-skin-base shadow-sm hover:bg-skin-secondary-hover focus:outline-none"

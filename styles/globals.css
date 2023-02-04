@@ -10,11 +10,11 @@
         --color-inverted: #ffffff;
         --color-assets: #22c55e; 
         --color-liabilities: #0ea5e9;
-        --color-brand: #a78bfa;
-        --color-brand-hover: #8b5cf6; 
-        --color-brand-light: #f5f3ff;
-        --color-brand-light-hover: #ede9fe; 
-        --color-brand-button-border: #ddd6fe; 
+        --color-brand: #0ea5e9;
+        --color-brand-hover: #0284c7; 
+        --color-brand-light: #e0f2fe;
+        --color-brand-light-hover: #bae6fd; 
+        --color-brand-button-border: #7dd3fc; 
         --color-secondary-button-border: #d1d5db; 
         --color-secondary: #f9fafb; 
         --color-secondary-hover: #f3f4f6; 
@@ -36,11 +36,11 @@
         --color-assets: #22c55e; 
         --color-liabilities: #0ea5e9;
         
-        --color-brand: #a78bfa;
-        --color-brand-hover: #8b5cf6; 
-        --color-brand-light: #f5f3ff;
-        --color-brand-light-hover: #ede9fe; 
-        --color-brand-button-border: #ddd6fe; 
+        --color-brand: #94a3b8;
+        --color-brand-hover: #64748b; 
+        --color-brand-light: #f1f5f9;
+        --color-brand-light-hover: #e2e8f0; 
+        --color-brand-button-border: #cbd5e1; 
 
         --color-secondary-button-border: #d1d5db; 
         --color-secondary: #f9fafb; 

@@ -70,7 +70,7 @@ export default function UpcomingGoals(props) {
                 <NewGoal open={open} handleOpen={handleOpen} accounts={props.accounts} refreshGoals={refreshGoals} /> 
 
                 <div className='flex justify-between mb-2'>
-                    <h1 className="inline-flex items-center text-2xl font-semibold text-skin-base mb-5">{props.year} goals</h1>
+                    <h1 className="inline-flex items-center text-2xl font-semibold text-skin-light mb-5">{props.year} goals</h1>
                     <button
                             type="button"
                             className="flex place-items-center text-sm font-medium text-skin-light hover:text-skin-base focus:outline-none"

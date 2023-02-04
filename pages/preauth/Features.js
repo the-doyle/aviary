@@ -1,7 +1,8 @@
-import LinkButton from '../general/LinkButton'
+import LinkButtonDark from '../general/LinkButtonDark'
 import { useState } from 'react'
 import UnlockableBird from '../aviary/UnlockableBird'
 import AchievementButtonFree from '../achievements/AchievementButtonFree'
+import Image from 'next/image'
 
 import {
     CakeIcon,
@@ -43,19 +44,19 @@ export default function Features() {
             <div className="overflow-hidden py-16 lg:py-24">
                 <div className="relative mx-auto max-w-xl px-6 lg:max-w-7xl lg:px-8">
                     <div className="relative">
-                        <h2 className="text-center text-3xl font-bold leading-8 tracking-tight text-skin-brand sm:text-4xl">
-                            Financial goals are tough
+                        <h2 className="text-center text-3xl font-bold leading-8 tracking-tight text-skin-base sm:text-4xl">
+                            Financial goals, simplified
                         </h2>
                         <p className="mx-auto mt-4 max-w-4xl text-center text-xl text-skin-light">
-                            Personal finance can be boring, and staying consistent over months/years is difficult 
+                            Aviary is a simple, enjoyable framework for growing your net worth
                         </p>
                     </div>
 
-                    <div className="relative mt-20 lg:mt-24 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
+                    <div className="relative mt-20 lg:mt-24 lg:grid lg:grid-cols-2 lg:items-center lg:gap-24">
                         <div className="relative">
-                            <h3 className="text-2xl font-medium tracking-tight text-skin-base sm:text-3xl">Personal finance, gamified</h3>
+                            <h3 className="text-2xl font-medium tracking-tight text-skin-base sm:text-3xl">Goodbye, spreadsheets</h3>
                             <p className="mt-3 text-lg text-skin-light">
-                                Aviary pairs beautiful, minimalist goal-setting tools with handcrafted, digitally collectible bird cards. 
+                                Personal finance just got a facelift. Here&apos;s how it works: 
                             </p>
 
                             <dl className="mt-10 space-y-10">
@@ -70,17 +71,26 @@ export default function Features() {
                                     <dd className="mt-2 ml-16 text-base text-skin-light">{item.description}</dd>
                                 </div>
                                 ))}
-                                <LinkButton href='/sign-up' text='Get started' link />  
+                                <LinkButtonDark href='/sign-up' text='Get started' link />  
                             </dl>
                         </div>
 
-                        <div className="relative -mx-4 mt-10 lg:mt-0" aria-hidden="true">
-                            <img
-                                className="relative mx-auto"
-                                width={490}
-                                src="https://tailwindui.com/img/features/feature-example-1.png"
-                                alt=""
+                        <div className="relative -mx-4 mt-10 lg:mt-72 flex place-content-center" aria-hidden="true">
+                            <Image 
+                                src='/aviary.png'
+                                height={1200}
+                                width={1200}
+                                alt="Aviary"
+                                className='shadow-lg rounded-xl relative lg:absolute border z-10'
                             />
+                            
+                            <Image 
+                                src='/calendar.png'
+                                height={300}
+                                width={300}
+                                alt="Calendar"
+                                className='shadow-lg rounded-xl hidden lg:block relative bottom-56 right-20 border'
+                            />	
                         </div>
                     </div>
                 </div>

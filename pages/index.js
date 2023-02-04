@@ -15,11 +15,11 @@ export default function Index() {
 				<PreAuthNav /> 
 
 				<main className="relative mx-auto mt-10 max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-24 pb-16 sm:pb-24 lg:pb-56">
-					<div className="lg:grid lg:grid-cols-12 lg:gap-8 ">
+					<div className="lg:grid lg:grid-cols-12 lg:gap-16 lg:place-items-center">
 						<div className="md:mx-auto md:max-w-2xl lg:col-span-6 lg:text-left">
 							<h1>
 								<span className="mt-5 block text-4xl font-semibold tracking-tight sm:text-4xl xl:text-5xl">
-									<span className="block text-skin-brand">The gamified framework for growing your net worth. </span>
+									<span className="block text-skin-base">The gamified framework for growing your net worth. </span>
 								</span>
 							</h1>
 							<p className="my-5 text-base text-skin-base sm:mt-8 sm:text-xl lg:text-lg xl:text-xl list-disc">
@@ -36,7 +36,7 @@ export default function Index() {
 
 								<LinkButtonDark
 									href='/sign-up'
-									text='Get started for free' 
+									text='Get started' 
 									link
 								/>
 
@@ -44,14 +44,50 @@ export default function Index() {
 							
 						</div>
 
-						<div className="md:mx-auto md:max-w-2xl lg:col-span-6 mt-10 lg:mt-0">
-							
-							{/* <img
-								className="relative mx-auto"
-								width={490}
-								src="https://tailwindui.com/img/features/feature-example-1.png"
-								alt=""
-							/> */}
+						<div className="md:mx-auto md:max-w-2xl lg:col-span-6 mt-10 lg:mt-32 relative z-20 flex place-items-center">
+
+								<Image 
+									src='/goals.png'
+									height={1200}
+									width={1200}
+									alt="Goals"
+									className='shadow-lg rounded-xl relative lg:absolute border'
+								/>
+								
+								<Image 
+									src='/accounts.png'
+									height={800}
+									width={800}
+									alt="Accounts"
+									className='shadow-lg rounded-xl hidden lg:block relative left-20 bottom-24 border'
+								/>	
+
+								<div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
+									<svg
+									className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
+									viewBox="0 0 1155 678"
+									xmlns="http://www.w3.org/2000/svg"
+									>
+									<path
+										fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)"
+										fillOpacity=".3"
+										d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"
+									/>
+									<defs>
+										<linearGradient
+										id="45de2b6b-92d5-4d68-a6a0-9b9b2abad533"
+										x1="1155.49"
+										x2="-78.208"
+										y1=".177"
+										y2="474.645"
+										gradientUnits="userSpaceOnUse"
+										>
+										<stop stopColor="#0ea5e9" />
+										<stop offset={1} stopColor="#7dd3fc" />
+										</linearGradient>
+									</defs>
+									</svg>
+								</div>
 
 						</div>
 

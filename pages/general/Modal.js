@@ -34,15 +34,15 @@ export default function Modal(props) {
                             >
                                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                                     <div>
-                                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                                            <CheckIcon className="h-6 w-6 text-green-600" aria-hidden="true" />
+                                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-skin-brand-light">
+                                            <CheckIcon className="h-6 w-6 text-skin-brand-hover" aria-hidden="true" />
                                         </div>
                                         <div className="mt-3 sm:mt-5">
-                                            <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 text-center">
+                                            <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-skin-base text-center">
                                                 {props.title}
                                             </Dialog.Title>
                                             <div className="mt-4">
-                                                <p className="text-sm text-gray-500">
+                                                <p className="text-sm text-skin-light">
                                                     {props.message}
                                                 </p>
                                             </div>
@@ -51,7 +51,7 @@ export default function Modal(props) {
                                     <div className="mt-5 sm:mt-6">
                                         <button
                                             type="button"
-                                            className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none sm:text-sm"
+                                            className="inline-flex w-full justify-center rounded-md border border-transparent bg-skin-brand px-4 py-2 text-base font-medium text-skin-inverted shadow-sm hover:bg-skin-brand-hover focus:outline-none sm:text-sm"
                                             onClick={() => handleOpen(false)}
                                         >
                                             {props.buttonText}

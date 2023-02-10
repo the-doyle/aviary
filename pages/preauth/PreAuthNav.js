@@ -19,14 +19,16 @@ export default function PreAuthNav() {
             >
                 <div className="flex flex-1 items-center">
                     <div className="flex w-full items-center justify-between md:w-auto">
-                        <Link href="/" className='flex items-center mr-5'>
-                            <span className="sr-only">Aviary Finance</span>
+                        <div className='flex'>
                             <Logo height="40" width="40" />
-                            <h1 className='text-xl text-skin-brand-hover font-bold'>
-                                Aviary
-                                <span className='text-skin-brand font-medium'>Finance</span>
-                            </h1>
-                        </Link>
+                            <Link href="/" className='flex items-center mr-5'>
+                                <span className="sr-only">Aviary Finance</span>
+                                <h1 className='text-xl text-skin-brand-hover font-bold'>
+                                    Aviary
+                                    <span className='text-skin-brand font-medium'>Finance</span>
+                                </h1>
+                            </Link>
+                        </div>
                         <div className="-mr-2 flex items-center md:hidden">
                             <Popover.Button className="inline-flex items-center justify-center rounded-md bg-skin-inverted p-2 text-light hover:bg-skin-secondary hover:text-skin-base focus:outline-none">
                                 <span className="sr-only">Open main menu</span>

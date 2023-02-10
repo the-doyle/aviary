@@ -41,7 +41,7 @@ export default function AccountSelect(props) {
                         key={account.id}
                         className={({ active }) =>
                         classNames(
-                            active ? 'text-white bg-slate-600' : 'text-gray-900',
+                            active ? 'bg-skin-secondary-hover cursor-pointer' : 'text-skin-base',
                             'relative cursor-default select-none py-2 pl-8 pr-4'
                         )
                         }
@@ -51,7 +51,7 @@ export default function AccountSelect(props) {
                         <>
                             <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate flex gap-3')}>
                                 {account.name}
-                                <span className={classNames(account.class === 'liability' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800', 'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium')}>
+                                <span className={classNames(account.class === 'liability' ? 'bg-skin-liabilities-light text-skin-liability' : 'bg-skin-assets-light text-skin-asset', 'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium')}>
                                     {account.class}
                                 </span>
                                 
@@ -60,7 +60,7 @@ export default function AccountSelect(props) {
                             {selected ? (
                             <span
                                 className={classNames(
-                                active ? 'text-white' : 'text-slate-600',
+                                active ? 'text-skin-inverted' : 'text-skin-light',
                                 'absolute inset-y-0 left-0 flex items-center pl-1.5'
                                 )}
                             >

@@ -41,7 +41,7 @@ export default function NewGoal(props) {
         setAccount(id)
     }
     
-    const [name, setName] = useState("Goal name")
+    const [name, setName] = useState("")
     const [date, setDate] = useState(getDate()) 
     const [balance, setBalance] = useState(0)
 
@@ -76,6 +76,10 @@ export default function NewGoal(props) {
         refreshGoals() 
         
         handleOpen() 
+
+        setName("")
+        setDate(getDate())
+        setBalance(0)
     }
 
     return props.handleOpen && props.accounts ? (

@@ -73,16 +73,6 @@ export default function UpcomingGoals(props) {
 
             <div className='flex justify-between mb-4 align-middle'>
                 <nav className="flex space-x-4" aria-label="Tabs">
-                    
-                    <button
-                        className={classNames(
-                            !showAllGoals ? 'bg-skin-brand-light text-skin-brand-hover' : 'text-skin-light hover:text-skin-base',
-                            'px-3 py-2 font-medium text-sm rounded-md'
-                        )}
-                        onClick={() => setShowAllGoals(false)}
-                    >
-                        {props.year} goals
-                    </button>
 
                     <button
                         className={classNames(
@@ -92,6 +82,16 @@ export default function UpcomingGoals(props) {
                         onClick={() => setShowAllGoals(true)}
                     >
                         All goals
+                    </button>
+                    
+                    <button
+                        className={classNames(
+                            !showAllGoals ? 'bg-skin-brand-light text-skin-brand-hover' : 'text-skin-light hover:text-skin-base',
+                            'px-3 py-2 font-medium text-sm rounded-md'
+                        )}
+                        onClick={() => setShowAllGoals(false)}
+                    >
+                        {props.year}
                     </button>
                 </nav>
 

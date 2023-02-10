@@ -34,7 +34,9 @@ module.exports = {
           muted: 'var(--color-muted)',
           inverted: 'var(--color-inverted)',
           assets: 'var(--color-assets)',
+          'assets-light': 'var(--color-assets-light)',
           liabilities: 'var(--color-liabilities)',
+          'liabilities-light': 'var(--color-liabilities-light)',
           brand: 'var(--color-brand)',
           'brand-hover': 'var(--color-brand-hover)',
           'brand-light': 'var(--color-brand-light)',
@@ -65,6 +67,17 @@ module.exports = {
       ringColor: {
         skin: {
           brand: 'var(--color-brand)',
+          light: 'var(--color-light)',
+        }
+      },
+      colors: {
+        skin: {
+          assets: 'var(--color-assets)',
+          'assets-light': 'var(--color-assets-light)',
+          'assets-muted': 'var(--color-assets-muted)',
+          liabilities: 'var(--color-liabilities)',
+          'liabilities-light': 'var(--color-liabilities-light)',
+          'liabilities-muted': 'var(--color-liabilities-muted)',
         }
       },
       opacity: {

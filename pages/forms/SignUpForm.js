@@ -15,7 +15,8 @@ export default function SignUpForm() {
     const [signUpButton, setSignUpButton] = useState({
         className: "group flex w-full justify-center rounded-md border border-skin-brand bg-skin-brand-light py-2 px-4 text-sm font-medium text-skin-brand-hover shadow-sm hover:bg-skin-brand-light-hover focus:outline-none",
         icon: <span className='ml-2 group-hover:ml-3 group-hover:-mr-1'>&rarr;</span>,
-        text: 'Sign up'
+        text: 'Sign up',
+        disabled: false
     })
 
     const handleOpen = () => {
@@ -28,7 +29,8 @@ export default function SignUpForm() {
         setSignUpButton({
             className: "group flex w-full justify-center rounded-md border border-skin-brand bg-skin-brand-light py-2 px-4 text-sm font-medium text-skin-brand-hover shadow-sm hover:bg-skin-brand-light-hover focus:outline-none",
             icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>,
-            text: 'Signing up...'
+            text: 'Signing up...',
+            disabled: true 
         })
 
         const {data: signUpData, error: signUpError } = await supabase.auth.signUp({
@@ -47,7 +49,8 @@ export default function SignUpForm() {
             setSignUpButton({
                 className: "group flex w-full justify-center rounded-md border border-skin-brand bg-skin-brand-light py-2 px-4 text-sm font-medium text-skin-brand-hover shadow-sm hover:cursor-default focus:outline-none align-middle",
                 icon: <FaceSmileIcon className='ml-1 h-4 rounded-full' />,
-                text: 'Sign up in progress'
+                text: 'Sign up in progress',
+                disabled: true
             })
 
             // router.push('/payment')
@@ -57,7 +60,8 @@ export default function SignUpForm() {
             setSignUpButton({
                 className: "transition-all group flex w-full justify-center align-middle rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none",
                 icon: <span className='ml-2 group-hover:ml-3 group-hover:-mr-1'>&rarr;</span>,
-                text: 'Sign up'
+                text: 'Sign up',
+                disabled: false
             })
         }
     }
@@ -124,6 +128,7 @@ export default function SignUpForm() {
                     <button
                         type="submit"
                         className={signUpButton.className}
+                        disabled={signUpButton.disabled}
                     >
                         {signUpButton.text}
                         {signUpButton.icon}

@@ -70,7 +70,7 @@ export default function Goals(props) {
         }
     }, [accounts, year])
 
-    return (
+    return accounts && accounts.length > 0 ? (
         <div>
             <div className="lg:grid lg:grid-cols-12 lg:gap-x-16">
                 {accounts && accounts.length > 0 
@@ -84,5 +84,8 @@ export default function Goals(props) {
                 } 
             </div>
         </div>
-    )
+    ) : 
+        <div className='flex text-lg text-skin-muted font-medium mt-10 md:mt-20 justify-content-center'>
+            <h1 className='text-center'>After adding your first account you&apos;ll be able to create goals!</h1>
+        </div>
 }

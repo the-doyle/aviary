@@ -39,7 +39,12 @@ export default function EditGoal(props) {
         } else {
             strippedValue = 0
         }
-        setBalance(strippedValue)
+        
+        if (isNaN(strippedValue)) {
+            setBalance(0)
+        } else {
+            setBalance(strippedValue)
+        }
     }
 
     const saveGoal = async (e) => {

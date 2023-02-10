@@ -176,6 +176,10 @@ export default function Accounts(props) {
             if (value && value != '$') {
                 strippedValue = value.replace("$", "")
                 strippedValue = strippedValue.replaceAll(',', '')
+
+                if (isNaN(strippedValue)) {
+                    strippedValue = 0
+                } 
             } else {
                 strippedValue = 0
             }
@@ -310,6 +314,10 @@ export default function Accounts(props) {
             if (value && value != '$') {
                 strippedValue = value.replace("$", "")
                 strippedValue = strippedValue.replaceAll(',', '')
+
+                if (isNaN(strippedValue)) {
+                    strippedValue = 0
+                } 
             } else {
                 strippedValue = 0
             }

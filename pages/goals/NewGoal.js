@@ -3,7 +3,7 @@ import { Dialog, Transition, Switch } from '@headlessui/react'
 import AccountSelect from './AccountSelect'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
-const formatAsCurrency = new Intl.NumberFormat('en-US', {
+const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     // These options are needed to round to whole numbers if that's what you want.
@@ -25,7 +25,7 @@ function classNames(...classes) {
 }
 
 const getAccountBalanceForId = (id, accounts) =>  {
-    return formatAsCurrency.format(accounts.find(x => x.id === id).balance)
+    return formatter.format(accounts.find(x => x.id === id).balance)
 }
 
 export default function NewGoal(props) {
@@ -53,7 +53,12 @@ export default function NewGoal(props) {
         } else {
             strippedValue = 0
         }
-        setBalance(strippedValue)
+
+        if (isNaN(strippedValue)) {
+            setBalance(0)
+        } else {
+            setBalance(strippedValue)
+        }
     }
 
     const saveGoal = async (e) => {
@@ -144,7 +149,7 @@ export default function NewGoal(props) {
                                                         name="target_balance"
                                                         id="target_balance"
                                                         className="block w-full rounded-md border-skin-muted shadow-sm focus:border-skin-brand focus:ring-skin-brand sm:text-sm"
-                                                        value={formatAsCurrency.format(balance)}
+                                                        value={formatter.format(balance)}
                                                         onChange={(e) => handleBalanceChange(e.target.value)}
                                                         />
                                                         <p className='mt-1 text-xs text-slate-400'>Current balance: {getAccountBalanceForId(account, props.accounts)}</p>

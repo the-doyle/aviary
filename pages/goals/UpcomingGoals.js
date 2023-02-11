@@ -16,8 +16,8 @@ const formatAsCurrency = new Intl.NumberFormat('en-US', {
 });
 
 const formatDateAsString = (d) => {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const date = new Date(d) 
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'};
+    const date = new Date(d + 'T00:00:00-07:00') 
     return date.toLocaleDateString("en-US", options)
 }
 
@@ -71,12 +71,12 @@ export default function UpcomingGoals(props) {
     return props.goals && props.accounts && props.year ? (
         <div className='lg:col-span-7 xl:col-span-8'>
 
-            <div className='flex justify-between mb-4 align-middle'>
+            <div className='flex justify-between mb-4'>
                 <nav className="flex space-x-4" aria-label="Tabs">
 
                     <button
                         className={classNames(
-                            showAllGoals ? 'bg-skin-brand-light text-skin-brand-hover' : 'text-skin-light hover:text-skin-base',
+                            showAllGoals ? 'bg-skin-secondary-hover text-skin-base' : 'text-skin-light hover:text-skin-base hover:bg-skin-secondary',
                             'px-3 py-2 font-medium text-sm rounded-md'
                         )}
                         onClick={() => setShowAllGoals(true)}
@@ -86,7 +86,7 @@ export default function UpcomingGoals(props) {
                     
                     <button
                         className={classNames(
-                            !showAllGoals ? 'bg-skin-brand-light text-skin-brand-hover' : 'text-skin-light hover:text-skin-base',
+                            !showAllGoals ? 'bg-skin-secondary-hover text-skin-base' : 'text-skin-light hover:text-skin-base hover:bg-skin-secondary',
                             'px-3 py-2 font-medium text-sm rounded-md'
                         )}
                         onClick={() => setShowAllGoals(false)}
@@ -118,7 +118,7 @@ export default function UpcomingGoals(props) {
                     .map((goal) => (
                         <div 
                             key={goal.id} 
-                            className='relative flex space-x-6 xl:static px-2 py-4 bg-white border-t border-skin-secondary-button-border'
+                            className='relative flex space-x-6 xl:static px-2 py-4 bg-skin-inverted border-t border-skin-secondary-button-border'
                         >
                             <div className="flex-auto">
                                 {goal.class === 'asset' 
@@ -181,7 +181,6 @@ export default function UpcomingGoals(props) {
                                     </h3>
                                     : <h3 className="pr-10 font-medium text-skin-liabilities xl:pr-0 text-lg">
                                         {goal.goal_name}
-                                        {goal.balance <= goal.target_balance ? <span className='pl-2'>🎉</span> : null}
                                     </h3>
                                 }
                                 <dl className="mt-2 flex flex-col text-skin-muted xl:flex-row xl:justify-between xl:place-items-center text-sm">
@@ -208,7 +207,7 @@ export default function UpcomingGoals(props) {
                             </div>
                         </div>
                     )) 
-                    : <div className='flex flex-col gap-5 place-content-center place-items-center h-40 sm:h-80 text-skin-muted rounded-lg bg-skin-secondary'>
+                    : <div className='flex flex-col gap-5 place-content-center place-items-center h-40 sm:h-96 text-skin-muted rounded-lg bg-skin-secondary'>
                         <h1 className='text-base'>You don&apos;t have any goals yet </h1>
                     </div>
                 }          

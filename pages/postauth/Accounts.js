@@ -13,6 +13,9 @@ import SortButton from "./SortButton";
 import DeleteButton from "./DeleteButton";
 import PageInfo from "../general/PageInfo";
 
+import nProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
 //#region helper functions
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -403,11 +406,18 @@ export default function Accounts(props) {
     //#endregion 
     
     useEffect(() => {
+        nProgress.start() 
         if (props.user) {
             getAssets() 
             getLiabilities() 
         }
     }, [props.user])
+
+    useEffect(() => {
+        if (assets && liabilities) {
+            nProgress.done() 
+        }
+    }, [assets, liabilities])
 
     return (
         <>
@@ -451,7 +461,7 @@ export default function Accounts(props) {
                 </div>
                 
                 <div className={`
-                    mt-4 flex flex-col p-3 -mx-3 border border-dashed border-skin-secondary-button-border rounded-lg
+                    mt-4 flex flex-col p-3 -mx-3 rounded-lg shadow-sm border
                     ${editAssets ? null : 'pointer-events-none bg-skin-secondary'}
                 `}>
                     <div className="-my-2 -mx-4 overflow-x-visible sm:-mx-6 lg:-mx-8">
@@ -612,7 +622,7 @@ export default function Accounts(props) {
                 </div>
                 
                 <div className={`
-                    mt-4 flex flex-col p-3 -mx-3 border border-dashed border-skin-secondary-button-border rounded-lg
+                    mt-4 flex flex-col p-3 -mx-3 rounded-lg shadow-sm border
                     ${editLiabilities ? null : 'pointer-events-none bg-skin-secondary'}
                 `}>
                     <div className="-my-2 -mx-4 overflow-x-visible sm:-mx-6 lg:-mx-8">

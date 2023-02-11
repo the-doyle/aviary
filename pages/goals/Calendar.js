@@ -1,3 +1,5 @@
+import PageInfo from '../general/PageInfo'
+
 import {
     ChevronLeftIcon,
     ChevronRightIcon,
@@ -56,12 +58,11 @@ const months = [
 ]
 
 export default function Calendar(props) {
-    const today = new Date()
     const changeYear = props.changeYear ? props.changeYear : null 
 
     const filterGoals = (month) => {
         return function(goal) {
-            const date = new Date(goal.target_date)
+            const date = new Date(goal.target_date + 'T00:00:00-07:00')
             return date.getMonth() == month && date.getFullYear() == props.year
         }
     }
@@ -69,8 +70,16 @@ export default function Calendar(props) {
     return props.goals && props.accounts && props.changeYear && props.year && props.yearlyGoals ? (
         <>
         <div className="mt-10 lg:mt-0 lg:col-start-8 lg:col-end-13 lg:row-start-1 xl:col-start-9 transition-all">
-
-            <div className='border border-dashed border-skin-secondary-button-border rounded-lg p-2'>
+            <div className='flex justify-center items-center mb-4'>
+                <h1 className='text-skin-base text-sm font-medium'>Year overview</h1> 
+                <PageInfo 
+                    noBorder
+                    title='Year overview calendar'
+                    firstLine='This calendar is a visual snapshot of your progress for the selected year. As you create and complete goals, they will appear on your calendar. ' 
+                    secondLine='Below the calendar, you can quickly navigate to any year with a goal.'
+                />
+            </div>
+            <div className='bg-skin-secondary-hover rounded-lg p-2'>
                 <div className="flex items-center text-gray-900">
                     <button
                     type="button"
@@ -91,22 +100,22 @@ export default function Calendar(props) {
                     </button>
                 </div>
 
-                <div className="mt-6 flex text-xs leading-6 text-skin-light text-left overflow-auto">
+                <div className="mt-6 flex text-xs leading-6 text-skin-base text-left overflow-auto">
                     <div className='flex-col'>
                         {months.map((month) => (
-                            <div key={month.id} className={month.id === today.getUTCMonth() && props.year == today.getFullYear() ? 'text-skin-base font-semibold underline underline-offset-2' : null}>{month.name}</div>
+                            <div key={month.id} >{month.name}</div>
                         ))}
                     </div>
                     <div className='mt-0.5'>
                         <div className='flex-col gap-1 items-start'>
                             {months.map((month) => (
                                 <div key={month.id} className='flex mb-1 gap-2'>
-                                    <CheckCircleIcon className='h-5 text-skin-inverted' />
+                                    <CheckCircleIcon className='h-5 text-skin-secondary-hover' />
                                     {props.goals
                                         .filter(filterGoals(month.id))
                                         .map((goal) => (
                                             calculateProgress(goal, props.accounts).progress < 100 
-                                                ? <MinusCircleIcon key={goal.id} className={`mt-0.5 ml-0.5 h-4 text-skin-inverted bg-skin-inverted rounded-full border ${calculateProgress(goal, props.accounts).class === 'asset' ? 'border-skin-assets' : 'border-skin-liabilities'}`} />
+                                                ? <MinusCircleIcon key={goal.id} className={`opacity-50 mt-0.5 ml-0.5 h-4 rounded-full border ${calculateProgress(goal, props.accounts).class === 'asset' ? 'border-skin-assets text-skin-assets bg-skin-assets' : 'border-skin-liabilities text-skin-liabilities bg-skin-liabilities'}`} />
                                                 : <CheckCircleIcon key={goal.id} className={`h-5 text-skin-base ${calculateProgress(goal, props.accounts).class === 'asset' ? 'text-skin-assets' : 'text-skin-liabilities'}`} />
                                         ))
                                     }
@@ -124,8 +133,8 @@ export default function Calendar(props) {
                     <button 
                         key={year.year} 
                         className={`
-                            relative flex w-full items-center gap-5 xl:static p-2 border overflow-hidden
-                            ${year.year === props.year ? 'border-skin-muted hover:border-skin-light' : 'border-dashed border-skin-secondary-button-border hover:border-skin-muted'}
+                            relative flex w-full items-center gap-5 xl:static p-2 overflow-hidden border 
+                            ${year.year === props.year ? 'bg-skin-secondary-hover border-skin-secondary-button-border hover:border-skin-muted' : 'bg-skin-secondary border-skin-secondary-hover hover:border-skin-secondary-button-border'}
                             rounded-lg mb-3`}
                         onClick={() => props.changeYear(year.year)}
                     >

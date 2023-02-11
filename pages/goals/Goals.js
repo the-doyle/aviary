@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
-import { useUser } from "@supabase/auth-helpers-react";
 import { useEffect } from "react";
 import UpcomingGoals from './UpcomingGoals'
 import Calendar from "./Calendar";
+
+import nProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 export default function Goals(props) {
     const supabase = useSupabaseClient() 
@@ -59,6 +61,7 @@ export default function Goals(props) {
     //#endregion
 
     useEffect(() => {
+        nProgress.start() 
         if (props.user) {
             getAccounts() 
         }
@@ -66,11 +69,19 @@ export default function Goals(props) {
 
     useEffect(() => {
         if (accounts) {
-            refreshGoals() 
+            getGoals()
+            getAllGoals()
+            getYearlyGoals() 
         }
     }, [accounts, year])
 
-    return accounts && accounts.length > 0 ? (
+    useEffect(() => {
+        if (goals && allGoals && yearlyGoals) {
+            nProgress.done() 
+        }
+    }, [goals, allGoals, yearlyGoals])
+
+    return accounts ? (
         <div>
             <div className="lg:grid lg:grid-cols-12 lg:gap-x-16">
                 {accounts && accounts.length > 0 
@@ -80,12 +91,12 @@ export default function Goals(props) {
                         <Calendar year={year} changeYear={changeYear} goals={goals} accounts={accounts} yearlyGoals={yearlyGoals}/> 
                     </>
                 : 
-                    null
+                    <div className='col-span-12 flex text-lg text-skin-muted font-medium mt-10 md:mt-20 place-items-center justify-center h-80 rounded-lg bg-skin-secondary'>
+                        <h1 className='text-center'>After adding your first account you&apos;ll be able to create goals!</h1>
+                    </div>
                 } 
             </div>
         </div>
-    ) : 
-        <div className='flex text-lg text-skin-muted font-medium mt-10 md:mt-20 justify-content-center'>
-            <h1 className='text-center'>After adding your first account you&apos;ll be able to create goals!</h1>
-        </div>
+    ) : null
+       
 }

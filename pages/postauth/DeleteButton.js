@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { XCircleIcon } from "@heroicons/react/24/outline"
+import { XCircleIcon, TrashIcon } from "@heroicons/react/24/outline"
 
 function timeout(delay) {
     return new Promise( res => setTimeout(res, delay) );

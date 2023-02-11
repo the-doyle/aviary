@@ -7,7 +7,7 @@ import Logo from '../general/Logo'
 const navigation = [
     { name: 'Accounts', href: '/accounts' },
     { name: 'Goals', href: '/goals' },
-    // { name: 'Progress', href: '/progress' },
+    { name: 'Progress', href: '/progress' },
     { name: 'Aviary', href: '/aviary' },
     // { name: 'Profile', href: '/profile' },
 ]

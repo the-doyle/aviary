@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { InformationCircleIcon } from '@heroicons/react/24/outline'
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 
 export default function PageInfo(props) {
@@ -12,11 +13,10 @@ export default function PageInfo(props) {
         
             <button
                 type="button"
-                className={`inline-flex items-center ${props.noBorder ? 'text-skin-muted mt-1' : 'rounded-md border border-skin-secondary-button-border text-skin-light bg-skin-secondary hover:bg-skin-secondary-hover '} px-3 py-2 text-sm font-medium focus:outline-none`}
+                className={`items-center ${props.noBorder ? 'text-skin-muted hover:text-skin-light' : 'rounded-md border border-skin-secondary-button-border text-skin-light bg-skin-secondary hover:bg-skin-secondary-hover '} px-3 py-2 text-sm font-medium focus:outline-none`}
                 onClick={() => setOpen(true)}
             >
                 <InformationCircleIcon className="h-5 w-5" aria-hidden="true" />
-                
             </button>
 
             <Transition.Root show={open} as={Fragment}>

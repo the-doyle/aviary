@@ -1,25 +1,61 @@
 import PostAuthNav from "./postauth/PostAuthNav"
 import PreAuthFooter from "./preauth/PreAuthFooter"
+import PageInfo from './general/PageInfo'
+import Achievements from "./achievements/Achievements";
+import Progress from './progress/Progress'
 
-export default function Progress() {
+import { useUser } from "@supabase/auth-helpers-react";
+import { useState } from "react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useEffect } from "react";
+import { FaceSmileIcon } from "@heroicons/react/24/outline";
+
+export default function ProgressPage() {
+
+    const user = useUser() 
+    const supabase = useSupabaseClient() 
+    const [userData, setUserData] = useState(null)
+
+    const getUserData = async () => {
+        const {data: userData, error: userError} = await supabase
+            .from('users')
+            .select('*')
+            .eq('id', user.id)
+            .limit(1)
+            .single()
+        
+        setUserData(userData)
+    }
+
+    useEffect(() => {
+        if (user && supabase) {
+            getUserData() 
+        }
+    }, [user, supabase])
+
     return (
         <>
             <PostAuthNav current_tab='Progress' />
 
-            <div className="pt-10 lg:pt-20 pb-20 lg:pb-60 min-h-screen">
-                <header>
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <h1 className="text-3xl font-bold leading-tight tracking-tight text-slate-900">Progress!</h1>
-                    </div>
-                </header>
+            <div className="pt-10 lg:pt-20 pb-20 lg:pb-60 min-h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <main>
-                    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        {/* Replace with your content */}
-                        <div className="px-4 py-8 sm:px-0">
-                            <div className="h-96 rounded-lg border-4 border-dashed border-slate-200" />
-                        </div>
-                        {/* /End replace */}
+                    <div className='flex gap-3 justify-end mb-10'>
+                        <Achievements user={userData} refreshUser={getUserData} /> 
+                        <PageInfo 
+                            title='Measure your progress'
+                            firstLine='Aviary saves your historical progress every time you update your accounts data, up to once per day.' 
+                            // secondLine='Come back monthly to update your balances.'
+                        />
                     </div>
+
+                    <div className='flex justify-center my-10 gap-2 text-skin-brand items-center'>
+                        <h1 className='text-center text-xl font-medium'>
+                            This page is under construction
+                        </h1>
+                        <FaceSmileIcon className='h-5 w-5' /> 
+                    </div>
+
+                    <Progress user={userData} refreshUser={getUserData}/>
                 </main>
             </div>
 

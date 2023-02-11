@@ -9,6 +9,10 @@ import PageInfo from "./general/PageInfo";
 import Achievements from "./achievements/Achievements";
 import { useRouter } from 'next/router' 
 
+
+import nProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
 export default function Aviary() {
     const supabase = useSupabaseClient() 
     const user = useUser() 
@@ -38,53 +42,65 @@ export default function Aviary() {
     }
 
     useEffect(() => {
+        nProgress.start();
         if (supabase && user) {
             getBirds() 
             getUserData() 
         } 
     }, [supabase, user])
 
-    return userData ? (
+    useEffect(() => {
+        if (birds && userData) {
+            nProgress.done() 
+        }
+    }, [birds, userData])
+
+    return (
         <>
         <div className="min-h-full">
             <PostAuthNav current_tab='Aviary' />
 
-            <div className="pt-10 lg:pt-20 pb-20 lg:pb-60 min-h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <main>
-                    <div className='flex gap-3 justify-end mb-10'>
-                        <Achievements user={userData} refreshUser={getUserData} /> 
-                        <PageInfo 
-                            title='Grow your Aviary'
-                            firstLine='After earning feathers by completing achievements, you can unlock new birds here. New birds are added monthly!' 
-                            secondLine='Aviary birds are hand-drawn by Jennifer Doyle. You can find more of her work at'
-                            externalHref='https://sanbenitopaper.com'
-                        />
-                    </div>
+            {userData 
+            ? 
+                <div className="pt-10 lg:pt-20 pb-20 lg:pb-60 min-h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <main>
+                        <div className='flex gap-3 justify-end mb-10'>
+                            <Achievements user={userData} refreshUser={getUserData} /> 
+                            <PageInfo 
+                                title='Grow your Aviary'
+                                firstLine='After earning feathers by completing achievements, you can unlock new birds here. New birds are added monthly!' 
+                                secondLine='Aviary birds are hand-drawn by Jennifer Doyle. You can find more of her work at'
+                                externalHref='https://sanbenitopaper.com'
+                            />
+                        </div>
 
-                    <h1 className="inline-flex items-center text-2xl font-semibold text-skin-brand mb-2">Aviary</h1>
-                    <h1 className="items-center text-lg font-medium text-skin-muted mb-5">Balance:  {userData.feathers}🪶</h1>
+                        <h1 className="inline-flex items-center text-2xl font-semibold text-skin-brand mb-2">Aviary</h1>
+                        <h1 className="items-center text-lg font-medium text-skin-muted mb-5">Balance:  {userData.feathers}🪶</h1>
 
-                    {  birds && birds.length > 0 && userData 
-                        ?
-                            <div className='grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 gap-2'>
-                                {birds && birds.length > 0 ? 
-                                    birds
-                                    .map((bird) => (
-                                        userData.unlocked_birds.includes(bird.id)
-                                            ? <Bird unlocked key={bird.id} bird={bird} user={userData} refreshUser={getUserData} /> 
-                                            : <Bird key={bird.id} bird={bird} user={userData} refreshUser={getUserData} /> 
-                                    )) : null 
-                                }
-                                <div className='md:h-72' />
-                            </div>
-                        : 
-                            <div className='min-h-screen' />
-                    }
-                </main>
-            </div>
+                        {  birds && birds.length > 0 && userData 
+                            ?
+                                <div className='grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 gap-2'>
+                                    {birds && birds.length > 0 ? 
+                                        birds
+                                        .map((bird) => (
+                                            userData.unlocked_birds.includes(bird.id)
+                                                ? <Bird unlocked key={bird.id} bird={bird} user={userData} refreshUser={getUserData} /> 
+                                                : <Bird key={bird.id} bird={bird} user={userData} refreshUser={getUserData} /> 
+                                        )) : null 
+                                    }
+                                    <div className='md:h-72' />
+                                </div>
+                            : 
+                                <div className='min-h-screen' />
+                        }
+                    </main>
+                </div> 
+            : 
+                <div className='min-h-screen' />
+            }
 
             <PreAuthFooter /> 
         </div>
         </> 
-    ) : null
+    ) 
 }

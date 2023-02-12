@@ -99,7 +99,7 @@ export default function HistoryLine(props) {
         maintainAspectRatio: false,
     }
 
-    return (
+    return typeof window !== 'undefined' ? (
         <div className='h-60 lg:h-96'>
             <Line 
                 data={lineData} 
@@ -109,5 +109,5 @@ export default function HistoryLine(props) {
             />
             
         </div>
-    )
+    ) : null
 }

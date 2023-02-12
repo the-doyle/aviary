@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -25,21 +25,25 @@ ChartJS.register(
 
 export default function HistoryLine(props) {
 
-    let style = getComputedStyle(document.body)
+    let [style, setStyle] = useState(typeof document !== 'undefined' ? getComputedStyle(document.body) : null)
 
-    let borderColor = props.column && props.column === 'sum_assets' 
-        ? style.getPropertyValue('--color-assets') 
-        : props.column && props.column == 'sum_liabilities' 
-            ? style.getPropertyValue('--color-liabilities')
-            : style.getPropertyValue('--color-brand')
+    let borderColor = style 
+        ? props.column && props.column === 'sum_assets' 
+            ? style.getPropertyValue('--color-assets') 
+            : props.column && props.column == 'sum_liabilities' 
+                ? style.getPropertyValue('--color-liabilities')
+                : style.getPropertyValue('--color-brand')
+        : null 
 
-    let backgroundColor = props.column && props.column === 'sum_assets' 
-        ? style.getPropertyValue('--color-assets-light') 
-        : props.column && props.column == 'sum_liabilities' 
-            ? style.getPropertyValue('--color-liabilities-light')
-            : style.getPropertyValue('--color-brand-light')
+    let backgroundColor = style 
+        ? props.column && props.column === 'sum_assets' 
+            ? style.getPropertyValue('--color-assets-light') 
+            : props.column && props.column == 'sum_liabilities' 
+                ? style.getPropertyValue('--color-liabilities-light')
+                : style.getPropertyValue('--color-brand-light')
+        : null 
 
-    const lineData = {
+    const lineData = borderColor && backgroundColor ? {
         labels: props.data.map(function (entry) { return entry.date }),
         datasets: [
             {
@@ -50,7 +54,7 @@ export default function HistoryLine(props) {
                 backgroundColor: backgroundColor,
             },
         ],
-    }
+    } : null 
 
     const options = {
         plugins: {
@@ -98,11 +102,8 @@ export default function HistoryLine(props) {
         },
         maintainAspectRatio: false,
     }
-    
 
-    
-
-    return typeof document !== 'undefined' ? (
+    return typeof document !== 'undefined' && lineData ? (
         <div className='h-60 lg:h-96'>
             <Line 
                 data={lineData} 

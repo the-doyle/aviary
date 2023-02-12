@@ -48,13 +48,6 @@ export default function ProgressPage() {
                         />
                     </div>
 
-                    <div className='flex justify-center my-10 gap-2 text-skin-brand items-center'>
-                        <h1 className='text-center text-xl font-medium'>
-                            This page is under construction
-                        </h1>
-                        <FaceSmileIcon className='h-5 w-5' /> 
-                    </div>
-
                     <Progress user={userData} refreshUser={getUserData}/>
                 </main>
             </div>

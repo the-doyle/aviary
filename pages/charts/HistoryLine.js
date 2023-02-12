@@ -25,28 +25,29 @@ ChartJS.register(
 
 export default function HistoryLine(props) {
 
-    let data = [] 
-    let labels = [] 
-    const firstAccount = props.data && props.data.length > 0 ? props.data[0].name : '' 
+    let style = getComputedStyle(document.body);
 
-    if (props.data) {
-        for (let i = 0; i < props.data.length; i++) {
-            if (props.data[i].name === firstAccount) {
-                data.push(props.data[i].balance)
-                labels.push(props.data[i].date)
-            }
-        }
-    }
+    let borderColor = props.column && props.column === 'sum_assets' 
+        ? style.getPropertyValue('--color-assets') 
+        : props.column && props.column == 'sum_liabilities' 
+            ? style.getPropertyValue('--color-liabilities')
+            : style.getPropertyValue('--color-brand')
+
+    let backgroundColor = props.column && props.column === 'sum_assets' 
+        ? style.getPropertyValue('--color-assets-light') 
+        : props.column && props.column == 'sum_liabilities' 
+            ? style.getPropertyValue('--color-liabilities-light')
+            : style.getPropertyValue('--color-brand-light')
 
     const lineData = {
-        labels: labels,
+        labels: props.data.map(function (entry) { return entry.date }),
         datasets: [
             {
                 fill: true,
                 label: props.label ? props.label : "",
-                data: data,
-                borderColor: '#22c55e',
-                backgroundColor: '#dcfce7',
+                data: props.data.map(function (entry) { return props.column ? entry[props.column] : entry['net_worth'] }),
+                borderColor: borderColor,
+                backgroundColor: backgroundColor,
             },
         ],
     }
@@ -54,19 +55,40 @@ export default function HistoryLine(props) {
     const options = {
         plugins: {
             legend: {
-                display: false 
+                display: false,
+                labels: {
+                    font: {
+                        size: 14,
+                        family: 'Arial'
+                    }
+                }
             },
         },
         scales: {
             x: {
                 grid: {
                     display: false
-                }
+                },
+                ticks: {
+                    display: false,
+                  },
             },
             y: {
                 grid: {
                     display: false
-                }
+                },
+                ticks: {
+                    family: "Montserrat",
+                    size: 12,
+                    beginAtZero: true,
+                    callback: function(value, index, values) {
+                        if (parseInt(value) >= 1000) {
+                            return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        } else {
+                            return '$' + value;
+                        }
+                    }
+                }   
             }
         },
         elements: {
@@ -78,7 +100,7 @@ export default function HistoryLine(props) {
     }
 
     return (
-        <div className='opacity-40'>
+        <div className='h-60 lg:h-96'>
             <Line 
                 data={lineData} 
                 options={options} 

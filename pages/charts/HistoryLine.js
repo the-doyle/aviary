@@ -25,7 +25,7 @@ ChartJS.register(
 
 export default function HistoryLine(props) {
 
-    let style = getComputedStyle(document.body);
+    let style = getComputedStyle(document.body)
 
     let borderColor = props.column && props.column === 'sum_assets' 
         ? style.getPropertyValue('--color-assets') 
@@ -71,7 +71,7 @@ export default function HistoryLine(props) {
                 },
                 ticks: {
                     display: false,
-                  },
+                },
             },
             y: {
                 grid: {
@@ -98,8 +98,11 @@ export default function HistoryLine(props) {
         },
         maintainAspectRatio: false,
     }
+    
 
-    return typeof window !== 'undefined' ? (
+    
+
+    return typeof document !== 'undefined' ? (
         <div className='h-60 lg:h-96'>
             <Line 
                 data={lineData} 

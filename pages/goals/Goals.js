@@ -4,9 +4,6 @@ import { useEffect } from "react";
 import UpcomingGoals from './UpcomingGoals'
 import Calendar from "./Calendar";
 
-import nProgress from 'nprogress'
-import 'nprogress/nprogress.css'
-
 export default function Goals(props) {
     const supabase = useSupabaseClient() 
 
@@ -61,7 +58,6 @@ export default function Goals(props) {
     //#endregion
 
     useEffect(() => {
-        nProgress.start() 
         if (props.user) {
             getAccounts() 
         }
@@ -74,12 +70,6 @@ export default function Goals(props) {
             getYearlyGoals() 
         }
     }, [accounts, year])
-
-    useEffect(() => {
-        if (goals && allGoals && yearlyGoals) {
-            nProgress.done() 
-        }
-    }, [goals, allGoals, yearlyGoals])
 
     return accounts ? (
         <div>

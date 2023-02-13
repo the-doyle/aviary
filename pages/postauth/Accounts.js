@@ -13,9 +13,6 @@ import SortButton from "./SortButton";
 import DeleteButton from "./DeleteButton";
 import PageInfo from "../general/PageInfo";
 
-import nProgress from 'nprogress'
-import 'nprogress/nprogress.css'
-
 //#region helper functions
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -406,18 +403,11 @@ export default function Accounts(props) {
     //#endregion 
     
     useEffect(() => {
-        nProgress.start() 
         if (props.user) {
             getAssets() 
             getLiabilities() 
         }
     }, [props.user])
-
-    useEffect(() => {
-        if (assets && liabilities) {
-            nProgress.done() 
-        }
-    }, [assets, liabilities])
 
     return (
         <>

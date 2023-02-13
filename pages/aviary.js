@@ -9,10 +9,6 @@ import PageInfo from "./general/PageInfo";
 import Achievements from "./achievements/Achievements";
 import { useRouter } from 'next/router' 
 
-
-import nProgress from 'nprogress'
-import 'nprogress/nprogress.css'
-
 export default function Aviary() {
     const supabase = useSupabaseClient() 
     const user = useUser() 
@@ -42,18 +38,11 @@ export default function Aviary() {
     }
 
     useEffect(() => {
-        nProgress.start();
         if (supabase && user) {
             getBirds() 
             getUserData() 
         } 
     }, [supabase, user])
-
-    useEffect(() => {
-        if (birds && userData) {
-            nProgress.done() 
-        }
-    }, [birds, userData])
 
     return (
         <>

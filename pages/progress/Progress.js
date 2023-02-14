@@ -180,7 +180,7 @@ export default function Progress(props) {
             transition-all duration-1000 col-span-12 flex text-lg text-skin-muted font-medium mt-10 md:mt-20 place-items-center justify-center h-40 sm:h-60 lg:h-80 rounded-lg bg-skin-secondary-hover
             ${showEmptyState ? 'opacity-100' : 'opacity-0'}
         `}>
-            <h1 className='text-center'>Complete 3 check-ins to see historical progress!</h1>
+            <h1 className='text-center'>Add your first asset and/or liability to see historical progress!</h1>
         </div> 
 
 }

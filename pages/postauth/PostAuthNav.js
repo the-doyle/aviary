@@ -17,7 +17,7 @@ const pages = [
     // { name: 'Profile', href: '/profile' },
 ]
 
-export default function Navbar(props) {
+export default function PostAuthNav(props) {
     const supabase = useSupabaseClient() 
 
     const signOut = async () => {

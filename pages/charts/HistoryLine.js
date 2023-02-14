@@ -58,6 +58,27 @@ export default function HistoryLine(props) {
 
     const options = {
         plugins: {
+            tooltip: {
+                intersect: false,
+                callbacks: {
+                    label: function(context) {
+                        let label = context.dataset.label || '';
+
+                        if (label) {
+                            label += ': ';
+                        }
+                        if (context.parsed.y !== null) {
+                            label += new Intl.NumberFormat('en-US', {
+                                style: 'currency', 
+                                currency: 'USD',
+                                notation: "compact",
+                                maximumFractionDigits: 1
+                            }).format(context.parsed.y);
+                        }
+                        return label;
+                    }
+                }
+            },
             legend: {
                 display: false,
                 labels: {
@@ -79,9 +100,12 @@ export default function HistoryLine(props) {
             },
             y: {
                 grid: {
-                    display: false
+                    display: true,
+                    color: '#e7e5e4'
                 },
                 ticks: {
+                    labelOffset: -8,
+                    mirror: true,
                     family: "Montserrat",
                     size: 12,
                     beginAtZero: true,
@@ -96,10 +120,16 @@ export default function HistoryLine(props) {
         },
         elements: {
             line: {
-                tension: .3
-            }
+                tension: .3,
+                
+            },
         },
         maintainAspectRatio: false,
+        layout: {
+            padding: {
+                top: 30
+            }
+        }
     }
 
     return typeof document !== 'undefined' && lineData ? (

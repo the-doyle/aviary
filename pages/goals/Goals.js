@@ -13,6 +13,7 @@ export default function Goals(props) {
     const [allGoals, setAllGoals] = useState(null)
     const [yearlyGoals, setYearlyGoals] = useState(null)
     const [year, setYear] = useState(new Date().getFullYear())
+    const [showEmptyState, setShowEmptyState] = useState(false)
     const refreshUser = props.refreshUser ? props.refreshUser : null 
 
     const changeYear = (newYear) => {
@@ -47,6 +48,7 @@ export default function Goals(props) {
             .rpc('yearly_goal_counts', { 'u_id': props.user.id });
 
         setYearlyGoals(getYearlyGoalsData)
+        setShowEmptyState(true)
     }
 
     const refreshGoals = async () => {
@@ -69,24 +71,23 @@ export default function Goals(props) {
             getAllGoals()
             getYearlyGoals() 
         }
+
     }, [accounts, year])
 
-    return accounts ? (
-        <div>
-            <div className="lg:grid lg:grid-cols-12 lg:gap-x-16">
-                {accounts && accounts.length > 0 
-                ? 
-                    <>
-                        <UpcomingGoals year={year} goals={goals} allGoals={allGoals} accounts={accounts} refreshGoals={refreshGoals} /> 
-                        <Calendar year={year} changeYear={changeYear} goals={goals} accounts={accounts} yearlyGoals={yearlyGoals}/> 
-                    </>
-                : 
-                    <div className='col-span-12 flex text-lg text-skin-muted font-medium mt-10 md:mt-20 place-items-center justify-center h-80 rounded-lg bg-skin-secondary'>
-                        <h1 className='text-center'>After adding your first account you&apos;ll be able to create goals!</h1>
-                    </div>
-                } 
-            </div>
+    return accounts && accounts.length > 0 ? (
+        <div className="lg:grid lg:grid-cols-12 lg:gap-x-16">
+            <>
+                <UpcomingGoals year={year} goals={goals} allGoals={allGoals} accounts={accounts} refreshGoals={refreshGoals} /> 
+                <Calendar year={year} changeYear={changeYear} goals={goals} accounts={accounts} yearlyGoals={yearlyGoals}/> 
+            </>
         </div>
-    ) : null
+    ) :  
+        <div className={`
+            transition-all duration-1000 col-span-12 flex flex-col gap-2 text-lg text-skin-muted font-medium mt-10 md:mt-20 place-items-center justify-center h-40 sm:h-60 lg:h-80 rounded-lg bg-skin-secondary-hover
+            ${showEmptyState ? 'opacity-100' : 'opacity-0'}
+       `}>
+            <h1 className='text-center'>Goals in Aviary are tied directly to assets or liabilities.</h1>
+            <h1 className='text-center'>After adding your first account, come back to create your first goal! </h1>
+        </div>
+} 
        
-}

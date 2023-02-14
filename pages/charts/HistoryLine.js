@@ -85,12 +85,11 @@ export default function HistoryLine(props) {
                     family: "Montserrat",
                     size: 12,
                     beginAtZero: true,
-                    callback: function(value, index, values) {
-                        if (parseInt(value) >= 1000) {
-                            return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                        } else {
-                            return '$' + value;
-                        }
+                    callback: function(value) {
+                        return '$' + Intl.NumberFormat('en-US', {
+                            notation: "compact",
+                            maximumFractionDigits: 1
+                          }).format(value);
                     }
                 }   
             }

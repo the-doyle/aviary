@@ -75,9 +75,9 @@ export default function Features() {
                             </dl>
                         </div>
 
-                        <div className="relative -mx-4 mt-10 lg:mt-72 flex place-content-center" aria-hidden="true">
+                        <div className="relative -mx-4 mt-10 lg:mt-20 flex place-content-center" aria-hidden="true">
                             <Image 
-                                src='/aviary.png'
+                                src='/aviarylarge.png'
                                 height={1200}
                                 width={1200}
                                 alt="Aviary"
@@ -85,11 +85,11 @@ export default function Features() {
                             />
                             
                             <Image 
-                                src='/calendar.png'
+                                src='/achievements.png'
                                 height={300}
                                 width={300}
-                                alt="Calendar"
-                                className='shadow-lg rounded-xl hidden lg:block relative bottom-56 right-20 border'
+                                alt="Achievements"
+                                className='shadow-lg rounded-xl hidden lg:block relative bottom-40 right-20 border'
                             />	
                         </div>
                     </div>

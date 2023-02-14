@@ -48,19 +48,19 @@ export default function Index() {
 						<div className="md:mx-auto md:max-w-2xl lg:col-span-6 mt-10 lg:mt-32 relative z-20 flex place-items-center">
 
 								<Image 
-									src='/goals.png'
-									height={1200}
-									width={1200}
-									alt="Goals"
-									className='shadow-lg rounded-xl relative lg:absolute border'
+									src='/chart.png'
+									height={600}
+									width={600}
+									alt="Chart"
+									className='shadow-lg rounded-xl relative lg:absolute z-10 lg:right-16 lg:top-10'
 								/>
 								
 								<Image 
 									src='/accounts.png'
-									height={800}
-									width={800}
+									height={500}
+									width={500}
 									alt="Accounts"
-									className='shadow-lg rounded-xl hidden lg:block relative left-20 bottom-24 border'
+									className='shadow-lg rounded-xl hidden lg:block relative left-20 bottom-24'
 								/>	
 
 								<div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">

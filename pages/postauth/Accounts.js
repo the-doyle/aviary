@@ -715,15 +715,6 @@ export default function Accounts(props) {
                                 }
                                 </tbody>
                             </table>
-
-                            {liabilities && liabilities.length > 0 
-                                ? 
-                                    <div className='flex justify-end text-sm text-skin-base pr-12 mr-1 py-3'>
-                                        <h1 className="font-medium">Total <span className='font-serif font-bold pl-1'>&rarr;</span></h1>
-                                        <h1 className="pl-2 font-semibold">{formatter.format(sumList(Object.values(filterData(liabilities))))}</h1>
-                                    </div>
-                                : null 
-                            }
                         </div>
                     </div>
                 </div>

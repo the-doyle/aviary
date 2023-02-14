@@ -68,20 +68,12 @@ export default function Accounts(props) {
      //#endregion
 
     //#region secondary state variables
-    const [editAssets, setEditAssets] = useState(false) 
-    const [saveAssetsButton, setSaveAssetsButton] = useState({
-        className: "transition-all group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-2 py-1 text-xs font-medium text-skin-light shadow-sm hover:bg-skin-secondary-hover focus:outline-none", 
-        icon: <PencilSquareIcon className='ml-1.5 h-4 rounded-full'/>,
+    const [editAll, setEditAll] = useState(false) 
+    const [saveButton, setSaveButton] = useState({
+        className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-4 py-2 text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
+        icon: <PencilSquareIcon className='ml-1.5 h-5 rounded-full'/>,
         text: 'Edit'
     })
-
-    const [editLiabilities, setEditLiabilities] = useState(false) 
-    const [saveLiabilitiesButton, setSaveLiabilitesButton] = useState({
-        className: "transition-all group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-2 py-1 text-xs font-medium text-skin-light shadow-sm hover:bg-skin-secondary-hover focus:outline-none", 
-        icon: <PencilSquareIcon className='ml-1.5 h-4 rounded-full'/>,
-        text: 'Edit'
-    })
-
 
     //#endregion
     
@@ -118,54 +110,6 @@ export default function Accounts(props) {
             },
         ]);
     };
-
-    const saveAssets = async () => {
-
-        if (!editAssets) {
-            setEditAssets(true) 
-            setSaveAssetsButton({
-                className: "transition-all group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-2 py-1 text-xs font-medium text-skin-light shadow-sm hover:bg-skin-secondary-hover focus:outline-none", 
-                icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
-                text: 'Save'
-            })
-        } else {
-            setSaveAssetsButton({
-                className: "transition-all group inline-flex items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light-hover px-2 py-1 text-xs font-medium text-skin-brand-hover shadow-sm focus:outline-none",
-                icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>,
-                text: 'Saving'
-            })
-    
-            const { data: upsertAssetsData, error: upsertAssetsError } = await supabase
-                .from('accounts')
-                .upsert(assets)
-    
-            //filter assets down to necessary attributes 
-            let asset_history = assets.map(({user_id, name, type, ...keepAttrs}) => keepAttrs)
-    
-            //add date attribute with today's date 
-            asset_history = asset_history.map(obj => ({ ...obj, date: getDate() }))
-    
-            //upsert asset history 
-            const { data: upsertAssetHistoryData, error: upsertAssetHistoryError } = await supabase
-                .from('history')
-                .upsert(asset_history)
-    
-            setSaveAssetsButton({
-                className: "transition-all group inline-flex items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light-hover px-2 py-1 text-xs font-medium text-skin-brand-hover shadow-sm focus:outline-none",
-                icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>,
-                text: 'Done'
-            })
-    
-            await timeout(1000);
-            
-            setEditAssets(false)
-            setSaveAssetsButton({
-                className: "transition-all group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-2 py-1 text-xs font-medium text-skin-light shadow-sm hover:bg-skin-secondary-hover focus:outline-none", 
-                icon: <PencilSquareIcon className='ml-1.5 h-4 rounded-full'/>,
-                text: 'Edit'
-            })
-        }
-    }
     
     const editAsset = (e, id) => {
         const { name, value } = e.target
@@ -255,55 +199,6 @@ export default function Accounts(props) {
             },
         ]);
     };
-
-    const saveLiabilities = async () => {
-
-        if (!editLiabilities) {
-            setEditLiabilities(true) 
-            setSaveLiabilitesButton({
-                className: "transition-all group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-2 py-1 text-xs font-medium text-skin-light shadow-sm hover:bg-skin-secondary-hover focus:outline-none", 
-                icon: <ArrowPathIcon className='ml-1 h-4 rounded-full'/>,
-                text: 'Save'
-            })
-        } else {
-
-            setSaveLiabilitesButton({
-                className: "transition-all group inline-flex items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light-hover px-2 py-1 text-xs font-medium text-skin-brand-hover shadow-sm focus:outline-none",
-                icon: <ArrowPathIcon className='ml-1 h-4 rounded-full animate-spin'/>,
-                text: 'Saving'
-            })
-
-            const { data: upsertLiabilitiesData, error: upsertLiabilitiesError } = await supabase
-                .from('accounts')
-                .upsert(liabilities)
-
-            //filter liabilities down to necessary attributes 
-            let liability_history = liabilities.map(({user_id, name, type, ...keepAttrs}) => keepAttrs)
-
-            //add date attribute with today's date 
-            liability_history = liability_history.map(obj => ({ ...obj, date: getDate() }))
-
-            //upsert asset history 
-            const { data: upsertLiabilityHistoryData, error: upsertLiabilityHistoryError } = await supabase
-                .from('history')
-                .upsert(liability_history)
-
-            setSaveLiabilitesButton({
-                className: "transition-all group inline-flex items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light-hover px-2 py-1 text-xs font-medium text-skin-brand-hover shadow-sm focus:outline-none",
-                icon: <CheckBadgeIcon className='ml-1 h-4 rounded-full'/>,
-                text: 'Done'
-            })
-
-            await timeout(1000);
-
-            setEditLiabilities(false)
-            setSaveLiabilitesButton({
-                className: "transition-all group inline-flex items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary px-2 py-1 text-xs font-medium text-skin-light shadow-sm hover:bg-skin-secondary-hover focus:outline-none", 
-                icon: <PencilSquareIcon className='ml-1.5 h-4 rounded-full'/>,
-                text: 'Edit'
-            })
-        }
-    }
     
     const editLiability = (e, id) => {
         const { name, value } = e.target
@@ -366,6 +261,71 @@ export default function Accounts(props) {
     //#endregion
 
     //#region random functions 
+
+    const saveAll = async () => {
+
+        if (!editAll) {
+            setEditAll(true) 
+            setSaveButton({
+                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-4 py-2 text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
+                icon: <ArrowPathIcon className='ml-1.5 h-5 rounded-full'/>,
+                text: 'Save'
+            })
+        } else {
+            setSaveButton({
+                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand bg-skin-brand px-4 py-2 text-sm font-medium text-skin-inverted shadow-sm focus:outline-none",
+                icon: <ArrowPathIcon className='ml-1 h-5 rounded-full animate-spin'/>,
+                text: 'Saving'
+            })
+    
+            const { data: upsertAssetsData, error: upsertAssetsError } = await supabase
+                .from('accounts')
+                .upsert(assets)
+    
+            //filter assets down to necessary attributes 
+            let asset_history = assets.map(({user_id, name, type, ...keepAttrs}) => keepAttrs)
+    
+            //add date attribute with today's date 
+            asset_history = asset_history.map(obj => ({ ...obj, date: getDate() }))
+    
+            //upsert asset history 
+            const { data: upsertAssetHistoryData, error: upsertAssetHistoryError } = await supabase
+                .from('history')
+                .upsert(asset_history)
+
+            const { data: upsertLiabilitiesData, error: upsertLiabilitiesError } = await supabase
+                .from('accounts')
+                .upsert(liabilities)
+    
+            //filter liabilities down to necessary attributes 
+            let liability_history = liabilities.map(({user_id, name, type, ...keepAttrs}) => keepAttrs)
+    
+            //add date attribute with today's date 
+            liability_history = liability_history.map(obj => ({ ...obj, date: getDate() }))
+    
+            //upsert asset history 
+            const { data: upsertLiabilityHistoryData, error: upsertLiabilityHistoryError } = await supabase
+                .from('history')
+                .upsert(liability_history)
+    
+            setSaveButton({
+                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand bg-skin-brand px-4 py-2 text-sm font-medium text-skin-inverted shadow-sm focus:outline-none",
+                icon: <CheckBadgeIcon className='ml-1 h-5 rounded-full'/>,
+                text: 'Done'
+            })
+    
+            await timeout(1000);
+            
+            setEditAll(false)
+            setSaveButton({
+                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-4 py-2 text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
+                icon: <PencilSquareIcon className='ml-1.5 h-5 rounded-full'/>,
+                text: 'Edit'
+            })
+        }
+    }
+
+
     const getGoals = async () => {
         const {data: assetGoalsData, error: assetGoalsError} = await supabase
             .from('asset_goals')
@@ -409,13 +369,29 @@ export default function Accounts(props) {
         }
     }, [props.user])
 
-    return (
+    return props.user ? (
         <>
+            <div id='head' className='col-span-4 lg:col-span-2 flex justify-between mb-10'>
+                <h1 className='font-medium text-3xl text-skin-brand'>
+                    Welcome back, {props.user.first_name}!
+                </h1>
+
+                <button
+                type="button"
+                className={saveButton.className}
+                onClick={saveAll}
+                >
+                    {saveButton.text}
+                    {saveButton.icon}
+                </button>
+            </div>
+
+            <div className='hidden lg:block lg:col-span-2 mb-10' /> 
 
             <div id='assets' className='col-span-4 lg:col-span-2'>
                 <div className='flex justify-between align-middle'>
                     <div className='flex align-middle'>
-                        <h1 className="inline-flex items-center text-2xl font-semibold text-skin-assets">Assets</h1>
+                        <h1 className="inline-flex items-center text-2xl font-medium text-skin-assets">Assets</h1>
                         <PageInfo 
                             noBorder
                             title='What are assets?'
@@ -426,14 +402,6 @@ export default function Accounts(props) {
                     <div className="mt-2 text-right justify-self-end transition-all ease-in-out duration-1000">
                         <button
                         type="button"
-                        className={saveAssetsButton.className}
-                        onClick={saveAssets}
-                        >
-                            {saveAssetsButton.text}
-                            {saveAssetsButton.icon}
-                        </button>
-                        <button
-                        type="button"
                         className="
                             transition-all ml-2 group inline-flex items-center 
                             rounded-md border border-skin-secondary-button-border 
@@ -441,7 +409,7 @@ export default function Accounts(props) {
                             shadow-sm hover:bg-skin-secondary-hover focus:outline-none
                             disabled:hidden
                         "
-                        disabled={!editAssets}
+                        disabled={!editAll}
                         onClick={addAsset}
                         >
                             New
@@ -452,7 +420,7 @@ export default function Accounts(props) {
                 
                 <div className={`
                     mt-4 flex flex-col p-3 -mx-3 rounded-lg shadow-sm border
-                    ${editAssets ? null : 'pointer-events-none bg-skin-secondary'}
+                    ${editAll ? null : 'pointer-events-none bg-skin-secondary'}
                 `}>
                     <div className="-my-2 -mx-4 overflow-x-visible sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
@@ -460,19 +428,19 @@ export default function Accounts(props) {
                                 <thead className='border-b border-skin-secondary-button-border'>
                                     <tr className='text-sm text-skin-light'>
                                         <th scope="col" className="py-2 pr-1.5 text-left">
-                                            <span className={`inline-flex ${editAssets ? 'opacity-100' : 'opacity-50'}`}>
+                                            <span className={`inline-flex ${editAll ? 'opacity-100' : 'opacity-50'}`}>
                                                 Name
                                                 <SortButton sortOn="name" onClickSort={sortAssets} />
                                             </span>
                                         </th>
                                         <th scope="col" className="py-2 text-left">
-                                            <span className={`inline-flex ${editAssets ? 'opacity-100' : 'opacity-50'}`}>
+                                            <span className={`inline-flex ${editAll ? 'opacity-100' : 'opacity-50'}`}>
                                                 Category
                                                 <SortButton sortOn="type" onClickSort={sortAssets} />
                                             </span>
                                         </th>
                                         <th scope="col" className="py-2 pr-3 text-right">
-                                            <span className={`inline-flex ${editAssets ? 'opacity-100' : 'opacity-50'}`}>
+                                            <span className={`inline-flex ${editAll ? 'opacity-100' : 'opacity-50'}`}>
                                                 Balance
                                                 <SortButton sortOn="balance" onClickSort={sortAssets} />
                                             </span>
@@ -499,10 +467,10 @@ export default function Accounts(props) {
                                                                 id="name"   
                                                                 className={`
                                                                     block w-full border-0 border-b border-transparent focus:border-skin-light focus:ring-0 text-sm text-skin-light focus:text-skin-base
-                                                                    ${editAssets ? null : 'bg-skin-secondary'}
+                                                                    ${editAll ? null : 'bg-skin-secondary'}
                                                                     disabled:text-skin-muted
                                                                 `}
-                                                                disabled={!editAssets}
+                                                                disabled={!editAll}
                                                                 value={asset.name}
                                                                 onChange={(e) => editAsset(e, asset.id)}
                                                             />  
@@ -515,7 +483,7 @@ export default function Accounts(props) {
                                                             <SearchSelectInput 
                                                                 handleChange={editAssetType} 
                                                                 items={assetTypes} 
-                                                                disabled={!editAssets}
+                                                                disabled={!editAll}
                                                                 selected={asset.type} 
                                                                 id={asset.id}
                                                                 name='type'
@@ -533,10 +501,10 @@ export default function Accounts(props) {
                                                                 id="balance"
                                                                 className={`
                                                                     block w-full text-right border-0 border-b border-transparent focus:border-skin-light focus:ring-0 text-sm text-skin-light focus:text-skin-base
-                                                                    ${editAssets ? null : 'bg-skin-secondary'}
+                                                                    ${editAll ? null : 'bg-skin-secondary'}
                                                                     disabled:text-skin-muted
                                                                 `}
-                                                                disabled={!editAssets}
+                                                                disabled={!editAll}
                                                                 value={asset.balance ? formatter.format(asset.balance) : formatter.format(0)}
                                                                 onChange={(e) => editAsset(e, asset.id)}
                                                                 min={0}
@@ -576,7 +544,7 @@ export default function Accounts(props) {
 
                 <div className='flex justify-between align-middle'>
                     <div className='flex align-middle'>
-                        <h1 className="inline-flex items-center text-2xl font-semibold text-skin-liabilities">Liabilities</h1>
+                        <h1 className="inline-flex items-center text-2xl font-medium text-skin-liabilities">Liabilities</h1>
                         <PageInfo 
                             noBorder
                             title='What are liabilities?'
@@ -587,14 +555,6 @@ export default function Accounts(props) {
                     <div className="mt-2 text-right justify-self-end transition-all ease-in-out duration-1000">
                         <button
                         type="button"
-                        className={saveLiabilitiesButton.className}
-                        onClick={saveLiabilities}
-                        >
-                            {saveLiabilitiesButton.text}
-                            {saveLiabilitiesButton.icon}
-                        </button>
-                        <button
-                        type="button"
                         className="
                             transition-all ml-2 group inline-flex items-center 
                             rounded-md border border-skin-secondary-button-border 
@@ -602,7 +562,7 @@ export default function Accounts(props) {
                             shadow-sm hover:bg-skin-secondary-hover focus:outline-none
                             disabled:hidden
                         "
-                        disabled={!editLiabilities}
+                        disabled={!editAll}
                         onClick={addLiability}
                         >
                             New
@@ -613,7 +573,7 @@ export default function Accounts(props) {
                 
                 <div className={`
                     mt-4 flex flex-col p-3 -mx-3 rounded-lg shadow-sm border
-                    ${editLiabilities ? null : 'pointer-events-none bg-skin-secondary'}
+                    ${editAll ? null : 'pointer-events-none bg-skin-secondary'}
                 `}>
                     <div className="-my-2 -mx-4 overflow-x-visible sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full pb-2 align-middle px-4 md:px-6 lg:px-8">
@@ -621,19 +581,19 @@ export default function Accounts(props) {
                                 <thead className='border-b border-skin-secondary-button-border'>
                                     <tr className='text-sm text-skin-light'>
                                         <th scope="col" className="py-2 pr-1.5 text-left">
-                                            <span className={`inline-flex ${editLiabilities ? 'opacity-100' : 'opacity-50'}`}>
+                                            <span className={`inline-flex ${editAll ? 'opacity-100' : 'opacity-50'}`}>
                                                 Name
                                                 <SortButton sortOn="name" onClickSort={sortLiabilities} />
                                             </span>
                                         </th>
                                         <th scope="col" className="py-2 text-left">
-                                            <span className={`inline-flex ${editLiabilities ? 'opacity-100' : 'opacity-50'}`}>
+                                            <span className={`inline-flex ${editAll ? 'opacity-100' : 'opacity-50'}`}>
                                                 Category
                                                 <SortButton sortOn="type" onClickSort={sortLiabilities} />
                                             </span>
                                         </th>
                                         <th scope="col" className="py-2 pr-3 text-right">
-                                            <span className={`inline-flex ${editLiabilities ? 'opacity-100' : 'opacity-50'}`}>
+                                            <span className={`inline-flex ${editAll ? 'opacity-100' : 'opacity-50'}`}>
                                                 Balance
                                                 <SortButton sortOn="balance" onClickSort={sortLiabilities} />
                                             </span>
@@ -659,10 +619,10 @@ export default function Accounts(props) {
                                                             id="name"   
                                                             className={`
                                                                 block w-full border-0 border-b border-transparent focus:border-skin-light focus:ring-0 text-sm text-skin-light focus:text-skin-base
-                                                                ${editLiabilities ? null : 'bg-skin-secondary'}
+                                                                ${editAll ? null : 'bg-skin-secondary'}
                                                                 disabled:text-skin-muted
                                                             `}
-                                                            disabled={!editLiabilities}
+                                                            disabled={!editAll}
                                                             value={liability.name}
                                                             onChange={(e) => editLiability(e, liability.id)}
                                                         />  
@@ -676,7 +636,7 @@ export default function Accounts(props) {
                                                             handleChange={editLiabilityType} 
                                                             items={liabilityTypes} 
                                                             selected={liability.type} 
-                                                            disabled={!editLiabilities}
+                                                            disabled={!editAll}
                                                             id={liability.id}
                                                             name='type'
                                                         />  
@@ -693,10 +653,10 @@ export default function Accounts(props) {
                                                             id="balance"
                                                             className={`
                                                                 block w-full text-right border-0 border-b border-transparent focus:border-skin-light focus:ring-0 text-sm text-skin-light focus:text-skin-base
-                                                                ${editLiabilities ? null : 'bg-skin-secondary'}
+                                                                ${editAll ? null : 'bg-skin-secondary'}
                                                                 disabled:text-skin-muted
                                                             `}
-                                                            disabled={!editLiabilities}
+                                                            disabled={!editAll}
                                                             value={liability.balance ? formatter.format(liability.balance) : formatter.format(0)}
                                                             onChange={(e) => editLiability(e, liability.id)}
                                                             min={0}
@@ -732,5 +692,5 @@ export default function Accounts(props) {
                 }    
             </div>
         </>
-    )
+    ) : null
 }

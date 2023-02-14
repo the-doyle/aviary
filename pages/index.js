@@ -52,7 +52,7 @@ export default function Index() {
 									height={600}
 									width={600}
 									alt="Chart"
-									className='shadow-lg rounded-xl relative lg:absolute z-10 lg:right-16 lg:top-10'
+									className='shadow-lg rounded-lg relative lg:absolute z-10 lg:right-16 lg:top-10'
 								/>
 								
 								<Image 
@@ -60,7 +60,7 @@ export default function Index() {
 									height={500}
 									width={500}
 									alt="Accounts"
-									className='shadow-lg rounded-xl hidden lg:block relative left-20 bottom-24'
+									className='shadow-lg rounded-lg hidden lg:block relative left-20 bottom-24'
 								/>	
 
 								<div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">

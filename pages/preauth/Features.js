@@ -81,7 +81,7 @@ export default function Features() {
                                 height={1200}
                                 width={1200}
                                 alt="Aviary"
-                                className='shadow-lg rounded-xl relative lg:absolute border z-10'
+                                className='shadow-lg rounded-lg relative lg:absolute z-10'
                             />
                             
                             <Image 
@@ -89,7 +89,7 @@ export default function Features() {
                                 height={300}
                                 width={300}
                                 alt="Achievements"
-                                className='shadow-lg rounded-xl hidden lg:block relative bottom-40 right-20 border'
+                                className='shadow-lg rounded-lg hidden lg:block relative bottom-40 right-20'
                             />	
                         </div>
                     </div>

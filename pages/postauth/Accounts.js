@@ -70,8 +70,8 @@ export default function Accounts(props) {
     //#region secondary state variables
     const [editAll, setEditAll] = useState(false) 
     const [saveButton, setSaveButton] = useState({
-        className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-4 py-2 text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
-        icon: <PencilSquareIcon className='ml-1.5 h-5 rounded-full'/>,
+        className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
+        icon: <PencilSquareIcon className='ml-1.5 h-4 sm:h-5 rounded-full'/>,
         text: 'Edit'
     })
 
@@ -267,14 +267,14 @@ export default function Accounts(props) {
         if (!editAll) {
             setEditAll(true) 
             setSaveButton({
-                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-4 py-2 text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
-                icon: <ArrowPathIcon className='ml-1.5 h-5 rounded-full'/>,
+                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
+                icon: <ArrowPathIcon className='ml-1.5 h-4 sm:h-5 rounded-full'/>,
                 text: 'Save'
             })
         } else {
             setSaveButton({
-                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand bg-skin-brand px-4 py-2 text-sm font-medium text-skin-inverted shadow-sm focus:outline-none",
-                icon: <ArrowPathIcon className='ml-1 h-5 rounded-full animate-spin'/>,
+                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand bg-skin-brand px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-inverted shadow-sm focus:outline-none",
+                icon: <ArrowPathIcon className='ml-1 h-4 sm:h-5 rounded-full animate-spin'/>,
                 text: 'Saving'
             })
     
@@ -309,8 +309,8 @@ export default function Accounts(props) {
                 .upsert(liability_history)
     
             setSaveButton({
-                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand bg-skin-brand px-4 py-2 text-sm font-medium text-skin-inverted shadow-sm focus:outline-none",
-                icon: <CheckBadgeIcon className='ml-1 h-5 rounded-full'/>,
+                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand bg-skin-brand px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-inverted shadow-sm focus:outline-none",
+                icon: <CheckBadgeIcon className='ml-1 h-4 sm:h-5 rounded-full'/>,
                 text: 'Done'
             })
     
@@ -318,13 +318,12 @@ export default function Accounts(props) {
             
             setEditAll(false)
             setSaveButton({
-                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-4 py-2 text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
-                icon: <PencilSquareIcon className='ml-1.5 h-5 rounded-full'/>,
+                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
+                icon: <PencilSquareIcon className='ml-1.5 h-4 sm:h-5 rounded-full'/>,
                 text: 'Edit'
             })
         }
     }
-
 
     const getGoals = async () => {
         const {data: assetGoalsData, error: assetGoalsError} = await supabase
@@ -372,7 +371,7 @@ export default function Accounts(props) {
     return props.user ? (
         <>
             <div id='head' className='col-span-4 lg:col-span-2 flex justify-between mb-10'>
-                <h1 className='font-medium text-3xl text-skin-brand'>
+                <h1 className='font-semibold text-3xl text-skin-brand'>
                     Welcome back, {props.user.first_name}!
                 </h1>
 
@@ -391,7 +390,7 @@ export default function Accounts(props) {
             <div id='assets' className='col-span-4 lg:col-span-2'>
                 <div className='flex justify-between align-middle'>
                     <div className='flex align-middle'>
-                        <h1 className="inline-flex items-center text-2xl font-medium text-skin-assets">Assets</h1>
+                        <h1 className="inline-flex items-center text-2xl font-semibold text-skin-assets">Assets</h1>
                         <PageInfo 
                             noBorder
                             title='What are assets?'
@@ -544,7 +543,7 @@ export default function Accounts(props) {
 
                 <div className='flex justify-between align-middle'>
                     <div className='flex align-middle'>
-                        <h1 className="inline-flex items-center text-2xl font-medium text-skin-liabilities">Liabilities</h1>
+                        <h1 className="inline-flex items-center text-2xl font-semibold text-skin-liabilities">Liabilities</h1>
                         <PageInfo 
                             noBorder
                             title='What are liabilities?'

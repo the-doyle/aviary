@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Logo(props) {
-    return props.height && props.width ? (
+    return props.height && props.width && props.href ? (
         <Link 
-            href='/'
+            href={props.href}
         > 
             <Image
                 className="block"

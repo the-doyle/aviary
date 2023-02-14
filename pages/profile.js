@@ -1,4 +1,3 @@
-import BackgroundBirds from "./general/BackgroundBirds";
 import PostAuthNav from "./postauth/PostAuthNav";
 
 export default function Profile() {

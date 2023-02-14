@@ -75,7 +75,7 @@ export default function Progress(props) {
         <>
             <div className='flex justify-between items-middle mb-2'>
                 <h1 className={`
-                    flex gap-1 text-2xl font-bold px-3 py-2 transition-all
+                    flex gap-1 text-2xl font-semibold px-3 py-2
                     ${column === 'sum_assets' 
                         ? 'text-skin-assets' 
                         : column === 'sum_liabilities' 
@@ -94,7 +94,7 @@ export default function Progress(props) {
                 </h1>
 
                 <h1 className={`
-                    text-lg font-bold px-3 py-2 transition-all
+                    text-lg font-semibold px-3 py-2 transition-all
                     ${column === 'sum_assets' 
                         ? 'text-skin-assets' 
                         : column === 'sum_liabilities' 

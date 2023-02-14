@@ -20,7 +20,7 @@ export default function PreAuthNav() {
                 <div className="flex flex-1 items-center">
                     <div className="flex w-full items-center justify-between md:w-auto">
                         <div className='flex'>
-                            <Logo height="40" width="40" />
+                            <Logo height="40" width="40" href='/' />
                             <Link href="/" className='flex items-center mr-5'>
                                 <span className="sr-only">Aviary Finance</span>
                                 <h1 className='text-xl text-skin-brand-hover font-bold'>
@@ -74,7 +74,7 @@ export default function PreAuthNav() {
                     <div className="overflow-hidden rounded-lg bg-skin-inverted shadow-md ring-1 ring-black ring-opacity-5">
                         <div className="flex items-center justify-between px-5 pt-4">
                             <div className='flex'>
-                                <Logo height="40" width="40" />
+                                <Logo height="40" width="40" href='/' />
                                 <h1 className='text-lg text-skin-brand-hover font-bold'>
                                     Aviary
                                     <span className='text-skin-brand font-medium'>Finance</span>

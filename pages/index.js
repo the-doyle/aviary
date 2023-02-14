@@ -83,8 +83,8 @@ export default function Index() {
 										y2="474.645"
 										gradientUnits="userSpaceOnUse"
 										>
-										<stop stopColor="#0ea5e9" />
-										<stop offset={1} stopColor="#7dd3fc" />
+										<stop stopColor="#8b5cf6" />
+										<stop offset={1} stopColor="#c4b5fd" />
 										</linearGradient>
 									</defs>
 									</svg>

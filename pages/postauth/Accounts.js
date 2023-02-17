@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowPathIcon, PlusIcon, CheckBadgeIcon, FaceFrownIcon, FaceSmileIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
+import { ArrowPathIcon, PlusIcon, CheckBadgeIcon, FaceFrownIcon, FaceSmileIcon, PencilSquareIcon, MapIcon } from '@heroicons/react/24/outline'
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import SearchSelectInput from "./SearchSelectInput";
 import { v4 as uuidv4 } from 'uuid';
@@ -70,7 +70,7 @@ export default function Accounts(props) {
     //#region secondary state variables
     const [editAll, setEditAll] = useState(false) 
     const [saveButton, setSaveButton] = useState({
-        className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
+        className: 'transition-all group flex justify-center items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary hover:bg-skin-secondary-hover px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-light shadow-sm focus:outline-none', 
         icon: <PencilSquareIcon className='ml-1.5 h-4 sm:h-5 rounded-full'/>,
         text: 'Edit'
     })
@@ -261,7 +261,6 @@ export default function Accounts(props) {
     //#endregion
 
     //#region random functions 
-
     const saveAll = async () => {
 
         if (!editAll) {
@@ -318,7 +317,7 @@ export default function Accounts(props) {
             
             setEditAll(false)
             setSaveButton({
-                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
+                className: 'transition-all group flex justify-center items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary hover:bg-skin-secondary-hover px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-light shadow-sm focus:outline-none', 
                 icon: <PencilSquareIcon className='ml-1.5 h-4 sm:h-5 rounded-full'/>,
                 text: 'Edit'
             })
@@ -370,12 +369,13 @@ export default function Accounts(props) {
 
     return props.user ? (
         <>
-            <div id='head' className='col-span-4 lg:col-span-2 flex justify-between mb-10'>
+            <div id='intro' className='col-span-4 lg:col-span-2 flex justify-between mb-10'>
                 <h1 className='font-semibold text-3xl text-skin-brand'>
-                    Welcome back, {props.user.first_name}!
+                    Welcome, {props.user.first_name}!
                 </h1>
-
+                
                 <button
+                id='editButton'
                 type="button"
                 className={saveButton.className}
                 onClick={saveAll}
@@ -527,7 +527,7 @@ export default function Accounts(props) {
                 </div>
             </div>
 
-            <div id='assetBreakdown' className='mt-6 lg:mt-0 col-span-4 lg:col-span-2 flex flex-col justify-center align-middle'>
+            <div id='assetBreakdown' className='mt-6 lg:mt-0 col-span-4 lg:col-span-2 flex flex-col justify-center'>
                 {assets && assets.length > 0 && sumList(Object.values(filterData(assets))) > 0
                     ? 
                         <>

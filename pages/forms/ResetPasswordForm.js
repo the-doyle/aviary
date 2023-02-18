@@ -8,7 +8,7 @@ export default function ResetPasswordForm() {
     const handleUpdate = async (e) => {
         e.preventDefault() 
 
-        const { data, error } = await supabase.auth
+        const { data: resetData, error: resetError } = await supabase.auth
             .updateUser({ password: e.target.password.value })
         
         if (resetData) {

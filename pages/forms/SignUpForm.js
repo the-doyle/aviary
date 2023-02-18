@@ -52,8 +52,6 @@ export default function SignUpForm() {
                 text: 'Sign up in progress',
                 disabled: true
             })
-
-            // router.push('/payment')
         } else {
             setMessage(signUpError.message)
 

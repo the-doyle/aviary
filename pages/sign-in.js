@@ -11,12 +11,6 @@ export default function SignIn() {
     const user = useUser();
 	const router = useRouter() 
 
-	useEffect(() => {
-		if (user) {
-			router.replace('/accounts');
-		}
-	}, [user]);
-
     return (
         <>
             <div className="flex min-h-screen">
@@ -32,14 +26,20 @@ export default function SignIn() {
                             <div className="my-6">
                                 <SignInForm />
                                 <div className="relative mt-5">
-                                    <div className="relative flex justify-start">
-                                        <span className="bg-skin-inverted text-sm text-skin-light">Don&apos;t have an account? </span>
+                                    <div className="relative flex justify-between">
                                         <Link
                                             href='/sign-up'
                                             className='pl-1 text-sm font-medium text-skin-brand hover:text-skin-brand-hover'
                                             
                                         >
                                             Sign up
+                                        </Link>
+                                        <Link
+                                            href='/reset-password'
+                                            className='pl-1 text-sm font-medium text-skin-muted hover:text-skin-brand-hover'
+                                            
+                                        >
+                                            Forgot your password?
                                         </Link>
                                     </div>
                                 </div>

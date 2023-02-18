@@ -94,7 +94,7 @@ export default function AccountsPage() {
                 <div className="pt-10 lg:pt-20 pb-20 lg:pb-60 min-h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <main>
                         <div className='flex gap-3 justify-end mb-10'>
-                            <Tour /> 
+                            <Tour tourEnabled={true} /> 
                             <Achievements user={userData} refreshUser={getUserData} /> 
                         </div>
 

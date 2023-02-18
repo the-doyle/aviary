@@ -38,7 +38,7 @@ const steps = [
     },
     {
         selector: '#goals_main',
-        content: "That's it for the goals page! Go ahead and add more goals, or continue to the progressp page tutorial.",
+        content: "That's it for the goals page! Go ahead and add more goals, or continue on to the progress page.",
     },
 ]
 
@@ -49,6 +49,7 @@ export default function GoalsPage() {
     const [userData, setUserData] = useState(null)
     const disableBody = (target) => disableBodyScroll(target)
     const enableBody = (target) => enableBodyScroll(target)
+    const [tourEnabled, setTourEnabled] = useState(false)
     
     const getUserData = async () => {
         const {data: userData, error: userError} = await supabase
@@ -96,11 +97,11 @@ export default function GoalsPage() {
                 <div className="pt-10 lg:pt-20 pb-20 lg:pb-60 min-h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <main>
                         <div className='flex gap-3 justify-end mb-10'>
-                            <Tour /> 
+                            <Tour tourEnabled={tourEnabled} /> 
                             <Achievements user={userData} refreshUser={getUserData} /> 
                         </div>
 
-                        <Goals user={userData} refreshUser={getUserData}/>
+                        <Goals user={userData} refreshUser={getUserData} setTourEnabled={setTourEnabled} />
                     </main>
                 </div>
             </TourProvider>

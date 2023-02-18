@@ -12,6 +12,7 @@ export default function Progress(props) {
     const [column, setColumn] = useState('net_worth')
     const [period, setPeriod] = useState(91)
     const [showEmptyState, setShowEmptyState] = useState(false) 
+    const setTourEnabled = props.setTourEnabled ? props.setTourEnabled : null 
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
@@ -33,6 +34,10 @@ export default function Progress(props) {
             } else {
                 setHistory(getHistoryData)
                 setShowEmptyState(true)
+            }
+
+            if (getHistoryData.length > 0) {
+                setTourEnabled(true)
             }
         }
     }
@@ -73,7 +78,7 @@ export default function Progress(props) {
 
     return history && history.length > 0 ? (
         <>
-            <div className='flex justify-between items-middle mb-2'>
+            <div id='summary' className='flex justify-between items-middle mb-2'>
                 <h1 className={`
                     flex gap-1 text-2xl font-semibold px-3 py-2
                     ${column === 'sum_assets' 
@@ -131,10 +136,12 @@ export default function Progress(props) {
                     }
                 </h1>
             </div>
+            
+            <div id='history'>
+                <HistoryLine data={history} column={column} /> 
+            </div>
 
-            <HistoryLine data={history} column={column} /> 
-
-            <div className='flex justify-between items-middle mt-2 sm:mt-5'>
+            <div id='nav' className='flex justify-between items-middle mt-2 sm:mt-5'>
                 <nav className="flex space-x-4" aria-label="Tabs">
                     <button
                         className={classNames(

@@ -1,18 +1,50 @@
 import PostAuthNav from "./postauth/PostAuthNav";
 import PreAuthFooter from "./preauth/PreAuthFooter";
 import Bird from "./aviary/Bird";
+import PageInfo from "./general/PageInfo";
+import Achievements from "./achievements/Achievements";
+import Tour from "./tour/Tour";
+import Aviary from "./aviary/Aviary";
+
+import { TourProvider } from '@reactour/tour'
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useState } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useEffect } from "react";
-import PageInfo from "./general/PageInfo";
-import Achievements from "./achievements/Achievements";
-import { useRouter } from 'next/router' 
 
-export default function Aviary() {
+const steps = [
+    {
+        selector: '#aviary',
+        content: "This is your Aviary!",
+    },
+    {
+        selector: '#aviary',
+        content: "If you haven't already found the achievements 🪶 button, it's next to the tutorial button.",
+    },
+    {
+        selector: '#aviary',
+        content: "As you track accounts, set goals, etc... you'll earn feathers. You can use feathers to unlock birds here!",
+    },
+    {
+        selector: '#birds',
+        content: "If you have enough feathers, go ahead and unlock your first bird! Otherwise, come back once you've completed more achievements.",
+    },
+    {
+        selector: '#birds',
+        content: "After unlocking a bird, click on it to view a fun fact about that bird.",
+    },
+    {
+        selector: '#aviary',
+        content: "Several exciting features are still under development for Aviary, but that's it for now! ",
+    },
+]
+
+export default function AviaryPage() {
     const supabase = useSupabaseClient() 
     const user = useUser() 
-    const router = useRouter() 
+    const disableBody = (target) => disableBodyScroll(target)
+    const enableBody = (target) => enableBodyScroll(target)
 
     const [birds, setBirds] = useState([])
     const [userData, setUserData] = useState(null)
@@ -49,44 +81,38 @@ export default function Aviary() {
         <div className="min-h-full">
             <PostAuthNav current_tab='Aviary' />
 
-            {userData 
-            ? 
+            <TourProvider 
+            afterOpen={disableBody} 
+            beforeClose={enableBody}
+            steps={steps} 
+            scrollSmooth
+            padding={{ 
+                mask: [25, 15]
+            }}
+            styles={{
+                popover: (base) => ({
+                    ...base,
+                    '--reactour-accent': '#1f2937',
+                    borderRadius: 10,
+                }),
+                maskArea: (base) => ({ ...base, rx: 10 }),
+                maskWrapper: (base) => ({ ...base, color: '#9ca3af' }),
+                badge: (base) => ({ ...base, left: 'auto', right: '-0.8125em' }),
+                // controls: (base) => ({ ...base, marginTop: 100 }),
+                close: (base) => ({ ...base, right: 'auto', left: 8, top: 8 }),
+              }}
+            >
                 <div className="pt-10 lg:pt-20 pb-20 lg:pb-60 min-h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <main>
                         <div className='flex gap-3 justify-end mb-10'>
+                            <Tour tourEnabled={true} /> 
                             <Achievements user={userData} refreshUser={getUserData} /> 
-                            <PageInfo 
-                                title='Grow your Aviary'
-                                firstLine='After earning feathers by completing achievements, you can unlock new birds here. New birds are added monthly!' 
-                                secondLine='Aviary birds are hand-drawn by Jennifer Doyle. You can find more of her work at'
-                                externalHref='https://sanbenitopaper.com'
-                            />
                         </div>
 
-                        <h1 className="inline-flex items-center text-2xl font-semibold text-skin-brand mb-2">Aviary</h1>
-                        <h1 className="items-center text-lg font-medium text-skin-muted mb-5">Balance:  {userData.feathers}🪶</h1>
-
-                        {  birds && birds.length > 0 && userData 
-                            ?
-                                <div className='grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 gap-2'>
-                                    {birds && birds.length > 0 ? 
-                                        birds
-                                        .map((bird) => (
-                                            userData.unlocked_birds.includes(bird.id)
-                                                ? <Bird unlocked key={bird.id} bird={bird} user={userData} refreshUser={getUserData} /> 
-                                                : <Bird key={bird.id} bird={bird} user={userData} refreshUser={getUserData} /> 
-                                        )) : null 
-                                    }
-                                    <div className='md:h-72' />
-                                </div>
-                            : 
-                                <div className='min-h-screen' />
-                        }
+                        <Aviary userData={userData} birds={birds} refreshUser={getUserData} /> 
                     </main>
                 </div> 
-            : 
-                <div className='min-h-screen' />
-            }
+            </TourProvider>
 
             <PreAuthFooter /> 
         </div>

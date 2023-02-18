@@ -15,6 +15,7 @@ export default function Goals(props) {
     const [year, setYear] = useState(new Date().getFullYear())
     const [showEmptyState, setShowEmptyState] = useState(false)
     const refreshUser = props.refreshUser ? props.refreshUser : null 
+    const setTourEnabled = props.setTourEnabled ? props.setTourEnabled : null 
 
     const changeYear = (newYear) => {
         setYear(newYear)
@@ -27,6 +28,10 @@ export default function Goals(props) {
             .rpc('get_accounts_with_initial_balance', { 'a_id': props.user.id });
 
         setAccounts(getAccountsData)
+
+        if (getAccountsData.length > 0) {
+            setTourEnabled(true) 
+        }
     }
 
     const getGoals = async () => {

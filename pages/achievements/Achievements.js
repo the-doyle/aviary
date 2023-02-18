@@ -164,7 +164,7 @@ export default function Achievements(props) {
         </>
     ) : 
         <button 
-            className='inline-flex items-center rounded-md border border-skin-secondary-button-border text-skin-light bg-skin-secondary p-3 text-sm font-medium hover:bg-skin-secondary-hover focus:outline-none' 
+            className='group relative flex justify-center rounded-md text-skin-base bg-skin-brand-light p-3 text-sm font-medium hover:bg-skin-brand-light-hover focus:outline-none' 
         >
             🪶
         </button>

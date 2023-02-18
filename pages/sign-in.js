@@ -36,7 +36,7 @@ export default function SignIn() {
                                         </Link>
                                         <Link
                                             href='/reset-password'
-                                            className='pl-1 text-sm font-medium text-skin-muted hover:text-skin-brand-hover'
+                                            className='pl-1 text-sm font-medium text-skin-muted hover:text-skin-light'
                                             
                                         >
                                             Forgot your password?

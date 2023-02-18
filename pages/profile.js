@@ -4,6 +4,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useEffect } from "react";
+import Link from "next/link";
 
 export default function Profile() {
     const user = useUser() 
@@ -49,6 +50,21 @@ export default function Profile() {
                                                     >
                                                     Update
                                                 </button>
+                                            </span>
+                                        </dd>
+                                    </div>
+                                    <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+                                        <dt className="text-sm font-medium text-skin-light">Password</dt>
+                                        <dd className="mt-1 flex text-sm text-skin-base sm:col-span-2 sm:mt-0 font-medium">
+                                            <span className="flex-grow"></span>
+                                            <span className="ml-4 flex-shrink-0">
+                                                <Link
+                                                    href='/reset-password'
+                                                    type="button"
+                                                    className="rounded-md font-medium text-skin-brand hover:text-skin-brand-hover focus:outline-none"
+                                                    >
+                                                    Reset password
+                                                </Link>
                                             </span>
                                         </dd>
                                     </div>

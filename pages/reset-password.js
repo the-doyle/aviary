@@ -18,7 +18,7 @@ export default function ResetPassword() {
 
     useEffect(() => {
         supabase.auth.onAuthStateChange(async (event, session) => {
-            if (event == "PASSWORD_RECOVERY") {
+            if (event == "PASSWORD_RECOVERY" || event == 'SIGNED_IN') {
                 setEnabled(true)
             } 
         })
@@ -45,7 +45,7 @@ export default function ResetPassword() {
                                 {enabled ? <ResetPasswordForm /> : <RequestResetPasswordForm /> }
                                 <div className="relative mt-5">
                                     <div className="relative flex justify-start">
-                                        <span className="bg-skin-inverted text-sm text-skin-light">Wrong page? </span>
+                                        <span className="bg-skin-inverted text-sm text-skin-light"></span>
                                         <Link
                                             href='/sign-in'
                                             className='pl-1 text-sm font-medium text-skin-brand hover:text-skin-brand-hover'

@@ -70,8 +70,7 @@ export default function UpcomingGoals(props) {
 
     return props.goals && props.accounts && props.year ? (
         <div className='lg:col-span-7 xl:col-span-8'>
-
-            <div className='flex justify-between mb-4'>
+            <div id='upcoming_goals_nav' className='flex justify-between mb-4'>
                 <nav className="flex space-x-4" aria-label="Tabs">
 
                     <button

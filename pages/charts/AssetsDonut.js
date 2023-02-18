@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Donut(props) {
+
+    let [style, setStyle] = useState(typeof document !== 'undefined' ? getComputedStyle(document.body) : null)
 
     let arrayLabel = props.data ? Object.keys(props.data) : []
 
@@ -42,6 +44,7 @@ export default function Donut(props) {
                     '#86efac',
                     '#bbf7d0',
                     '#dcfce7',
+                    // style.getPropertyValue('--color-assets') 
                 ],
                 borderColor: [
                     '#16a34a', //green

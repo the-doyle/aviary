@@ -144,7 +144,7 @@ export default function EditGoal(props) {
                                                 </div>
                                                 <div className='pb-4'>
                                                     <label htmlFor="date" className="block text-sm font-medium text-skin-light">
-                                                        Date
+                                                        Target date
                                                     </label>
                                                     <input
                                                         type="date"

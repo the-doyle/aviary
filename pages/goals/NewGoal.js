@@ -89,7 +89,7 @@ export default function NewGoal(props) {
 
     return props.handleOpen && props.accounts ? (
         <>
-            <Transition.Root show={props.open} as={Fragment}>
+            <Transition.Root show={props.open} as={Fragment} id='new_goal'>
                 <Dialog as="div" className="relative z-10" onClose={() => handleOpen(false)}>
                     <Transition.Child
                     as={Fragment}
@@ -157,7 +157,7 @@ export default function NewGoal(props) {
                                                 </div>
                                                 <div className='pb-4'>
                                                     <label htmlFor="date" className="block text-sm font-medium text-skin-light">
-                                                        Date
+                                                        Target date
                                                     </label>
                                                     <input
                                                         type="date"

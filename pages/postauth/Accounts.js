@@ -70,7 +70,7 @@ export default function Accounts(props) {
     //#region secondary state variables
     const [editAll, setEditAll] = useState(false) 
     const [saveButton, setSaveButton] = useState({
-        className: 'transition-all group flex justify-center items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary hover:bg-skin-secondary-hover px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-light shadow-sm focus:outline-none', 
+        className: 'transition-all group flex justify-center items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary hover:bg-skin-secondary-hover px-4 sm:py-2 text-sm font-medium text-skin-light shadow-sm focus:outline-none', 
         icon: <PencilSquareIcon className='ml-1.5 h-4 sm:h-5 rounded-full'/>,
         text: 'Edit'
     })
@@ -266,13 +266,13 @@ export default function Accounts(props) {
         if (!editAll) {
             setEditAll(true) 
             setSaveButton({
-                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
+                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand-button-border bg-skin-brand-light hover:bg-skin-brand-light-hover px-4 sm:py-2 text-sm font-medium text-skin-brand-hover shadow-sm focus:outline-none", 
                 icon: <ArrowPathIcon className='ml-1.5 h-4 sm:h-5 rounded-full'/>,
                 text: 'Save'
             })
         } else {
             setSaveButton({
-                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand bg-skin-brand px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-inverted shadow-sm focus:outline-none",
+                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand bg-skin-brand px-4 sm:py-2 text-sm font-medium text-skin-inverted shadow-sm focus:outline-none",
                 icon: <ArrowPathIcon className='ml-1 h-4 sm:h-5 rounded-full animate-spin'/>,
                 text: 'Saving'
             })
@@ -308,7 +308,7 @@ export default function Accounts(props) {
                 .upsert(liability_history)
     
             setSaveButton({
-                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand bg-skin-brand px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-inverted shadow-sm focus:outline-none",
+                className: "transition-all group flex justify-center items-center rounded-md border border-skin-brand bg-skin-brand px-4 sm:py-2 text-sm font-medium text-skin-inverted shadow-sm focus:outline-none",
                 icon: <CheckBadgeIcon className='ml-1 h-4 sm:h-5 rounded-full'/>,
                 text: 'Done'
             })
@@ -317,7 +317,7 @@ export default function Accounts(props) {
             
             setEditAll(false)
             setSaveButton({
-                className: 'transition-all group flex justify-center items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary hover:bg-skin-secondary-hover px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-skin-light shadow-sm focus:outline-none', 
+                className: 'transition-all group flex justify-center items-center rounded-md border border-skin-secondary-button-border bg-skin-secondary hover:bg-skin-secondary-hover px-4 sm:py-2 text-sm font-medium text-skin-light shadow-sm focus:outline-none', 
                 icon: <PencilSquareIcon className='ml-1.5 h-4 sm:h-5 rounded-full'/>,
                 text: 'Edit'
             })

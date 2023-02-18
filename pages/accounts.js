@@ -1,25 +1,22 @@
 import PostAuthNav from "./postauth/PostAuthNav"
 import Accounts from './postauth/Accounts'
 import PreAuthFooter from './preauth/PreAuthFooter'
-import PageInfo from './general/PageInfo'
 import Achievements from "./achievements/Achievements";
 import Tour from "./tour/Tour";
 
+import { TourProvider } from '@reactour/tour'
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { useUser } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
-
-import { TourProvider } from '@reactour/tour'
 
 export default function AccountsPage() {
-
     const user = useUser() 
     const supabase = useSupabaseClient() 
-    const router = useRouter() 
     const [userData, setUserData] = useState(null)
-    const [isOpen, setIsOpen] = useState(false)
+    const disableBody = (target) => disableBodyScroll(target)
+    const enableBody = (target) => enableBodyScroll(target)
     
     const getUserData = async () => {
         const {data: userData, error: userError} = await supabase
@@ -49,11 +46,11 @@ export default function AccountsPage() {
         },
         {
             selector: '#editButton',
-            content: "Click 'Edit', then step out of the tutorial to add your first asset account. Come back after to continue the tutorial.",
+            content: "Before adding/editing assets or liabilities, click 'Edit' to unlock them.",
         },
         {
-            selector: '#liabilities',
-            content: "Now, let's add a liability (if you have any). Liability is another term for debt. Common liabilities include mortgages, credit card debt, or an auto loan.",
+            selector: '#assets',
+            content: "You'll need to step out of the tutorial briefly to add one or two assets/liablities. Come back after to finish the tour.",
         },
         {
             selector: '#editButton',
@@ -74,6 +71,8 @@ export default function AccountsPage() {
             <PostAuthNav current_tab='Accounts' />
 
             <TourProvider 
+            afterOpen={disableBody} 
+            beforeClose={enableBody}
             steps={steps} 
             scrollSmooth
             padding={{ 
@@ -100,7 +99,7 @@ export default function AccountsPage() {
                         </div>
 
                         <div className='grid grid-cols-4 gap-5 lg:gap-10 grid-flow-row'>
-                            <Accounts user={userData} refreshUser={getUserData} isOpen={isOpen} />
+                            <Accounts user={userData} refreshUser={getUserData} />
                         </div>
                     </main>
                 </div>

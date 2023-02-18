@@ -75,7 +75,7 @@ export default function Goals(props) {
     }, [accounts, year])
 
     return accounts && accounts.length > 0 ? (
-        <div className="lg:grid lg:grid-cols-12 lg:gap-x-16">
+        <div id='goals_main' className="lg:grid lg:grid-cols-12 lg:gap-x-16">
             <>
                 <UpcomingGoals year={year} goals={goals} allGoals={allGoals} accounts={accounts} refreshGoals={refreshGoals} /> 
                 <Calendar year={year} changeYear={changeYear} goals={goals} accounts={accounts} yearlyGoals={yearlyGoals}/> 

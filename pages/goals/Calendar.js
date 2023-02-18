@@ -69,7 +69,7 @@ export default function Calendar(props) {
 
     return props.goals && props.accounts && props.changeYear && props.year && props.yearlyGoals ? (
         <>
-        <div className="mt-10 lg:mt-0 lg:col-start-8 lg:col-end-13 lg:row-start-1 xl:col-start-9 transition-all">
+        <div id='calendar' className="mt-10 lg:mt-0 lg:col-start-8 lg:col-end-13 lg:row-start-1 xl:col-start-9 transition-all">
             <div className='flex justify-center items-center mb-4'>
                 <h1 className='text-skin-base text-sm font-medium'>Year overview</h1> 
                 <PageInfo 

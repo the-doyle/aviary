@@ -79,7 +79,7 @@ export default function Calendar(props) {
                     secondLine='Below the calendar, you can quickly navigate to any year with a goal.'
                 />
             </div>
-            <div className='bg-skin-secondary-hover rounded-lg p-2'>
+            <div className='bg-skin-secondary rounded-lg p-2'>
                 <div className="flex items-center text-gray-900">
                     <button
                     type="button"
@@ -110,7 +110,7 @@ export default function Calendar(props) {
                         <div className='flex-col gap-1 items-start'>
                             {months.map((month) => (
                                 <div key={month.id} className='flex mb-1 gap-2'>
-                                    <CheckCircleIcon className='h-5 text-skin-secondary-hover' />
+                                    <CheckCircleIcon className='h-5 text-skin-secondary' />
                                     {props.goals
                                         .filter(filterGoals(month.id))
                                         .map((goal) => (

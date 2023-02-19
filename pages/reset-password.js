@@ -18,16 +18,15 @@ export default function ResetPassword() {
 
     useEffect(() => {
         supabase.auth.onAuthStateChange(async (event, session) => {
-            if (event == "PASSWORD_RECOVERY" || event == 'SIGNED_IN') {
+            if (event == "PASSWORD_RECOVERY") {
                 setEnabled(true)
             } 
         })
+        
+        if (user) {
+            setEnabled(true)
+        }
     }, [])
-
-    const resetPassword = async () => {
-        const { data, error } = await supabase.auth
-            .resetPasswordForEmail('user@email.com')
-    }
 
     return (
         <>

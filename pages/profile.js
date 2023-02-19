@@ -6,6 +6,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useEffect } from "react";
 import Link from "next/link";
 
+
 export default function Profile() {
     const user = useUser() 
     const supabase = useSupabaseClient() 
@@ -34,7 +35,7 @@ export default function Profile() {
 
             <div className="relative py-10 min-h-screen">
                 <main>
-                    <div className="mx-auto max-w-3xl sm:px-6 lg:px-8 mt-20">
+                    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 mt-20">
                         <div className='bg-skin-secondary-hover rounded-lg p-5'>
                             <h3 className="text-lg font-medium leading-6 text-skin-base">Settings</h3>
                             <div className="mt-5 border-t border-skin-secondary-button-border">

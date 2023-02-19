@@ -8,20 +8,24 @@
         --color-light: #4b5563;  
         --color-muted: #9ca3af; 
         --color-inverted: #ffffff;
-        --color-assets: #22c55e; 
-        --color-assets-muted: #86efac; 
-        --color-assets-light: #dcfce7;
-        --color-liabilities: #0ea5e9;
-        --color-liabliites-muted: #7dd3fc; 
-        --color-liabilities-light: #e0f2fe;
-        --color-brand: #8b5cf6;
-        --color-brand-hover: #7c3aed; 
-        --color-brand-light: #ede9fe;
-        --color-brand-light-hover: #ddd6fe; 
-        --color-brand-button-border: #c4b5fd; 
+
+        --color-assets: #C9ADA7; 
+        --color-assets-muted: #E0D0CC; 
+        --color-assets-light: #F3EDEC;
+
+        --color-liabilities: #9A8C98;
+        --color-liabliites-muted: #BEB6BD; 
+        --color-liabilities-light: #E9E7E9;
+
+        --color-brand: #747A9D;
+        --color-brand-hover: #686D92; 
+        --color-brand-light: #E3E4EB;
+        --color-brand-light-hover: #D5D7E2; 
+        --color-brand-button-border: #9094B0; 
+        
         --color-secondary-button-border: #d1d5db; 
-        --color-secondary: #f9fafb; 
-        --color-secondary-hover: #f3f4f6;  
+        --color-secondary: #f3f4f6; 
+        --color-secondary-hover: #e5e7eb;  
     }
 
     .theme-nuthatch {

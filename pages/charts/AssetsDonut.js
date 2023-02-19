@@ -38,21 +38,21 @@ export default function Donut(props) {
                 label: props.label ? props.label : "",
                 data: newArrayData,
                 backgroundColor: [
-                    '#16a34a', //green
-                    '#22c55e',
-                    '#4ade80',
-                    '#86efac',
-                    '#bbf7d0',
-                    '#dcfce7',
+                    '#B0795C', 
+                    '#BB8C72',
+                    '#C69E89',
+                    '#D1B1A0',
+                    '#DCC3B6',
+                    '#E7D6CD',
                     // style.getPropertyValue('--color-assets') 
                 ],
                 borderColor: [
-                    '#16a34a', //green
-                    '#22c55e',
-                    '#4ade80',
-                    '#86efac',
-                    '#bbf7d0',
-                    '#dcfce7',
+                    '#B0795C', 
+                    '#BB8C72',
+                    '#C69E89',
+                    '#D1B1A0',
+                    '#DCC3B6',
+                    '#E7D6CD',
                 ],
                 borderWidth: 1,
             },

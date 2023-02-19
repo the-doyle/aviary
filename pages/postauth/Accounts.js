@@ -54,7 +54,7 @@ function getDate() {
 
 //#region constants
 const assetTypes = ['Cash', 'Pre-tax investment', 'Post-tax investment', 'Property', 'Vehicle', 'Other']
-const liabilityTypes = ['Mortage', 'Student loan', 'Auto loan', 'Credit card', 'Other']
+const liabilityTypes = ['Mortgage', 'Student loan', 'Auto loan', 'Credit card', 'Other']
 //#endregion
 
 export default function Accounts(props) {

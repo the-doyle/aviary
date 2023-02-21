@@ -52,6 +52,16 @@ export default function Features() {
                         </p>
                     </div>
 
+                    <div className='mt-10 mb-10 lg:mb-40 sm:mb-20 flex justify-center align-middle'>
+                        <Image 
+                            src='/chart.png'
+                            height={600}
+                            width={600}
+                            alt="Chart"
+                            className='shadow-lg rounded-lg relative'
+                        />
+                    </div>
+
                     <div className="relative mt-20 lg:mt-24 lg:grid lg:grid-cols-2 lg:items-center lg:gap-24">
                         <div className="relative">
                             <h3 className="text-2xl font-medium tracking-tight text-skin-base sm:text-3xl">Goodbye, spreadsheets</h3>

@@ -429,19 +429,19 @@ export default function Accounts(props) {
                                         <th scope="col" className="py-2 pr-1.5 text-left">
                                             <span className={`inline-flex ${editAll ? 'opacity-100' : 'opacity-50'}`}>
                                                 Name
-                                                <SortButton sortOn="name" onClickSort={sortAssets} />
+                                                {/* <SortButton sortOn="name" onClickSort={sortAssets} /> */}
                                             </span>
                                         </th>
                                         <th scope="col" className="py-2 text-left">
                                             <span className={`inline-flex ${editAll ? 'opacity-100' : 'opacity-50'}`}>
                                                 Category
-                                                <SortButton sortOn="type" onClickSort={sortAssets} />
+                                                {/* <SortButton sortOn="type" onClickSort={sortAssets} /> */}
                                             </span>
                                         </th>
                                         <th scope="col" className="py-2 pr-3 text-right">
                                             <span className={`inline-flex ${editAll ? 'opacity-100' : 'opacity-50'}`}>
                                                 Balance
-                                                <SortButton sortOn="balance" onClickSort={sortAssets} />
+                                                {/* <SortButton sortOn="balance" onClickSort={sortAssets} /> */}
                                             </span>
                                         </th>
 
@@ -582,19 +582,19 @@ export default function Accounts(props) {
                                         <th scope="col" className="py-2 pr-1.5 text-left">
                                             <span className={`inline-flex ${editAll ? 'opacity-100' : 'opacity-50'}`}>
                                                 Name
-                                                <SortButton sortOn="name" onClickSort={sortLiabilities} />
+                                                {/* <SortButton sortOn="name" onClickSort={sortLiabilities} /> */}
                                             </span>
                                         </th>
                                         <th scope="col" className="py-2 text-left">
                                             <span className={`inline-flex ${editAll ? 'opacity-100' : 'opacity-50'}`}>
                                                 Category
-                                                <SortButton sortOn="type" onClickSort={sortLiabilities} />
+                                                {/* <SortButton sortOn="type" onClickSort={sortLiabilities} /> */}
                                             </span>
                                         </th>
                                         <th scope="col" className="py-2 pr-3 text-right">
                                             <span className={`inline-flex ${editAll ? 'opacity-100' : 'opacity-50'}`}>
                                                 Balance
-                                                <SortButton sortOn="balance" onClickSort={sortLiabilities} />
+                                                {/* <SortButton sortOn="balance" onClickSort={sortLiabilities} /> */}
                                             </span>
                                         </th>
 

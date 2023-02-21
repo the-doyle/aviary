@@ -48,10 +48,10 @@ export default function Index() {
 						<div className="md:mx-auto md:max-w-2xl lg:col-span-6 mt-10 lg:mt-32 relative z-20 flex place-items-center">
 
 								<Image 
-									src='/chart.png'
+									src='/goals.png'
 									height={600}
 									width={600}
-									alt="Chart"
+									alt="Goals"
 									className='shadow-lg rounded-lg relative lg:absolute z-10 lg:right-16 lg:top-10'
 								/>
 								
@@ -83,8 +83,8 @@ export default function Index() {
 										y2="474.645"
 										gradientUnits="userSpaceOnUse"
 										>
-										<stop stopColor="#747A9D" />
-										<stop offset={1} stopColor="#9094B0" />
+										<stop stopColor="#38bdf8" />
+										<stop offset={1} stopColor="#38bdf8" />
 										</linearGradient>
 									</defs>
 									</svg>

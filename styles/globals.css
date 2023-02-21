@@ -9,19 +9,19 @@
         --color-muted: #9ca3af; 
         --color-inverted: #ffffff;
 
-        --color-assets: #C9ADA7; 
-        --color-assets-muted: #E0D0CC; 
-        --color-assets-light: #F3EDEC;
+        --color-assets: #22c55e; 
+        --color-assets-muted: #86efac; 
+        --color-assets-light: #f0fdf4;
 
-        --color-liabilities: #9A8C98;
-        --color-liabliites-muted: #BEB6BD; 
-        --color-liabilities-light: #E9E7E9;
+        --color-liabilities: #71717a;
+        --color-liabliites-muted: #d4d4d8; 
+        --color-liabilities-light: #f4f4f5;
 
-        --color-brand: #747A9D;
-        --color-brand-hover: #686D92; 
-        --color-brand-light: #E3E4EB;
-        --color-brand-light-hover: #D5D7E2; 
-        --color-brand-button-border: #9094B0; 
+        --color-brand: #0ea5e9;
+        --color-brand-hover: #0284c7; 
+        --color-brand-light: #f0f9ff;
+        --color-brand-light-hover: #e0f2fe; 
+        --color-brand-button-border: #7dd3fc; 
         
         --color-secondary-button-border: #d1d5db; 
         --color-secondary: #f3f4f6; 

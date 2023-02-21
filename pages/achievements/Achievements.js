@@ -108,13 +108,13 @@ export default function Achievements(props) {
                                 >
                                     <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
                                     <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-                                        <div className="py-6 px-4 sm:px-6 bg-skin-secondary-hover">
+                                        <div className="py-6 px-4 sm:px-6 bg-skin-inverted border-b">
                                             <div className="flex items-start justify-between">
                                                 <Dialog.Title className="text-2xl font-medium text-skin-base">Achievements</Dialog.Title>
                                                 <div className="ml-3 flex h-7 items-center">
                                                     <button
                                                         type="button"
-                                                        className="rounded-md text-skin-light hover:text-skin-base focus:outline-none"
+                                                        className="rounded-md text-skin-muted hover:text-skin-base focus:outline-none"
                                                         onClick={() => setOpen(false)}
                                                     >
                                                         <span className="sr-only">Close panel</span>

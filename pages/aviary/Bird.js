@@ -49,7 +49,7 @@ export default function Bird(props) {
                 <Image alt="pic"  
                     height="300" 
                     width="300" 
-                    src={getHrefForName(props.bird.name)}
+                    src={`/birds/${props.bird.name}.png`}
                     className={`${!props.unlocked ? 'opacity-15 grayscale' : null} ${flipped ? null : 'opacity-5'} my-auto pt-4 transition-all`} 
                 />   
 

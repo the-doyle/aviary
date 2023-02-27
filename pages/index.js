@@ -20,7 +20,7 @@ export default function Index() {
 						<div className="md:mx-auto md:max-w-2xl lg:col-span-6 lg:text-left">
 							<h1>
 								<span className="mt-5 block text-4xl font-semibold tracking-tight sm:text-4xl xl:text-5xl">
-									<span className="block text-skin-base">Seth&apos;s gamified framework for growing your net worth. </span>
+									<span className="block text-skin-base">The gamified framework for growing your net worth. </span>
 								</span>
 							</h1>
 							<p className="my-5 text-base text-skin-base sm:mt-8 sm:text-xl lg:text-lg xl:text-xl list-disc">
